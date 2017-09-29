@@ -1,0 +1,84 @@
+ <ol class="breadcrumb"> 
+   
+    <li><span class="glyphicon glyphicon-home" aria-hidden="true"></span> <a href="index.html">首页</a></li>     
+    <li class="active">建言献策</li> 
+    
+    
+</ol>
+<div class="container">
+  <div class="row jyxc1">
+  	
+	  <h3>建言献策</h3>
+	 
+      <p>
+     
+  <form class="form-horizontal" action="" method="post">
+	  <div class="form-group">
+	    <label for="inputEmail3" class="col-sm-2 control-label">姓名：</label>
+	    <div class="col-sm-10">
+	      <input type="text" class="form-control" name="name" id="name" placeholder="必填">
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <label for="inputPassword3" class="col-sm-2 control-label">电话：</label>
+	    <div class="col-sm-10">
+	      <input type="text" class="form-control" name="phone" id="phone" placeholder="必填">
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <label for="inputPassword3" class="col-sm-2 control-label">主题：</label>
+	    <div class="col-sm-10">
+	      <input type="text" class="form-control" name="title" id="title"  placeholder="必填">
+	    </div>
+	      </div>
+	   
+	  <div class="form-group">
+	    <label for="inputPassword3" class="col-sm-2 control-label">内容：</label>
+	    <div class="col-sm-10">
+	     <textarea class="form-control" rows="3" name="content" id="content" placeholder="必填" ></textarea>
+	    </div>
+	  </div>
+	  
+	    <div class="form-group">
+	    <label for="inputPassword3" class="col-sm-2 control-label">验证码：</label>
+	    <div class="col-sm-10">
+	      <input type="text" class="form-control" onblur="if(this.value==''){this.value='验证码:'}" onclick="if(this.value=='验证码:'){this.value='';}" name="verify" id="verify" placeholder="必填">
+	       <img src="{:U('Jyxc/verify','','')}" height="41px" id="verify_code"> <a id="kanbuq" href="javascript:;">看不清，换一张</a>   </div>
+	  </div>
+	  <div class="form-group">
+	    <div class="col-sm-offset-2 col-sm-10">
+	      <button type="button" class="btn btn-primary" id="sBtn">提 交</button>
+	      <input type="reset" name="reset" style="display: none;" />
+	    </div>
+	  </div>
+</form>
+    </p>
+  </div>  
+ 
+  </div>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/H-ui.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/layer/1.9.3/layer.js"></script> 
+<script type="text/javascript" >	
+	$("#kanbuq").click(function(){
+        $.get( $("#verify_code").attr('src'),function () {
+            $("#verify_code").attr('src',$("#verify_code").attr('src'));
+        });
+        return false;
+    });
+    $("#sBtn").click(function(){    	
+			var phone=document.getElementById("phone").value;	
+			var name=document.getElementById("name").value;	
+			var title=document.getElementById("title").value;	
+			var content=document.getElementById("content").value;	
+			var verify=document.getElementById("verify").value;
+    	$.post('{:U(\'Jyxc/add\',\'\',\'\')}',{'name':name,'phone':phone,'title':title,'content':content,'verify':verify},function(result){
+    		if(result==true){				
+					layer.msg("成功",{icon:1,time:1000});
+					$("input[type=reset]").trigger("click");
+    		}else{    			
+				  layer.msg(result,{icon:2,time:1000});
+    		}
+		});
+    });
+</script>

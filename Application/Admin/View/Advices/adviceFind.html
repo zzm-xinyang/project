@@ -1,0 +1,27 @@
+<div class="pd-15">
+	<h3 class="text-c">{$advice['title']}</h3>
+	<p class="text-c">姓名：{$advice['name']} &nbsp;&nbsp;&nbsp;建议时间：{$advice['advicetime']|date="Y-m-d H:i",###} &nbsp;&nbsp;&nbsp;电话：{$advice['phone']}</p>
+	<p style="text-indent: 2em;">
+			{$advice['content']}	
+	</div>
+			
+		
+</div>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/admin/lib/Validform/5.3.2/Validform.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/admin/lib/layer/1.9.3/layer.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/admin/lib/icheck/jquery.icheck.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/admin/js/H-ui.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/admin/js/H-ui.admin.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/admin/lib/My97DatePicker/WdatePicker.js"></script> 
+
+
+<script type="text/javascript">
+$(function(){
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+	$.Huitab("#tab-system .tabBar span","#tab-system .tabCon","current","click","0");
+});

@@ -1,0 +1,1 @@
+<?php if (!defined('THINK_PATH')) exit();?>张家口警卫处前台首页

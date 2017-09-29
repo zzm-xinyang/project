@@ -1,0 +1,69 @@
+<div class="pd-20">
+    <form action="{:U('save','','')}" method="post" class="form form-horizontal" id="form-admin-add">
+        <div class="row cl">
+            <label class="form-label col-1">账号：</label>
+            <div class="formControls col-6">
+                <input type="text" class="input-text" id="user-name" name="account" datatype="*2-16" nullmsg="账号不能为空">
+            </div>
+            <div class="col-4"> 默认密码为123456</div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-1">组织：</label>
+            <div class="formControls col-6">
+                <select name="oid">
+                    <volist name="organizes" id="organize">
+                        <option value="{$organize['id']}">{$organize['organize']}</option>
+                    </volist>
+                </select>
+
+            </div>
+            <div class="col-4"> </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-1">角色：</label>
+            <div class="formControls col-6">
+                <select id="level1" class="select pd-5" name="roleid" size="1">
+                    <volist name="groups" id="group">
+                        <option value="{$group['id']}">{$group['title']}</option>
+                    </volist>
+                </select>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-1"><span class="c-red">*</span>手机：</label>
+            <div class="formControls col-6">
+                <input type="text" class="input-text" value="" placeholder="" id="user-tel" name="phone"  datatype="m" nullmsg="手机不能为空">
+            </div>
+            <div class="col-4"> </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-1"><span class="c-red">*</span>邮箱：</label>
+            <div class="formControls col-6">
+                <input type="text" class="input-text" placeholder="@" name="email" id="email" datatype="e" nullmsg="请输入邮箱！" value="">
+            </div>
+            <div class="col-4"> </div>
+        </div>
+        <div class="row text-l">
+            <div class="col-11 col-offset-1">
+                <input type="hidden" name="oid" value="{$oid}" />
+                <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;添加&nbsp;&nbsp;">
+                <input class="btn btn-default radius" type="submit" value="&nbsp;&nbsp;取消&nbsp;&nbsp;">
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/icheck/jquery.icheck.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/Validform/5.3.2/Validform.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/H-ui.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/H-ui.admin.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+    });
+</script>

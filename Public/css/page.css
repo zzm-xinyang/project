@@ -1,0 +1,16 @@
+.page .current{
+    background:#0044CC;
+    color:#fff;
+    border-radius:4px;
+    overflow:hidden;
+    border:solid 1px #eee;
+    padding:10px;
+    margin-left:3px;
+}
+.page .num,.page .next,.page .prev {
+    border-radius:4px;
+    overflow:hidden;
+    border:solid 1px #eee;
+    padding:10px;
+    margin-left:3px;
+}

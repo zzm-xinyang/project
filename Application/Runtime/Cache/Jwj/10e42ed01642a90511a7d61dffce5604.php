@@ -1,0 +1,1 @@
+<?php if (!defined('THINK_PATH')) exit();?>警卫局前台首页

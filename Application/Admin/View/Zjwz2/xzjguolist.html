@@ -1,0 +1,41 @@
+<table class="table table-border table-bordered table-hover table-bg table-sort">
+    <thead>
+    <tr class="text-c">
+        <th width="25" rowspan="2"><input type="checkbox" class="all"  name="" value=""></th>
+        <th width="25" rowspan="2">ID</th>
+        <th rowspan="2" width="70px">单位</th>
+        <th colspan="3">行政记过对象</th>
+        <th rowspan="2" width="90px">行政记过时间</th>
+        <th rowspan="2">行政记过摘要</th>
+        <th rowspan="2" width="80px">涉及类型</th>
+        <th rowspan="2" width="80px">问题线索来源</th>
+        <th width="30" rowspan="2">操作</th>
+    <tr class="text-c">
+        <th width="40px">姓名</th>
+        <th width="50px">单位</th>
+        <th width="40px">职务</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <volist name="dataResult" id="vo">
+        <tr>
+            <td class="text-c"><input type="checkbox" value="{$vo.id}" name="id[]"></td>
+            <td class="text-c">{$vo['id']}</td>
+            <td>{$vo['unit1']}</td>
+            <td>{$vo['name2']}</td>
+            <td>{$vo['unit2']}</td>
+            <td>{$vo['duty2']}</td>
+            <td>{$vo['solvetime']|date='Y-m-d',###}</td>
+            <td>{$vo['summary']}</td>
+            <td>{$vo['tname']}</td>
+            <td>{$vo['sname']}</td>
+            <td><a title="修改" class="ml-5" onclick="jtzr_edit('修改执纪问责','{:U(zjwzxt2_edit_wz,array(rid=>$vo[id]))}')" href="javascript:;"><i class="Hui-iconfont">&#xe6df;</i></a></a> <a title="删除" href="javascript:;" onclick="wz_del(this,'{$vo[id]}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+        </tr>
+    </volist>
+
+    </tbody>
+</table>
+<div class="text-r mt-20 page">
+    {$page}
+</div>

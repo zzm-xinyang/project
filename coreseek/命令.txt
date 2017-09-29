@@ -1,0 +1,19 @@
+bin\search -c etc\csft_mysql.conf apple
+bin\indexer -c etc\csft_mysql.conf --all
+bin\indexer -c etc\csft_mysql.conf increment --rotate
+
+
+
+
+####第一次启动建立全索引
+/usr/local/coreseek/bin/indexer -c /etc/mysql.conf --all
+###启动searchd 后台模式,启动前一定先建立好全索引,不然启动失败或增量索引部分会索引不到
+/usr/local/coreseek/bin/searchd -c /etc/mysql.conf   ###启动
+/usr/local/coreseek/bin/searchd -c /etc/mysql.conf  --stop  ###停止
+####增量索引
+/usr/local/coreseek/bin/indexer -c /etc/mysql.conf  increment  --rotate
+#####合并索引比重建全索引快速,定期执行合并索引
+/usr/local/coreseek/bin/indexer -c etc/mysql.conf --merge mysql increment --merge-dst-range deleted 0 0 --rotate
+
+可以写个定时cron每隔30分钟作一次增量索引
+可以写个定时cron每隔1天作一次全索引以确定保持数据的一致性

@@ -1,0 +1,88 @@
+<div class="pd-15">
+	<div class="row cl">
+		<span class="col-2 text-r" >举报对象：</span>
+		<p class="col-10">{$report['rname']}</p>
+	</div>
+	<div class="row cl">
+		<span class="col-2 text-r" >所在单位：</span>
+		<p class="col-10"><if condition="$report['unit']==1">司令部
+    			<elseif condition="$report['unit']==2"/> 政治处
+    			<elseif condition="$report['unit']==3"/> 后勤处
+    			<elseif condition="$report['unit']==4"/> 防火处
+				</if></p>
+	</div>
+	<div class="row cl">
+		<span class="col-2 text-r" >职务：</span>
+		<p class="col-10">{$report['dname']}</p>
+	</div>
+	<div class="row cl">
+		<span class="col-2 text-r" >举报标题：</span>
+		<p class="col-10">{$report['title']}</p>
+	</div>
+	<div class="row cl">
+		<span class="col-2 text-r" >内容：</span>
+		<p class="col-10">{$report['content']}</p>
+	</div>
+	<div class="row cl">
+		<span class="col-2 text-r" >附件：</span>
+		<if condition="$report['attachment']!=NULL">
+		<p class="col-10"><a href="{:U('Reports/downLoad',array('id'=>$report['id']),'')}">{$report['attachment']|substr=11,mb_strlen($report['attachment'],'utf-8')}</a></p>
+		</if>
+	</div>
+	<div class="row cl">
+		<span class="col-2 text-r" >举报人姓名：</span>
+		<p class="col-10">{$report['report']}</p>
+	</div>
+	<div class="row cl">
+		<span class="col-2 text-r" >举报人证件号：</span>
+		<p class="col-10">{$report['reportid']}</p>
+	</div>
+	<div class="row cl">
+		<span class="col-2 text-r" >举报时间：</span>
+		<p class="col-10">{$report['reportTime']|date="Y-m-d H:i",###}</p>
+	</div>
+		
+</div>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/admin/lib/Validform/5.3.2/Validform.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/admin/lib/layer/1.9.3/layer.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/admin/lib/icheck/jquery.icheck.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/admin/js/H-ui.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/admin/js/H-ui.admin.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/admin/lib/My97DatePicker/WdatePicker.js"></script> 
+
+
+<script type="text/javascript">
+$(function(){
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+	$.Huitab("#tab-system .tabBar span","#tab-system .tabCon","current","click","0");
+});
+
+
+/*集体责任-编辑*/
+function jtzr_edit(title,url){
+	var index = layer.open({
+		type: 2,
+		title: title,
+		content: url
+	});
+	layer.full(index);
+}
+/*删除*/
+function member_del(obj,id){
+	layer.confirm('确认要删除吗？',function(index){
+		$.post('{:U(\'Reports/reportDel\',\'\',\'\')}',{'id':id},function(result){
+    		if(result==true){    			
+				$(obj).parents("tr").remove();
+				layer.msg('已删除!',{icon:1,time:1000});
+    		}else{    			
+				layer.msg(result,{icon:1,time:1000});
+    		}
+		});
+	});
+}
+</script>

@@ -1,0 +1,74 @@
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 权力监控<span class="c-gray en">&gt;</span> 部门管理<a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="pd-20">
+    <div class="cl pd-5 bg-1 bk-gray"> <span class="l"><a class="btn btn-primary radius" onclick=jtzr_add('添加部门','{:U("Qjdept/add","oid=$oid","")}') href="javascript:;"><i class="Hui-iconfont">&#xe600;</i>添加部门</a></span> </div>
+    <table class="table table-border table-bordered table-hover table-bg table-sort">
+        <thead>
+        <tr class="text-c">
+            <th width="30">ID</th>
+            <th width="100">部门</th>
+            <th>描述</th>
+            <th width="150">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <volist name="departments" id="d">
+            <tr class="text-c">
+                <td>{$i}</td>
+                <td class="text-l">{$d['name']}</td>
+                <td class="text-l">{$d['description']}</td>
+                <td><a title="修改" class="ml-5" onclick="jtzr_edit('修改部门','{:U("edit",array("id"=>$d["id"],"oid"=>$oid),"")}')" href="javascript:;"><i class="Hui-iconfont">&#xe6df;</i></a><a title="删除" href="javascript:;" onclick="item_del(this,'1')" class="ml-5" style="text-decoration:none" id="{:U('delete',array('id'=>$d['id']),'')}"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+        </volist>
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/Validform/5.3.2/Validform.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/icheck/jquery.icheck.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/H-ui.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/H-ui.admin.js"></script>
+
+<script type="text/javascript">
+    $(function(){
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+        $.Huitab("#tab-system .tabBar span","#tab-system .tabCon","current","click","0");
+    });
+
+    /*集体责任-编辑*/
+    function jtzr_edit(title,url){
+        var index = layer.open({
+            type: 2,
+            title: title,
+            content: url
+        });
+        layer.full(index);
+    }
+    /*事项-删除*/
+    function item_del(obj,id){
+        var url = $(obj).attr('id');
+        layer.confirm('确认要删除吗？',function(index){
+            $.get(url,function(data){
+                if(data==1){
+                    //location.reload();
+                    $(obj).parents("tr").remove();
+                    layer.msg('已删除!',{icon:1,time:1000});
+                }
+
+            })
+
+        });
+    }
+    /*集体责任清单-添加*/
+    function jtzr_add(title,url){
+        var index = layer.open({
+            type: 2,
+            title: title,
+            content: url
+        });
+        layer.full(index);
+    }
+</script>

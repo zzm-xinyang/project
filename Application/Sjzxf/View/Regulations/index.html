@@ -1,0 +1,57 @@
+<ol class="breadcrumb">
+   <div class="col-xs-12 col-sm-8 col-md-9 col-lg-10 list-inline">
+    <li><span class="glyphicon glyphicon-home" aria-hidden="true"></span> <a href="index.html">首页</a></li>     
+    <li class="active">政策法规</li>
+    </div>
+     <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 input-group ss">
+      <input type="text" class="form-control" placeholder="请输入关键字">
+      <span class="input-group-btn">
+        <button class="btn btn-primary bc" type="button">搜索</button>
+      </span>
+    </div>
+</ol>
+
+<div class="container">    
+	<div class="row">
+	  <div class="col-lg-8 ">
+      	 <div class="page-header"><h2>政策法规</h2></div>
+         
+          <div class="row list">
+               <ul >
+                   <volist name="regulations" id="vo">
+                        <li ><a href="{:U('showContent')}?rid={$vo.rid}&title={$vo['title']}&updatetime={$vo['updatetime']}" target="_blank">{$vo['title']}<span class="tag">{$vo['name']}</span><span class="pull-right">【{$vo['updatetime']}】</span></a></li>
+                   </volist>
+               </ul>
+               <div class="text-r mt-20 page">
+                  {$page}
+               </div>
+
+           </div>
+         
+      </div>
+      
+	  <div class="col-lg-4">
+      
+           <div class="col-lg-1"></div>
+           <div class="col-lg-11">
+           	<div class="row icon">
+                <div class="col-xs-6 col-sm-3 col-lg-6"><a href="{:U('ztzr/ztzr')}" target="_blank"><img src="__PUBLIC__/images/ztzr.gif" class="img-responsive"></a></div>
+                <div class="col-xs-6 col-sm-3 col-lg-6"><a href="{:U('jdzr/jdzr')}" target="_blank"><img src="__PUBLIC__/images/jdzr.gif" class="img-responsive"></a></div>
+                <div class="col-xs-6 col-sm-3 col-lg-6"><a href="{:U('qlyx/qlyx')}" target="_blank"><img src="__PUBLIC__/images/qljk.gif" class="img-responsive"></a></div>
+                <div class="col-xs-6 col-sm-3 col-lg-6"><a href="{:U('zjwz/zjwz_szxttj')}" target="_blank"><img src="__PUBLIC__/images/zjwz.gif" class="img-responsive"></a></div>
+            </div>
+            <div class="row icon">
+            	<div class="col-xs-12 col-sm-6 col-lg-12"><a href="{:U('Dflzjs/index','','')}" target="_blank"><img src="__PUBLIC__/images/1.gif"  class="img-responsive"></a></div>
+                <div class="col-xs-6 col-sm-3 col-lg-6 "><a href="zfpj_zzd.html" target="_blank"><img src="__PUBLIC__/images/2.gif"  class="img-responsive"></a></div>
+                <div class="col-xs-6 col-sm-3 col-lg-6 "><a href="{:U('Jwsj/jwsj_zzd')}" target="_blank"><img src="__PUBLIC__/images/3.gif"  class="img-responsive"></a></div>
+                <div class="col-xs-6 col-sm-3 col-lg-6 "><a href="{:U('Reports/index')}" target="_blank"><img src="__PUBLIC__/images/4.gif"  class="img-responsive"></a></div>
+                <div class="col-xs-6 col-sm-3 col-lg-6 "><a href="{:U('Jyxc/index','','')}" target="_blank"><img src="__PUBLIC__/images/5.gif"  class="img-responsive"></a></div>
+            </div>
+         
+           </div>
+            
+        </div>
+    
+          
+    </div>
+ </div>

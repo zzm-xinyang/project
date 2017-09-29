@@ -1,0 +1,1 @@
+<?php if (!defined('THINK_PATH')) exit();?>张家口消防支队前台首页

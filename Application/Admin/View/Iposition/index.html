@@ -1,0 +1,96 @@
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 权利监控 <span class="c-gray en">&gt;</span> 领导岗位权力 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="pd-15">
+    <div class="pd-15 radius lh-22 mb-5" style="background: #eee;">
+        <h4><strong>领导岗位权力清单</strong>&nbsp;<a class="btn btn-primary radius pl-10 pr-10 add" onclick=jtzr_add('添加权力','{:U("Iposition/add","oid=$oid","")}') href="javascript:;" >+</a></h4>
+        <ul class="list lh-24">
+            <volist name="members" id="m">
+                <li>
+                    <if condition="$who eq $m['id']">
+                        <a href="{:U('Iposition/index',array('who'=>$m['id']),'')}"  class="cur"><span>{$m['duty']}</span><span>{$m['name']}</span><input type="hidden" value="{$m['id']}"/></a>&nbsp;&nbsp;
+                        <else />
+                        <a href="{:U('Iposition/index',array('who'=>$m['id']),'')}"><span>{$m['duty']}</span><span>{$m['name']}</span><input type="hidden" value="{$m['id']}"/></a>&nbsp;&nbsp;
+                    </if>
+
+                    <a title="修改" class="ml-5" onclick=jtzr_edit("修改","{:U('Iposition/edit',array('id'=>$m['id']),'')}") href="javascript:;"><img src="__PUBLIC__/admin/images/pen.png" width="12"/><a>&nbsp;
+                        <a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none" id="{:U('Iposition/delete',array('id'=>$m['id']),'')}"><img src="__PUBLIC__/admin/images/delete.png" width="12"/></a>
+                </li>
+            </volist>
+        </ul>
+    </div>
+    <div class="pd-15 radius lh-22 mb-5 content" style="background: #eee;">
+        <h4><span id="who"></span>主要职责清单</h4>
+        <div class="pl-20" id="dutys">
+            {$member['dutys']}
+        </div>
+        <h4>风险清单</h4>
+        <div class="pl-20" id="risks">
+            {$member['risks']}
+        </div>
+        <h4>风险等级</h4>
+        <div class="pl-20" id="rlevel">
+            {$member['rlevel']}
+        </div>
+        <h4>防控清单</h4>
+        <div class="pl-20" id="controls">
+            {$member['controls']}
+        </div>
+    </div>
+
+
+
+</div>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/Validform/5.3.2/Validform.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/icheck/jquery.icheck.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/H-ui.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/H-ui.admin.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/My97DatePicker/WdatePicker.js"></script>
+
+
+<script type="text/javascript">
+    $(function(){
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+        $.Huitab("#tab-system .tabBar span","#tab-system .tabCon","current","click","0");
+    });
+
+    $(function(){
+        $("#who").text($(".list a.cur").text());
+    })
+
+    /*集体责任-编辑*/
+    function jtzr_edit(title,url){
+        var index = layer.open({
+            type: 2,
+            title: title,
+            content: url
+        });
+        layer.full(index);
+    }
+    /*用户-删除*/
+    function member_del(obj,id){
+        var url = $(obj).attr('id');
+        layer.confirm('确认要删除吗？',function(index){
+            $.get(url,function(data){
+                if(data==1){
+                    $(obj).parents("li").remove();
+                    layer.msg('已删除!',{icon:1,time:1000});
+                }
+
+            })
+        });
+    }
+    /*集体责任清单-添加*/
+    function jtzr_add(title,url){
+        var index = layer.open({
+            type: 2,
+            title: title,
+            content: url
+        });
+        layer.full(index);
+    }
+</script>

@@ -1,0 +1,254 @@
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 权力监控 <span class="c-gray en">&gt;</span> 部门岗位权力<a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="pd-20">
+
+    <div id="tab-system" class="HuiTab">
+        <div class="tabBar cl">
+            <volist name="departments" id="department">
+                <span name="{$department['id']}">{$department['name']}</span>
+            </volist>
+        </div>
+        <div class="tabCon">
+            <div class="pd-15 radius lh-22 mb-5" style="background: #eee;">
+                <h4><strong>部门岗位权力清单</strong>&nbsp;<a class="btn btn-primary radius pl-10 pr-10 add" onclick=ql_add('添加权力','{:U("Dposition/add",array("oid"=>$oid),"")}') href="javascript:;" >+</a></h4>
+                <ul class="list lh-24">
+                    <volist name="contents[0]" id="m" key="k">
+                        <li>
+                            <if condition="$k eq 1">
+                                <a href="{:U('Dposition/find',array('id'=>$m['id']),'')}"  class="cur"><span>{$m['duty']}</span><span>{$m['name']}</span><input type="hidden" value="{$m['id']}"/></a>&nbsp;&nbsp;
+                                <else />
+                                <a href="{:U('Dposition/find',array('id'=>$m['id']),'')}"><span>{$m['duty']}</span><span>{$m['name']}</span><input type="hidden" value="{$m['id']}"/></a>&nbsp;&nbsp;
+                            </if>
+
+                            <a title="修改" class="ml-5" onclick=ql_edit("修改","{:U('Dposition/edit',array('id'=>$m['id']),'')}") href="javascript:;"><img src="__PUBLIC__/admin/images/pen.png" width="12"/><a>&nbsp;
+                                <a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none" id="{:U('Dposition/delete',array('id'=>$m['id']),'')}"><img src="__PUBLIC__/admin/images/delete.png" width="12"/></a>
+                        </li>
+                    </volist>
+                </ul>
+            </div>
+            <div class="pd-15 radius lh-22 mb-5 content" style="background: #eee;">
+                <h4><span class="who"></span>主要职责清单</strong></h4>
+                <div class="pl-20 dutys">
+                    {$contents[0][0]['dutys']}
+                   </empty>
+                </div>
+                <h4>风险清单</h4>
+                <div class="pl-20 risks">
+                    {$contents[0][0]['risks']}
+                </div><br/>
+                <h4>风险等级</h4>
+                <div class="pl-20 rlevel">
+                    {$contents[0][0]['rlevel']}
+                </div>
+                <h4>防控清单</h4>
+                <div class="pl-20 controls">
+                    {$contents[0][0]['controls']}
+                </div>
+            </div>
+        </div>
+        <div class="tabCon">
+            <div class="pd-15 radius lh-22 mb-5" style="background: #eee;">
+                <h4><strong>部门岗位权力清单</strong>&nbsp;<a class="btn btn-primary radius pl-10 pr-10 add" onclick=ql_add('添加权力','{:U("Dposition/add",array("oid"=>$oid),"")}') href="javascript:;" >+</a></h4>
+                <ul class="list lh-24">
+                    <volist name="contents[1]" id="m" key="k">
+                        <li>
+                            <if condition="$k eq 1">
+                                <a href="{:U('Dposition/find',array('id'=>$m['id']),'')}"  class="cur"><span>{$m['duty']}</span><span>{$m['name']}</span><input type="hidden" value="{$m['id']}"/></a>&nbsp;&nbsp;
+                                <else />
+                                <a href="{:U('Dposition/find',array('id'=>$m['id']),'')}"><span>{$m['duty']}</span><span>{$m['name']}</span><input type="hidden" value="{$m['id']}"/></a>&nbsp;&nbsp;
+                            </if>
+
+                            <a title="修改" class="ml-5" onclick=ql_edit("修改","{:U('Dposition/edit',array('id'=>$m['id']),'')}") href="javascript:;"><img src="__PUBLIC__/admin/images/pen.png" width="12"/><a>&nbsp;
+                                <a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none" id="{:U('Dposition/delete',array('id'=>$m['id']),'')}"><img src="__PUBLIC__/admin/images/delete.png" width="12"/></a>
+                        </li>
+                    </volist>
+                </ul>
+            </div>
+            <div class="pd-15 radius lh-22 mb-5 content" style="background: #eee;">
+                <h4><span class="who"></span>主要职责清单</strong></h4>
+                <div class="pl-20 dutys">
+                    {$contents[1][0]['dutys']}
+                </div>
+                <h4>风险清单</h4>
+                <div class="pl-20 risks">
+                    {$contents[1][0]['risks']}
+                </div><br/>
+                <h4>风险等级</h4>
+                <div class="pl-20 rlevel">
+                    {$contents[1][0]['rlevel']}
+                </div>
+                <h4>防控清单</h4>
+                <div class="pl-20 controls">
+                    {$contents[1][0]['controls']}
+                </div>
+            </div>
+        </div>
+        <div class="tabCon">
+            <div class="pd-15 radius lh-22 mb-5" style="background: #eee;">
+                <h4><strong>部门岗位权力清单</strong>&nbsp;<a class="btn btn-primary radius pl-10 pr-10 add" onclick=ql_add('添加权力','{:U("Dposition/add",array("oid"=>$oid),"")}') href="javascript:;" >+</a></h4>
+                <ul class="list lh-24">
+                    <volist name="contents[2]" id="m" key="k">
+                        <li>
+                            <if condition="$k eq 1">
+                                <a href="{:U('Dposition/find',array('id'=>$m['id']),'')}"  class="cur"><span>{$m['duty']}</span><span>{$m['name']}</span><input type="hidden" value="{$m['id']}"/></a>&nbsp;&nbsp;
+                                <else />
+                                <a href="{:U('Dposition/find',array('id'=>$m['id']),'')}"><span>{$m['duty']}</span><span>{$m['name']}</span><input type="hidden" value="{$m['id']}"/></a>&nbsp;&nbsp;
+                            </if>
+
+                            <a title="修改" class="ml-5" onclick=ql_edit("修改","{:U('Dposition/edit',array('id'=>$m['id']),'')}") href="javascript:;"><img src="__PUBLIC__/admin/images/pen.png" width="12"/><a>&nbsp;
+                                <a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none" id="{:U('Dposition/delete',array('id'=>$m['id']),'')}"><img src="__PUBLIC__/admin/images/delete.png" width="12"/></a>
+                        </li>
+                    </volist>
+                </ul>
+            </div>
+            <div class="pd-15 radius lh-22 mb-5 content" style="background: #eee;">
+                <h4><span class="who"></span>主要职责清单</strong></h4>
+                <div class="pl-20 dutys">
+                    {$contents[2][0]['dutys']}
+                </div>
+                <h4>风险清单</h4>
+                <div class="pl-20 risks">
+                    {$contents[2][0]['risks']}
+                </div><br/>
+                <h4>风险等级</h4>
+                <div class="pl-20 rlevel">
+                    {$contents[2][0]['rlevel']}
+                </div>
+                <h4>防控清单</h4>
+                <div class="pl-20 controls">
+                    {$contents[2][0]['controls']}
+                </div>
+            </div>
+        </div>
+        <div class="tabCon">
+            <div class="pd-15 radius lh-22 mb-5" style="background: #eee;">
+                <h4><strong>部门岗位权力清单</strong>&nbsp;<a class="btn btn-primary radius pl-10 pr-10 add" onclick=ql_add('添加权力','{:U("Dposition/add",array("oid"=>$oid),"")}') href="javascript:;" >+</a></h4>
+                <ul class="list lh-24">
+                    <volist name="contents[3]" id="m" key="k">
+                        <li>
+                            <if condition="$k eq 1">
+                                <a href="{:U('Dposition/find',array('id'=>$m['id']),'')}"  class="cur"><span>{$m['duty']}</span><span>{$m['name']}</span><input type="hidden" value="{$m['id']}"/></a>&nbsp;&nbsp;
+                                <else />
+                                <a href="{:U('Dposition/find',array('id'=>$m['id']),'')}"><span>{$m['duty']}</span><span>{$m['name']}</span><input type="hidden" value="{$m['id']}"/></a>&nbsp;&nbsp;
+                            </if>
+
+                            <a title="修改" class="ml-5" onclick=ql_edit("修改","{:U('Dposition/edit',array('id'=>$m['id']),'')}") href="javascript:;"><img src="__PUBLIC__/admin/images/pen.png" width="12"/><a>&nbsp;
+                                <a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none" id="{:U('Dposition/delete',array('id'=>$m['id']),'')}"><img src="__PUBLIC__/admin/images/delete.png" width="12"/></a>
+                        </li>
+                    </volist>
+                </ul>
+            </div>
+            <div class="pd-15 radius lh-22 mb-5 content" style="background: #eee;">
+                <h4><span class="who"></span>主要职责清单</strong></h4>
+                <div class="pl-20 dutys">
+                    {$contents[3][0]['dutys']}
+                </div>
+                <h4>风险清单</h4>
+                <div class="pl-20 risks">
+                    {$contents[3][0]['risks']}
+                </div><br/>
+                <h4>风险等级</h4>
+                <div class="pl-20">
+                    {$contents[3][0]['rlevel']}
+                </div>
+                <h4>防控清单</h4>
+                <div class="pl-20 controls">
+                    {$contents[3][0]['controls']}
+                </div>
+            </div>
+
+        </div>
+        <input type="hidden" value="{$mid}" id="mid" />
+    </div>
+    <script type="text/javascript" src="__PUBLIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/admin/lib/Validform/5.3.2/Validform.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/admin/lib/layer/1.9.3/layer.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/admin/lib/icheck/jquery.icheck.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/admin/js/H-ui.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/admin/js/H-ui.admin.js"></script>
+
+    <script type="text/javascript">
+        $(function(){
+            $('.skin-minimal input').iCheck({
+                checkboxClass: 'icheckbox-blue',
+                radioClass: 'iradio-blue',
+                increaseArea: '20%'
+            });
+            $.Huitab("#tab-system .tabBar span","#tab-system .tabCon","current","click","0");
+        });
+        $(function(){
+            //先选中哪个部门是显示的
+            for(var i=0; i<$(".tabBar span").length; i++){
+                $(".who:eq("+i+")").text($(".tabCon:eq("+i+") .cur") .text());
+            }
+            var which = $("#mid").val();
+            console.log("span[name='"+which+"']");
+            $("span[name='"+which+"']").click();
+
+            //单击哪个动态请求哪个的数据
+            $(".list a").click(function(){
+                var self = $(this);
+                $(".list a").removeClass('cur');
+                self.addClass('cur');
+                var url = self.attr('href');
+                $.get(url,function(data){
+                    data = eval('(' + data + ')');
+                    var area = self.parents($(".tabCon"));
+                    area.find('.dutys').html(data.dutys);
+                    area.find('.risks').html(data.risks);
+                    area.find('.rlevel').html(data.rlevel);
+                    area.find('.controls').html(data.controls);
+                    area.find('.who').html(self.text()); //职责清单主题改变
+                });
+                return false;
+            });
+        });
+        /**
+         * 确定是哪个部门要修改权力
+         * */
+        function ql_edit(title,url){
+            var mid = $(".current").attr('name');
+            url += '/mid/';
+            url += mid;
+            jtzr_edit(title,url);
+        }
+        /*集体责任-编辑*/
+        function jtzr_edit(title,url){
+            var index = layer.open({
+                type: 2,
+                title: title,
+                content: url
+            });
+            layer.full(index);
+        }
+        /*用户-删除*/
+        function member_del(obj,id){
+            var url = $(obj).attr('id');
+            layer.confirm('确认要删除吗？',function(index){
+                $.get(url,function(data){
+                    if(data==1){
+                        $(obj).parents("li").remove();
+                        layer.msg('已删除!',{icon:1,time:1000});
+                    }
+
+                })
+            });
+        }
+        /**
+         * 确定是哪个部门要添加权力
+         * */
+        function ql_add(title,url){
+            var mid = $(".current").attr('name');
+            url += '/mid/';
+            url += mid;
+            jtzr_add(title,url);
+        }
+        /*权力-添加*/
+        function jtzr_add(title,url){
+            var index = layer.open({
+                type: 2,
+                title: title,
+                content: url
+            });
+            layer.full(index);
+        }
+    </script>

@@ -1,0 +1,131 @@
+[Sun Sep 17 11:32:53.616 2017] [97164] accepting connections
+[Sun Sep 17 11:40:54.669 2017] [97164] caught SIGTERM, shutting down
+[Sun Sep 17 11:40:54.733 2017] [97164] shutdown complete
+[Sun Sep 17 16:26:30.091 2017] [117632] accepting connections
+[Sun Sep 17 16:27:20.405 2017] [117632] caught SIGTERM, shutting down
+[Sun Sep 17 16:27:20.448 2017] [117632] shutdown complete
+[Sun Sep 17 16:57:17.264 2017] [124568] accepting connections
+[Sun Sep 17 17:01:50.176 2017] [124568] caught SIGTERM, shutting down
+[Sun Sep 17 17:01:50.188 2017] [124568] shutdown complete
+[Mon Sep 18 14:19:21.713 2017] [ 2364] accepting connections
+[Mon Sep 18 14:20:58.006 2017] [ 2364] rotating indices (seamless=0)
+[Mon Sep 18 14:20:58.062 2017] [ 2364] rotating index 'increment': success
+[Mon Sep 18 14:20:58.062 2017] [ 2364] rotating finished
+[Mon Sep 18 14:22:02.319 2017] [ 2364] rotating indices (seamless=0)
+[Mon Sep 18 14:22:02.383 2017] [ 2364] rotating index 'increment': success
+[Mon Sep 18 14:22:02.383 2017] [ 2364] rotating finished
+[Mon Sep 18 14:23:01.588 2017] [ 2364] rotating indices (seamless=0)
+[Mon Sep 18 14:23:01.644 2017] [ 2364] rotating index 'increment': success
+[Mon Sep 18 14:23:01.645 2017] [ 2364] rotating finished
+[Mon Sep 18 14:23:49.370 2017] [ 2364] rotating indices (seamless=0)
+[Mon Sep 18 14:23:49.426 2017] [ 2364] rotating index 'mysql': success
+[Mon Sep 18 14:23:49.427 2017] [ 2364] rotating finished
+[Mon Sep 18 14:24:26.790 2017] [ 2364] caught SIGTERM, shutting down
+[Mon Sep 18 14:24:26.795 2017] [ 2364] shutdown complete
+[Mon Sep 18 14:39:07.904 2017] [ 4856] accepting connections
+[Mon Sep 18 14:39:56.534 2017] [ 4856] rotating indices (seamless=0)
+[Mon Sep 18 14:39:56.598 2017] [ 4856] rotating index 'increment': success
+[Mon Sep 18 14:39:56.598 2017] [ 4856] rotating finished
+[Mon Sep 18 14:43:52.644 2017] [ 4856] caught SIGTERM, shutting down
+[Mon Sep 18 14:43:52.659 2017] [ 4856] shutdown complete
+[Mon Sep 18 14:46:49.983 2017] [11924] accepting connections
+[Mon Sep 18 14:47:01.052 2017] [11924] shutdown complete
+[Mon Sep 18 14:47:09.637 2017] [ 8064] accepting connections
+[Mon Sep 18 14:54:01.559 2017] [ 8064] rotating indices (seamless=0)
+[Mon Sep 18 14:54:01.626 2017] [ 8064] rotating index 'increment': success
+[Mon Sep 18 14:54:01.627 2017] [ 8064] rotating finished
+[Mon Sep 18 14:55:34.495 2017] [ 8064] rotating indices (seamless=0)
+[Mon Sep 18 14:55:34.569 2017] [ 8064] rotating index 'increment': success
+[Mon Sep 18 14:55:34.569 2017] [ 8064] rotating finished
+[Mon Sep 18 17:25:29.438 2017] [ 8064] shutdown complete
+[Wed Sep 20 08:49:35.374 2017] [ 2120] accepting connections
+[Wed Sep 20 10:09:40.986 2017] [ 2100] accepting connections
+[Wed Sep 20 17:19:13.440 2017] [ 1760] accepting connections
+[Fri Sep 22 16:00:00.148 2017] [ 1760] rotating indices (seamless=0)
+[Fri Sep 22 16:00:00.189 2017] [ 1760] rotating index 'mysql': success
+[Fri Sep 22 16:00:00.189 2017] [ 1760] rotating finished
+[Fri Sep 22 16:01:56.993 2017] [ 1760] rotating indices (seamless=0)
+[Fri Sep 22 16:01:57.039 2017] [ 1760] rotating index 'mysql': success
+[Fri Sep 22 16:01:57.039 2017] [ 1760] rotating finished
+[Fri Sep 22 16:05:34.642 2017] [ 1760] rotating indices (seamless=0)
+[Fri Sep 22 16:05:34.714 2017] [ 1760] rotating index 'mysql': success
+[Fri Sep 22 16:05:34.715 2017] [ 1760] rotating finished
+[Fri Sep 22 16:07:19.700 2017] [ 1760] rotating indices (seamless=0)
+[Fri Sep 22 16:07:19.744 2017] [ 1760] rotating index 'mysql': success
+[Fri Sep 22 16:07:19.744 2017] [ 1760] rotating finished
+[Fri Sep 22 16:08:01.306 2017] [ 1760] rotating indices (seamless=0)
+[Fri Sep 22 16:08:01.335 2017] [ 1760] rotating index 'mysql': success
+[Fri Sep 22 16:08:01.335 2017] [ 1760] rotating finished
+[Fri Sep 22 16:09:42.059 2017] [ 1760] rotating indices (seamless=0)
+[Fri Sep 22 16:09:42.131 2017] [ 1760] rotating index 'mysql': success
+[Fri Sep 22 16:09:42.131 2017] [ 1760] rotating finished
+[Fri Sep 22 21:28:42.430 2017] [ 1760] rotating indices (seamless=0)
+[Fri Sep 22 21:28:42.482 2017] [ 1760] rotating index 'mysql': success
+[Fri Sep 22 21:28:42.482 2017] [ 1760] rotating finished
+[Fri Sep 22 21:32:22.771 2017] [ 1760] rotating indices (seamless=0)
+[Fri Sep 22 21:32:22.820 2017] [ 1760] rotating index 'mysql': success
+[Fri Sep 22 21:32:22.820 2017] [ 1760] rotating finished
+[Fri Sep 22 21:33:40.719 2017] [ 1760] rotating indices (seamless=0)
+[Fri Sep 22 21:33:40.802 2017] [ 1760] rotating index 'mysql': success
+[Fri Sep 22 21:33:40.802 2017] [ 1760] rotating finished
+[Fri Sep 22 21:35:15.643 2017] [ 1760] rotating indices (seamless=0)
+[Fri Sep 22 21:35:15.680 2017] [ 1760] rotating index 'mysql': success
+[Fri Sep 22 21:35:15.680 2017] [ 1760] rotating finished
+[Fri Sep 22 21:35:49.066 2017] [ 1760] rotating indices (seamless=0)
+[Fri Sep 22 21:35:49.117 2017] [ 1760] rotating index 'mysql': success
+[Fri Sep 22 21:35:49.117 2017] [ 1760] rotating finished
+[Fri Sep 22 21:36:12.711 2017] [ 1760] rotating indices (seamless=0)
+[Fri Sep 22 21:36:12.799 2017] [ 1760] rotating index 'mysql': success
+[Fri Sep 22 21:36:12.799 2017] [ 1760] rotating finished
+[Fri Sep 22 21:37:08.322 2017] [ 1760] rotating indices (seamless=0)
+[Fri Sep 22 21:37:08.373 2017] [ 1760] rotating index 'mysql': success
+[Fri Sep 22 21:37:08.373 2017] [ 1760] rotating finished
+[Fri Sep 22 21:37:48.150 2017] [ 1760] rotating indices (seamless=0)
+[Fri Sep 22 21:37:48.232 2017] [ 1760] rotating index 'mysql': success
+[Fri Sep 22 21:37:48.232 2017] [ 1760] rotating finished
+[Fri Sep 22 22:35:09.383 2017] [ 1760] rotating indices (seamless=0)
+[Fri Sep 22 22:35:09.467 2017] [ 1760] rotating index 'mysql': success
+[Fri Sep 22 22:35:09.468 2017] [ 1760] rotating finished
+[Fri Sep 22 22:36:23.198 2017] [ 1760] rotating indices (seamless=0)
+[Fri Sep 22 22:36:23.252 2017] [ 1760] rotating index 'mysql': success
+[Fri Sep 22 22:36:23.252 2017] [ 1760] rotating finished
+[Fri Sep 22 22:40:48.614 2017] [ 1760] rotating indices (seamless=0)
+[Fri Sep 22 22:40:48.665 2017] [ 1760] rotating index 'mysql': success
+[Fri Sep 22 22:40:48.665 2017] [ 1760] rotating finished
+[Fri Sep 22 22:41:27.044 2017] [ 1760] rotating indices (seamless=0)
+[Fri Sep 22 22:41:27.098 2017] [ 1760] rotating index 'mysql': success
+[Fri Sep 22 22:41:27.098 2017] [ 1760] rotating finished
+[Fri Sep 22 22:42:02.738 2017] [ 1760] rotating indices (seamless=0)
+[Fri Sep 22 22:42:02.789 2017] [ 1760] rotating index 'mysql': success
+[Fri Sep 22 22:42:02.789 2017] [ 1760] rotating finished
+[Fri Sep 22 22:45:31.375 2017] [ 1760] rotating indices (seamless=0)
+[Fri Sep 22 22:45:31.433 2017] [ 1760] rotating index 'mysql': success
+[Fri Sep 22 22:45:31.434 2017] [ 1760] rotating finished
+[Fri Sep 22 22:48:54.648 2017] [ 1760] rotating indices (seamless=0)
+[Fri Sep 22 22:48:54.703 2017] [ 1760] rotating index 'mysql': success
+[Fri Sep 22 22:48:54.703 2017] [ 1760] rotating finished
+[Fri Sep 22 22:49:20.944 2017] [ 1760] rotating indices (seamless=0)
+[Fri Sep 22 22:49:20.997 2017] [ 1760] rotating index 'mysql': success
+[Fri Sep 22 22:49:20.997 2017] [ 1760] rotating finished
+[Fri Sep 22 22:50:56.507 2017] [ 1760] rotating indices (seamless=0)
+[Fri Sep 22 22:50:56.555 2017] [ 1760] rotating index 'mysql': success
+[Fri Sep 22 22:50:56.555 2017] [ 1760] rotating finished
+[Sun Sep 24 00:00:45.849 2017] [ 1760] rotating indices (seamless=0)
+[Sun Sep 24 00:00:45.869 2017] [ 1760] rotating index 'mysql': success
+[Sun Sep 24 00:00:45.869 2017] [ 1760] rotating finished
+[Sun Sep 24 00:04:19.719 2017] [ 1760] rotating indices (seamless=0)
+[Sun Sep 24 00:04:19.736 2017] [ 1760] rotating index 'mysql': success
+[Sun Sep 24 00:04:19.736 2017] [ 1760] rotating finished
+[Sun Sep 24 01:00:50.642 2017] [ 1760] rotating indices (seamless=0)
+[Sun Sep 24 01:00:50.662 2017] [ 1760] rotating index 'mysql': success
+[Sun Sep 24 01:00:50.662 2017] [ 1760] rotating finished
+[Sun Sep 24 01:01:48.593 2017] [ 1760] rotating indices (seamless=0)
+[Sun Sep 24 01:01:48.614 2017] [ 1760] rotating index 'mysql': success
+[Sun Sep 24 01:01:48.614 2017] [ 1760] rotating finished
+[Sun Sep 24 09:03:45.776 2017] [ 1760] rotating indices (seamless=0)
+[Sun Sep 24 09:03:45.833 2017] [ 1760] rotating index 'mysql': success
+[Sun Sep 24 09:03:45.833 2017] [ 1760] rotating finished
+[Sun Sep 24 09:08:50.576 2017] [ 1760] shutdown complete
+[Sun Sep 24 10:10:09.062 2017] [ 9100] accepting connections
+[Mon Sep 25 15:42:15.620 2017] [ 2100] accepting connections
+[Tue Sep 26 06:33:43.334 2017] [ 2100] shutdown complete

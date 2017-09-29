@@ -1,0 +1,67 @@
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 用户管理 <span class="c-gray en">&gt;</span> 角色管理 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="pd-20">
+    <div class="cl pd-5 bg-1 bk-gray">
+        <span class="l">  <a class="btn btn-primary radius" href="javascript:;" onclick=role_add('添加角色','{:U("add",array("oid"=>$oid))}')><i class="Hui-iconfont">&#xe600;</i> 添加角色</a> </span>  </div>
+    <table class="table table-border table-bordered table-hover table-bg">
+        <thead>
+        <tr>
+            <th scope="col" colspan="6">角色管理</th>
+        </tr>
+        <tr class="text-l">
+            <th width="25"><input type="checkbox" value="" name=""></th>
+            <th width="40">序号</th>
+            <th width="400">角色名</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <volist name="roles" id="role" key="k">
+            <tr>
+                <td><input type="checkbox" value="{$role['id']}" name=""></td>
+                <td>{$k}</td>
+                <td>{$role['organize']}{$role['title']}</td>
+                <td class="f-14"><a title="编辑" href="javascript:;" onclick=role_add('角色编辑','{:U("edit",array("id"=>$role["id"],"oid"=>$role["oid"]))}') style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href='javascript:'  class="del" style="text-decoration:none" onclick="member_del(this,{$role['id']})" id='{:U("delete",array("id"=>$role["id"]))}'><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+            </tr>
+        </volist>
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/H-ui.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/H-ui.admin.js"></script>
+<script type="text/javascript">
+    /*管理员-角色-添加*/
+    function admin_role_add(title,url,w,h){
+        layer_show(title,url,w,h);
+    }
+    /*管理员-角色-编辑*/
+    function admin_role_edit(title,url,id,w,h){
+        layer_show(title,url,w,h);
+    }
+    /*管理员-角色-删除*/
+
+    function member_del(obj,id){
+        var url = $(obj).attr('id');
+        layer.confirm('确认要删除吗？',function(index){
+            $.get(url,function(data){
+                if(data==1){
+                    $(obj).parents("tr").remove();
+                    layer.msg('已删除!',{icon:1,time:1000});
+                }
+
+            })
+        });
+    }
+
+
+    function role_add(title,url){
+        var index = layer.open({
+            type: 2,
+            title: title,
+            content: url
+        });
+        layer.full(index);
+    }
+</script>

@@ -1,0 +1,302 @@
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 监督责任 <span class="c-gray en">&gt;</span> 纪委领导班子集体责任 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="pd-20">
+    <div class="pd-15 radius lh-22 mb-5" style="background: #eee;">
+        <h4><strong>纪委领导班子集体责任清单</strong>&nbsp;<a class="btn btn-primary radius pl-10 pr-10 add" onclick=jtzr_add('添加集体责任','{:U("Inlist/plists","oid=$oid","")}') href="javascript:;" >+</a></h4>
+        <ul class="list lh-24" type="1" id="list">
+            <volist name="inlists" id="inlist" key="k">
+                <li><a href="{:U('Inlist/listFind',array('id'=>$inlist['id']),'')}">{$inlist['item']}</a>&nbsp;
+                    <a title="修改" class="ml-5" onclick=jtzr_edit("修改","{:U('Inlist/listEdit',array('id'=>$inlist['id']),'')}") href="javascript:;"><img src="__PUBLIC__/admin/images/pen.png" width="12"/></a>&nbsp;
+                    <a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none" id="{:U('Inlist/listDelete',array('id'=>$inlist['id']),'')}"><img src="__PUBLIC__/admin/images/delete.png" width="12"/></a>
+                </li>
+
+                <if condition="$k == 1">
+                    <input type="hidden" id="first" value="{$inlist['content']}" />
+                </if>
+            </volist>
+        </ul>
+        <div class="content l-24 pd-20" id="choiseContent">
+
+        </div>
+    </div>
+
+    <!--主体责任分解情况-->
+    <div class="pd-15 radius lh-22" style="background: #eee;">
+        <h4><strong>监督责任分解清单落实情况</strong>&nbsp;<a class="btn btn-primary radius pl-10 pr-10 add" onclick=jtzr_add('添加事项','{:U("Inlist/initems","oid=$oid","")}') href="javascript:;" >+</a></h4>
+    </div>
+    <div class="cl pd-5 bg-1 bk-gray">
+        <span class="l"><a href="javascript:;" id="dels" class="btn btn-danger radius "><i class="Hui-iconfont"></i> 批量删除</a></span>
+        <form action="{:U('Inlist/listsearch')}" method="post" class="form form-horizontal" id="form-article-add">
+        <div class="text-r" style="float:right;">
+            <label>责任主体：</label>
+            <select name="subject" style="height: 29px;border:1px #ddd solid;">
+                <option value="全部">全部</option>
+                <option value="纪委班子">纪委班子</option>
+                <option value="纪委书记">纪委书记</option>
+                <option value="纪委副书记">纪委副书记</option>
+                <option value="政治处主任">政治处主任</option>
+            </select>
+            <label>状态：</label>
+            <select name="status" style="height: 29px;border:1px #ddd solid;">
+                <option value="0">全部</option>
+                <option value="1">待完成</option>
+                <option value="2">已完成</option>
+                <option value="3">未完成</option>
+            </select>
+            <input type="text" name="oid" id="oid" class="input-text Wdate" style="width:120px;display:none;" value="{$oid}">
+            日期范围：
+            <input type="text" name="logmin" id="logmin" class="input-text Wdate" style="width:120px;">
+            -
+            <input type="text" name="logmax" id="logmax" class="input-text Wdate" style="width:120px;">
+            -
+
+            <input type="text" name="keyword" id="11" placeholder=" 关键词" style="width:180px" class="input-text">
+            <button name="submit" id="" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜事项</button>
+        </div>
+        </form>
+    </div>
+    <table class="table table-border table-bordered table-hover table-bg table-sort">
+        <thead>
+        <tr class="text-c">
+            <th width="35"><input type="checkbox" name="" value=""></th>
+            <th width="35">ID</th>
+            <th width="">落实事项</th>
+            <th width="80">责任主体</th>
+            <th width="90">开始时间</th>
+            <th width="90">完成时限</th>
+            <th width="90">履责情况</th>
+            <th width="70">完成情况</th>
+            <th width="50">预警提示</th>
+            <th width="80">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <form action="{:U('Inlist/deletes','','')}" method="post">
+        <volist name="itemLists" id="item">
+            <tr class="text-c">
+                <td><input type="checkbox" value="{$item['id']}" name="dels[]"></td>
+                <td>{$i}</td>
+                <td class="text-l">{$item['item']}</td>
+                <td>{$item['subject']}</td>
+                <td>{$item['starttime']}</td>
+                <td>{$item['timelimit']}</td>
+                <td><a  onclick=jtzr_add('上传文件','{:U("Inlist/itemUpload",array("inid"=>$item["id"]),"")}') href="javascript:;" class="upload">上传文件</a></td>
+                <td>{$item['status']}</td>
+                <td class="va-m"><img src="__PUBLIC__/admin/images/{$item['tip']}" /></td>
+                <td><a href="" title="显示到前台"><img src="images/eye1.ico"  width="12px" height="12px"/></a>&nbsp;&nbsp;<a title="修改" class="ml-5" onclick=jtzr_edit('编辑落实事项','{:U("Inlist/itemEdit",array("id"=>$item["id"]),"")}') href="javascript:;"><i class="Hui-iconfont">&#xe6df;</i></a>&nbsp;&nbsp;<a title="删除" href="javascript:;" onclick="item_del(this,'1')" class="ml-5" style="text-decoration:none" id="{:U('Inlist/itemDelete',array('id'=>$item['id'],'oid'=>$plist['oid']),'')}"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+            </tr>
+        </volist>
+            <input type="submit" style="display:none;" id="submit" />
+        </form>
+
+        </tbody>
+    </table>
+    <div class="text-r mt-20 page">
+        {$page}
+    </div>
+    <!--2017年党委主体责任落实统计-->
+    <div class="pd-15 radius lh-22 mt-20" style="background: #eee;">
+        <h4 id="pieTitle"><strong>{$curYear}年<span class="who"></span>纪委监督责任落实统计</strong>
+            <input type="hidden" id="status1" value="{$nums['s1']}" />
+            <input type="hidden" id="status2" value="{$nums['s2']}" />
+            <input type="hidden" id="status3" value="{$nums['s3']}" />
+            <input type="hidden" id="countUrl" value="{:U('Inlist/count',array('oid'=>$oid)),'',''}" />
+            <select id="finish" name="year" style="height: 29px;border:1px #ddd solid;">
+                <volist name="years" id="y">
+                    <option value="{$y}">{$y}年</option>
+                </volist>
+            </select></h4>
+        <div id="container" style="min-width:700px;height:400px"></div>
+    </div>
+</div>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script>
+
+<script type="text/javascript" src="__PUBLIC__/admin/lib/Validform/5.3.2/Validform.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/icheck/jquery.icheck.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/H-ui.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/H-ui.admin.js"></script>
+<!--饼形图-->
+<script type="text/javascript" src="__PUBLIC__/admin/lib/Highcharts/4.1.7/js/highcharts.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/Highcharts/4.1.7/js/modules/exporting.js"></script>
+
+<!--控制开始日期和结束日期-->
+<script type="text/javascript" src="__PUBLIC__/admin/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/date.js"></script>
+
+<script type="text/javascript">
+    /**
+     * 选中哪个，哪个有颜色标识，并更改相应的内容
+     */
+    $(function () {
+        $("#list li a:eq(0)").addClass('cur');
+        $("#choiseContent").html($("#first").val());
+
+        $("#list li a").click(function(){
+            var self = $(this);
+            $("#list li a").removeClass('cur');
+            self.addClass('cur');
+            $.get(self.attr('href'),function (data) {
+                $("#choiseContent").html(data);
+            });
+
+            return false;
+        });
+    });
+
+    $(function(){
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+        $.Huitab("#tab-system .tabBar span","#tab-system .tabCon","current","click","0");
+    });
+    $(function () {
+
+
+        //批量删除
+        $("#dels").click(function(){
+            $("#submit").click();
+        });
+    });
+
+    /**
+     * 上传文件处理
+     */
+    $(function () {
+        $("a.upload").click(function(){
+
+        });
+    });
+
+    /*饼形图*/
+    $(function () {
+        //根据现有数据创建饼形图
+        createPie($('#container'),$("#pieTitle").text(),$("#status1").val()-0,$("#status2").val()-0,$("#status3").val()-0);
+
+        //改变年份时，重新请求数据
+        $("#finish").change(function(){
+            var url = $("#countUrl").val();
+            var whichYear = $(this).val();
+            $.get(url,{
+                year:whichYear
+            },function(data){
+                var status = eval('(' + data + ')');
+                status1 = status.s1 ? status.s1:0;
+                status2 = status.s2 ? status.s2:0;
+                status3 = status.s3 ? status.s3:0;
+
+                //根据现有数据创建饼形图
+                createPie($('#container'),$("#pieTitle").text(),status1-0,status2-0,status3-0);
+            })
+        })
+    });
+    function createPie(ob,title,status1,status2,status3){
+        ob.highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            title: {
+                text: title
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        color: '#000000',
+                        connectorColor: '#f0000',
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                    }
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: title,
+                data: [
+                    {
+                        name: '待完成',
+                        y: status1,
+                        color:'#EE7621',
+                        sliced: true,
+                        selected: true
+                    },
+                    {
+                        name: '已完成',
+                        y: status2,
+                        color:'#698B22',
+                        sliced: true,
+                        selected: true
+                    },
+                    {
+                        name: '未完成',
+                        y: status3,
+                        color:'#ff0000',
+                        sliced: true,
+                        selected: true
+                    }
+                ]
+            }]
+        });
+    }
+    /*集体责任-编辑*/
+    function jtzr_edit(title,url){
+        var index = layer.open({
+            type: 2,
+            title: title,
+            content: url
+        });
+        layer.full(index);
+    }
+    /*集体责任清单-删除*/
+    function member_del(obj,id){
+        var url = $(obj).attr('id');
+        layer.confirm('确认要删除吗？',function(index){
+            $.get(url,function(data){
+                if(data==1){
+                    $(obj).parents("li").remove();
+                    layer.msg('已删除!',{icon:1,time:1000});
+                }
+
+            })
+
+        });
+    }
+    /*事项-删除*/
+    function item_del(obj,id){
+        var url = $(obj).attr('id');
+        layer.confirm('确认要删除吗？',function(index){
+            $.get(url,function(data){
+                if(data==1){
+                    //location.reload();
+                    $(obj).parents("tr").remove();
+                    layer.msg('已删除!',{icon:1,time:1000});
+                }
+
+            })
+
+        });
+    }
+    /*集体责任清单-添加*/
+    function jtzr_add(title,url){
+        var index = layer.open({
+            type: 2,
+            title: title,
+            content: url
+        });
+        layer.full(index);
+    }
+
+    /**
+     * 关闭弹出层
+     */
+    function layer_close(){
+        layer.close(layer.index);
+    }
+</script>

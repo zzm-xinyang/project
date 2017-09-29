@@ -1,0 +1,21 @@
+<ol class="breadcrumb">
+
+    <li><span class="glyphicon glyphicon-home" aria-hidden="true"></span> <a href="index.html">首页</a></li>
+    <li class="active">制度建设</li>
+
+
+</ol>
+<div class="container">
+    <div class="row">
+        <foreach name="all" item="vo">
+        <article >
+            <header>
+                <h3>{$vo.title}</h3>
+                <span class="wh">{$vo.updatetime}</span><span class="wh">字体大小：<a href="#">大</a> <a href="#" class="now">中</a> <a href="#">小</a> </span>
+            </header>
+            <p>{$vo.content}</p>
+            </section>
+        </article>
+        </foreach>
+    </div>
+</div>

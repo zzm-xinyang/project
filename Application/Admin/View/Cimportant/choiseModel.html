@@ -1,0 +1,134 @@
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 权力监控 <span class="c-gray en">&gt;</span> 修改权力运行表结构 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="pd-20">
+    <!--列出已有的数据表模型-->
+    <form action="{:U('choise', array('iid'=>$iid,'mid'=>$mid))}" method="post">
+    <volist name="models" id="table">
+        <table class="table table-border table-bordered table-hover table-bg mb-10">
+            <thead>
+                <tr class="text-l">
+                    <th width="25" class="text-c"><input type="radio" name="model" value="{$table['tid']}"></th>
+                    <volist name="table" id="t">
+                        <if condition="($t['comment'] neq '添加时间') AND ($t['comment'] neq '更新时间') AND ($t['comment'] neq '办理时间') AND ($t['comment'] neq '监控重点id') AND ($t['comment'] neq $table['tid'])">
+                            <th>{$t['comment']}</th>
+                    </if>
+                    </volist>
+                    <th width="150">评价</th>
+                </tr>
+            </thead>
+        </table>
+
+    </volist>
+    <input type="submit" value="确定" name="submit" class="btn btn-primary radius"/>
+
+    <span class="ml-5"><a class="btn btn-primary radius" onclick=jtzr_add('添加新结构','{:U("Cimportant/modelAdd",array("iid"=>$iid,'nextNumber'=>$nextNumber),"")}') href="javascript:;"><i class="Hui-iconfont">&#xe600;</i>添加新结构</a></span>
+    </form>
+</div>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/Validform/5.3.2/Validform.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/icheck/jquery.icheck.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/H-ui.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/H-ui.admin.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/My97DatePicker/WdatePicker.js"></script>
+<!--饼形图-->
+<script type="text/javascript" src="__PUBLIC__/admin/lib/Highcharts/4.1.7/js/highcharts.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/Highcharts/4.1.7/js/modules/exporting.js"></script>
+
+<script type="text/javascript">
+    $(function(){
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+        $.Huitab("#tab-system .tabBar span","#tab-system .tabCon","current","click","0");
+    });
+
+    /*饼形图*/
+    $(function () {
+        $('#container').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            title: {
+                text: '2017年党委主体责任落实统计'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        color: '#000000',
+                        connectorColor: '#f0000',
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                    }
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: '2017年度士官选取权力运行测评统计',
+                data: [
+                    {
+                        name: '好',
+                        y: 31.45,
+                        color:'#556B2F',
+                        sliced: true,
+                        selected: true
+                    },
+                    {
+                        name: '较好',
+                        y: 22.56,
+                        color:'#ff0000',
+                        sliced: true,
+                        selected: true
+                    },
+                    {
+                        name: '一般',
+                        y: 29.87,
+                        color:"#9A32CD",
+                        sliced: true,
+                        selected: true
+                    },
+                    {
+                        name: '差',
+                        y: 12.56,
+                        color:'#00ff00',
+                        sliced: true,
+                        selected: true
+                    }
+                ]
+            }]
+        });
+    });
+    /*集体责任-编辑*/
+    function jtzr_edit(title,url){
+        var index = layer.open({
+            type: 2,
+            title: title,
+            content: url
+        });
+        layer.full(index);
+    }
+    /*用户-删除*/
+    function member_del(obj,id){
+        layer.confirm('确认要删除吗？',function(index){
+            $(obj).parents("tr").remove();
+            layer.msg('已删除!',{icon:1,time:1000});
+        });
+    }
+    /*集体责任清单-添加*/
+    function jtzr_add(title,url){
+        var index = layer.open({
+            type: 2,
+            title: title,
+            content: url
+        });
+        layer.full(index);
+    }
+</script>

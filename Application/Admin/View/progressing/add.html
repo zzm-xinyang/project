@@ -1,0 +1,73 @@
+<div class="pd-20">
+    <form action="{:U('Progressing/save')}" method="post" class="form form-horizontal" id="form-article-add" enctype="multipart/form-data">
+        <!--从第5个字段开始添加数据-->
+        <volist name="fields" id="field" offset="5">
+            <div class="row cl">
+
+                <label class="form-label col-1">{$field['comment']}：</label>
+                <!--单行文本框-->
+                <if condition="$field['type'] eq 'varchar(200)'">
+                    <div class="formControls col-11">
+                        <div class="formControls col-10">
+                            <input type="text" class="input-text"  name="{$field['field']}">
+                        </div>
+                    </div>
+                <!--上传文件域-->
+                <elseif   condition="$field['type'] eq 'varchar(255)'" />
+                    <div class="formControls col-11">
+                        <span class="btn-upload form-group">
+                          <input class="input-text upload-url radius" type="text" name=""  readonly value=""> <a href="javascript:void();" class="btn btn-primary radius">上传</a>
+                          <input type="file" multiple name="{$field['field']}" class="input-file">
+                        </span>
+                    </div>
+                <!--日期选择框-->
+                <else />
+                    <div class="formControls col-11">
+                        <input type="text" onfocus="WdatePicker({maxDate:'%y-%M-%d'})" id="logmin" class="input-text Wdate" style="width:120px;" value="2017-06-12" name="{$field['field']}">
+                    </div>
+                </if>
+            </div>
+        </volist>
+        <div class="row cl">
+            <label class="form-label col-1"><span class="c-red">*</span>办理时间：</label>
+            <div class="formControls col-11">
+                <input type="text" onfocus="WdatePicker({maxDate:'%y-%M-%d'})" id="logmin" class="input-text Wdate" style="width:120px;" value="2017-06-12" name="processingtime">
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="row cl text-l">
+                <div class="col-11 col-offset-1">
+                    <input type="hidden" name="iid" value="{$iid}" />
+                    <input type="hidden" name="mid" value="{$mid}" />
+                    <input type="hidden" name="tableName" value="{$tableName}" />
+                    <button class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i>添加</button>
+                    <button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+                </div>
+            </div>
+    </form>
+</div>
+</div>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/icheck/jquery.icheck.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/Validform/5.3.2/Validform.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/webuploader/0.1.5/webuploader.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/ueditor/1.4.3/ueditor.config.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/H-ui.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/H-ui.admin.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+
+    });
+
+
+
+</script>

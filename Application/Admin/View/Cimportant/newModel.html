@@ -1,0 +1,60 @@
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 权力监控 <span class="c-gray en">&gt;</span> 修改权力运行表结构 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="pd-20">
+    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a class="btn btn-primary radius" onclick=jtzr_add('添加列','{:U("colsAdd",array("tableName"=>$tableName),"")}') href="javascript:;"><i class="Hui-iconfont">&#xe600;</i>添加列</a></span> </div>
+    <table class="table table-border table-bordered table-hover table-bg table-sort mt-20">
+        <thead>
+        <tr class="text-l">
+            <volist name="table" id="t">
+                <if condition="($t['comment'] neq '添加时间') AND ($t['comment'] neq '更新时间') AND ($t['comment'] neq '办理时间') AND ($t['comment'] neq '监控重点id')">
+                <th width="80">{$t['comment']}</th>
+                </if>
+            </volist>
+            <th width="100">办理时间</th>
+            <th width="120">评价</th>
+            <th width="120">操作</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/Validform/5.3.2/Validform.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/icheck/jquery.icheck.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/H-ui.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/H-ui.admin.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+$(function(){
+    $('.skin-minimal input').iCheck({
+        checkboxClass: 'icheckbox-blue',
+        radioClass: 'iradio-blue',
+        increaseArea: '20%'
+    });
+    $.Huitab("#tab-system .tabBar span","#tab-system .tabCon","current","click","0");
+});
+/*集体责任-编辑*/
+function jtzr_edit(title,url){
+var index = layer.open({
+type: 2,
+title: title,
+content: url
+});
+layer.full(index);
+}
+/*用户-删除*/
+function member_del(obj,id){
+layer.confirm('确认要删除吗？',function(index){
+$(obj).parents("tr").remove();
+layer.msg('已删除!',{icon:1,time:1000});
+});
+}
+/*集体责任清单-添加*/
+function jtzr_add(title,url){
+var index = layer.open({
+type: 2,
+title: title,
+content: url
+});
+layer.full(index);
+}
+</script>

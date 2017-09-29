@@ -1,0 +1,100 @@
+<div class="pd-20">
+    <form action="__URL__/update" method="post" class="form form-horizontal" id="form-user-character-add">
+
+        <div class="row cl">
+            <label class="form-label col-1">角色：</label>
+            <div class="formControls col-11">
+                <input type="text" class="input-text" value={$group.title} id="user-name" name="user-name">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-1">网站权限：</label>
+            <div class="formControls col-11">
+                <volist name="Modular" id="v1" key="k1">
+                    <dl class="permission-list">
+                    <dt>
+                        <label>
+                            <input type="checkbox" value={$k1-1} name="user-Character-0" id="user-Character-0">
+                            {$v1.title}</label>
+                    </dt>
+                    <dd>
+                        <volist name="Submodule[$k1-1]" id="v2" key="k2">
+
+                        <dl class="cl permission-list2">
+                            <dt>
+                                <label class="">
+                                    <input type="checkbox" value={$k2-1} name="user-Character-0-0" id="user-Character-0-0" >
+                                    {$v2['title']}</label>
+                            </dt>
+                            <dd>
+                                <volist name="operation[$k1-1][$k2-1]" id="v3" key="k3">
+                                <label class="">
+                                    <if condition="in_array($v3['id'],$group['rules'])">
+                                        <input type="checkbox" value={$v3['id']} name="user-Character-0-0-0[]" id="user-Character-0-0-1" checked="checked">
+                                        {$v3['title']}
+                                    <else />
+                                        <input type="checkbox" value={$v3['id']} name="user-Character-0-0-0[]" id="user-Character-0-0-1">
+                                        {$v3['title']}
+                                    </if>
+                                </label>
+                                </volist>
+                            </dd>
+                        </dl>
+
+                        </volist>
+                    </dd>
+                </dl>
+                </volist>
+            </div>
+        </div>
+
+        <div class="row cl">
+            <div class="col-10 col-offset-2">
+                <button type="submit" class="btn btn-primary radius" id="admin-role-save" name="admin-role-save" onclick="is_checked()"><i class="icon-ok"></i> 确定</button>
+                <button type="submit" class="btn btn-default radius" id="admin-role-save" name="admin-role-save"><i class="icon-ok"></i> 取消</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/H-ui.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/H-ui.admin.js"></script>
+<script>
+    $(function(){
+        $(".permission-list dt input:checkbox").click(function(){
+            $(this).closest("dl").find("dd input:checkbox").prop("checked",$(this).prop("checked"));
+        });
+        $(".permission-list2 dd input:checkbox").click(function(){
+            var l =$(this).parent().parent().find("input:checked").length;
+            var l2=$(this).parents(".permission-list").find(".permission-list2 dd").find("input:checked").length;
+            if($(this).prop("checked")){
+                $(this).closest("dl").find("dt input:checkbox").prop("checked",true);
+                $(this).parents(".permission-list").find("dt").first().find("input:checkbox").prop("checked",true);
+            }
+            else{
+                if(l==0){
+                    $(this).closest("dl").find("dt input:checkbox").prop("checked",false);
+                }
+                if(l2==0){
+                    $(this).parents(".permission-list").find("dt").first().find("input:checkbox").prop("checked",false);
+                }
+            }
+
+        });
+    });
+
+    function is_checked() {
+        var operation_obj = document.getElementsByName('user-Character-0-0-0[]');
+        operation_check_val = [];
+        for (k in operation_obj){
+            if (operation_obj[k].checked ){
+                operation_check_val[index].push(operation_obj.value);
+            }
+        }
+    window.location.href = "__URL__/update/user-Character-0-0-0/" + operation_check_val;
+    }
+
+</script>

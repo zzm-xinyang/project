@@ -1,0 +1,1 @@
+<?php if (!defined('THINK_PATH')) exit();?>衡水消防支队前台首页

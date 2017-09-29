@@ -1,0 +1,103 @@
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 权利监控 <span class="c-gray en">&gt;</span> 四项监控 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="pd-15">
+    <div class="pd-15 radius lh-22 mb-5" style="background: #eee;">
+        <h4 style="font-weight: bold;">{$major['subject']}</h4>
+        <div style="text-indent: 2em;" class="sqjk"><span class="init">&nbsp;{$major['content']}</span>&nbsp;&nbsp;<a title="修改" class="ml-5" onclick="jtzr_edit('修改四权监控内容','{:U("edit",array("id"=>$major["id"],"oid"=>$major["oid"]),"")}')" href="javascript:;"><i class="Hui-iconfont">&#xe6df;</i></a></div>
+    </div>
+    <div class="cl pd-5 bg-1 bk-gray">
+        <span class="l"><a href="javascript:;" class="btn btn-primary radius " onclick=jtzr_add('添加主题','{:U("add","oid=$oid","")}') ><i class="Hui-iconfont">&#xe600;</i> 添加主题</a></span>
+    </div>
+    <table class="table table-border table-bordered table-hover table-bg table-sort">
+        <thead>
+        <tr class="text-c">
+            <th width="25">ID</th>
+            <th width="100">主题</th>
+            <th>内容</th>
+            <th width="30">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <volist name="subjects" id="subject" key="k">
+        <tr class="text-c">
+            <td>{$k}</td>
+            <td>{$subject['subject']}</td>
+            <td  class="text-l">{$subject['content']}
+            </td>
+            <td> <a title="修改" class="ml-5" onclick="jtzr_edit('修改四权监控内容','{:U("edit2",array("id"=>$subject["id"],"oid"=>$subject["oid"]),"")}')" href="javascript:;"><i class="Hui-iconfont">&#xe6df;</i></a></a><br/><br/>&nbsp;<a title="删除" href="javascript:;" onclick="item_del(this,'1')" class="ml-5" style="text-decoration:none" id="{:U('delete',array('id'=>$subject['id']),'')}"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+        </tr>
+        </volist>
+        </tbody>
+    </table>
+
+
+</div>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/Validform/5.3.2/Validform.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/icheck/jquery.icheck.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/H-ui.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/H-ui.admin.js"></script>
+
+
+<script type="text/javascript">
+    $(function(){
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+        $.Huitab("#tab-system .tabBar span","#tab-system .tabCon","current","click","0");
+    });
+    $(function(){
+       //如果四权监控的内容为空，则添加前台手动添加内容
+        console.log($("h4").text().length)
+        if($("h4").text().length==0){
+            $("h4").text('四权监控');
+        }
+        console.log($(".init").text())
+        if($(".init").text().length<=1){
+            $(".init").text('四权指：依法确权、规范配权、阳光晒权、全程控权；四权指：依法确权、规范配权、阳光晒权、全程控权；四权指：依法确权、规范配权、阳光晒权、全程控权；四权指：依法确权、规范配权、阳光晒权、全程控权；四权指：依法确权、规范配权、阳光晒权、全程控权；四权指：依法确权、规范配权、阳光晒权、全程控权；四权指：依法确权、规范配权、阳光晒权、全程控权；四权指：依法确权、规范配权、阳光晒权、全程控权；四权指：依法确权、规范配权、阳光晒权、全程控权；四权指：依法确权、规范配权、阳光晒权、全程控权；四权指：依法确权、规范配权、阳光晒权、全程控权；四权指：依法确权、规范配权、阳光晒权、全程控权；');
+        }
+    });
+
+    /*事项-删除*/
+    function item_del(obj,id){
+        var url = $(obj).attr('id');
+        layer.confirm('确认要删除吗？',function(index){
+            $.get(url,function(data){
+                if(data==1){
+                    //location.reload();
+                    $(obj).parents("tr").remove();
+                    layer.msg('已删除!',{icon:1,time:1000});
+                }
+
+            })
+
+        });
+    }
+    /*集体责任-编辑*/
+    function jtzr_edit(title,url){
+        var index = layer.open({
+            type: 2,
+            title: title,
+            content: url
+        });
+        layer.full(index);
+    }
+    /*用户-删除*/
+    function member_del(obj,id){
+        layer.confirm('确认要删除吗？',function(index){
+            $(obj).parents("tr").remove();
+            layer.msg('已删除!',{icon:1,time:1000});
+        });
+    }
+    /*集体责任清单-添加*/
+    function jtzr_add(title,url){
+        var index = layer.open({
+            type: 2,
+            title: title,
+            content: url
+        });
+        layer.full(index);
+    }
+</script>

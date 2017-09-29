@@ -1,0 +1,1224 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/html5.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/respond.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__PUBLIC__/admin/css/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/admin/css/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/admin/lib/icheck/icheck.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/admin/lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/admin/css/new.css"  rel="stylesheet" type="text/css"  />
+<!--[if IE 6]>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>第一种形态</title>
+<script type="text/javascript">
+	//时间戳转成日期格式
+	function convertdate(timeStamp){
+		var date = new Date();
+			date.setTime(timeStamp * 1000);
+			var y = date.getFullYear();
+			var m = date.getMonth() + 1;
+			m = m < 10 ? ('0' + m) : m;
+			var d = date.getDate();
+			d = d < 10 ? ('0' + d) : d;
+
+			return y + '-' + m + '-' + d;
+	}
+	/*问责-搜索*/
+	function wz_search(){
+		var ssfs = document.getElementById("ssfsname").value;
+		var sjlx = document.getElementById("sjlx").value;
+		var xsly = document.getElementById("xsly").value;
+		var startdate = document.getElementById("logmin").value;
+		var enddate = document.getElementById("logmax").value;
+
+		var url = "__URL__/zjwzxt1_search";
+		$.ajax({
+			type: "post",
+			url: url,
+			dataType: "json",
+			data: {"ssfs":ssfs,"sjlx":sjlx,"xsly":xsly,"startdate":startdate,"enddate":enddate},
+			success: function(data){
+				var str = "";
+				switch(ssfs){
+					case "谈话提醒":
+						str = "<table class='table table-border table-bordered table-hover table-bg table-sort'><thead><tr class='text-c'><th width='25' rowspan='2'><input type='checkbox' name='' value=''></th><th width='25' rowspan='2'>ID</th><th colspan='2'>谈话人</th><th colspan='3'>谈话对象</th><th rowspan='2' width='70px'>谈话时间</th><th rowspan='2'>谈话内容摘要</th><th rowspan='2' width='80px'>涉及类型</th><th rowspan='2' width='80px'>问题线索来源</th><th width='30' rowspan='2'>操作</th><tr class='text-c'><th width='40px'>姓名</th><th width='50px'>职务</th><th width='40px'>姓名</th><th width='50px'>单位</th><th width='40px'>职务</th></tr></thead><tbody>";
+						$.each(data, function(index, item) {
+							str += "<tr><td class='text-c'><input type='checkbox' value='1' name=''></td><td class='text-c'>"
+									+ item.id
+									+"</td><td>"
+									+ item.name1
+									+"</td><td>"
+									+item.duty1
+									+"</td><td>"
+									+item.name2
+									+"</td><td>"
+									+item.unit2
+									+"</td><td>"
+									+item.duty2
+									+"</td><td>"
+									+convertdate(item.solvetime)
+									+"</td><td>"
+									+item.summary
+									+"</td><td>"
+									+item.tname
+									+"</td><td>"
+									+item.sname
+									+"</td><td><a title='修改' class='ml-5' onclick='jtzr_edit(\'修改执纪问责\',\'zjwzxt1_edit.html\')' href='javascript:;'><i class='Hui-iconfont'>&#xe6df;</i></a></a> <a title='删除' href='javascript:;' onclick='member_del(this,1)' class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6e2;</i></a></td></tr>	";
+						});
+						str += "</table>";
+						str += "<table class='table table-border table-bordered table-hover table-bg table-sort hide'><thead><tr class='text-c'><th width='25' rowspan='2'><input type='checkbox' name='' value=''></th><th width='25' rowspan='2'>ID</th><th colspan='2'>警示谈话人</th><th colspan='3'>警示谈话对象</th><th rowspan='2' width='80px'>警示谈话时间</th><th rowspan='2' width='80px'>警示谈话地点</th><th rowspan='2'>谈话内容摘要</th><th rowspan='2' width='80px'>涉及类型</th><th rowspan='2' width='80px'>问题线索来源</th><th width='30' rowspan='2'>操作</th><tr class='text-c'><th width='40px'>姓名</th><th width='50px'>职务</th><th width='40px'>姓名</th><th width='50px'>单位</th><th width='40px'>职务</th>	</tr></thead><tbody>";
+						$.each(data, function(index, item) {
+							str += "<tr><td class='text-c'><input type='checkbox' value='1' name=''></td><td class='text-c'>"
+									+ item.id
+									+"</td><td>"
+									+ item.name1
+									+"</td><td>"
+									+item.duty1
+									+"</td><td>"
+									+item.name2
+									+"</td><td>"
+									+item.unit2
+									+"</td><td>"
+									+item.duty2
+									+"</td><td>"
+									+convertdate(item.solvetime)
+									+"</td><td>"
+									+item.venue
+									+"</td><td>"
+									+item.summary
+									+"</td><td>"
+									+item.tname
+									+"</td><td>"
+									+item.sname
+									+"</td><td><a title='修改' class='ml-5' onclick='jtzr_edit(\'修改执纪问责\',\'zjwzxt1_edit.html\')' href='javascript:;'><i class='Hui-iconfont'>&#xe6df;</i></a></a> <a title='删除' href='javascript:;' onclick='member_del(this,1)' class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6e2;</i></a></td></tr>	";
+						});
+						str += "</table>";
+						str += "<table class='table table-border table-bordered table-hover table-bg table-sort hide'><thead><tr class='text-c'><th width='25' rowspan='2'><input type='checkbox' name='' value=''></th><th width='25' rowspan='2'>ID</th><th colspan='2'>实施人</th><th colspan='3'>批评教育对象</th><th rowspan='2' width='70px'>时间</th><th rowspan='2'>内容摘要</th><th rowspan='2' width='80px'>涉及类型</th><th rowspan='2' width='80px'>问题线索来源</th><th width='30' rowspan='2'>操作</th><tr class='text-c'><th width='40px'>姓名</th><th width='50px'>职务</th><th width='40px'>姓名</th><th width='50px'>单位</th><th width='40px'>职务</th></tr></thead><tbody>";
+						$.each(data, function(index, item) {
+							str += "<tr><td class='text-c'><input type='checkbox' value='1' name=''></td><td class='text-c'>"
+									+ item.id
+									+"</td><td>"
+									+ item.name1
+									+"</td><td>"
+									+item.duty1
+									+"</td><td>"
+									+item.name2
+									+"</td><td>"
+									+item.unit2
+									+"</td><td>"
+									+item.duty2
+									+"</td><td>"
+									+convertdate(item.solvetime)
+									+"</td><td>"
+									+item.summary
+									+"</td><td>"
+									+item.tname
+									+"</td><td>"
+									+item.sname
+									+"</td><td><a title='修改' class='ml-5' onclick='jtzr_edit(\'修改执纪问责\',\'zjwzxt1_edit.html\')' href='javascript:;'><i class='Hui-iconfont'>&#xe6df;</i></a></a> <a title='删除' href='javascript:;' onclick='member_del(this,1)' class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6e2;</i></a></td></tr>	";
+						});
+						str += "</table>";
+						str +="<table class='table table-border table-bordered table-hover table-bg table-sort hide'><thead><tr class='text-c'><th width='25' rowspan='2'><input type='checkbox' name='' value=''></th><th width='25' rowspan='2'>ID</th><th colspan='3'>纠正或责令停止违纪行为对象</th><th rowspan='2' width='70px'>时间</th><th rowspan='2'>摘要</th><th rowspan='2' width='80px'>涉及类型</th><th rowspan='2' width='80px'>问题线索来源</th><th width='30' rowspan='2'>操作</th><tr class='text-c'><th width='40px'>姓名</th><th width='50px'>单位</th><th width='40px'>职务</th></tr></thead><tbody>";
+						$.each(data, function(index, item) {
+							str += "<tr><td class='text-c'><input type='checkbox' value='1' name=''></td><td class='text-c'>"
+									+ item.id
+									+"</td><td>"
+									+item.name2
+									+"</td><td>"
+									+item.unit2
+									+"</td><td>"
+									+item.duty2
+									+"</td><td>"
+									+convertdate(item.solvetime)
+									+"</td><td>"
+									+item.summary
+									+"</td><td>"
+									+item.tname
+									+"</td><td>"
+									+item.sname
+									+"</td><td><a title='修改' class='ml-5' onclick='jtzr_edit(\'修改执纪问责\',\'zjwzxt1_edit.html\')' href='javascript:;'><i class='Hui-iconfont'>&#xe6df;</i></a></a> <a title='删除' href='javascript:;' onclick='member_del(this,1)' class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6e2;</i></a></td></tr>	";
+						});
+						str += "</table>";
+						str +="<table class='table table-border table-bordered table-hover table-bg table-sort hide'><thead><tr class='text-c'><th width='25' rowspan='2'><input type='checkbox' name='' value=''></th><th width='25' rowspan='2'>ID</th><th colspan='3'>责成退缴违纪所得</th><th rowspan='2' width='70px'>时间</th><th rowspan='2'>摘要</th><th rowspan='2' width='80px'>涉及类型</th><th rowspan='2' width='80px'>问题线索来源</th><th width='30' rowspan='2'>操作</th><tr class='text-c'><th width='40px'>姓名</th><th width='50px'>单位</th><th width='40px'>职务</th></tr></thead><tbody>";
+						$.each(data, function(index, item) {
+							str += "<tr><td class='text-c'><input type='checkbox' value='1' name=''></td><td class='text-c'>"
+									+ item.id
+									+"</td><td>"
+									+item.name2
+									+"</td><td>"
+									+item.unit2
+									+"</td><td>"
+									+item.duty2
+									+"</td><td>"
+									+convertdate(item.solvetime)
+									+"</td><td>"
+									+item.summary
+									+"</td><td>"
+									+item.tname
+									+"</td><td>"
+									+item.sname
+									+"</td><td><a title='修改' class='ml-5' onclick='jtzr_edit(\'修改执纪问责\',\'zjwzxt1_edit.html\')' href='javascript:;'><i class='Hui-iconfont'>&#xe6df;</i></a></a> <a title='删除' href='javascript:;' onclick='member_del(this,1)' class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6e2;</i></a></td></tr>	";
+						});
+						str += "</table>";
+						str +="<table class='table table-border table-bordered table-hover table-bg table-sort hide'><thead><tr class='text-c'><th width='25' rowspan='2'><input type='checkbox' name='' value=''></th><th width='25' rowspan='2'>ID</th><th colspan='3'>限期整改对象</th><th rowspan='2' width='70px'>时间</th><th rowspan='2'>摘要</th><th rowspan='2' width='80px'>涉及类型</th><th rowspan='2' width='80px'>问题线索来源</th><th width='30' rowspan='2'>操作</th><tr class='text-c'><th width='40px'>姓名</th><th width='50px'>单位</th><th width='40px'>职务</th></tr></thead><tbody>";
+						$.each(data, function(index, item) {
+							str += "<tr><td class='text-c'><input type='checkbox' value='1' name=''></td><td class='text-c'>"
+									+ item.id
+									+"</td><td>"
+									+item.name2
+									+"</td><td>"
+									+item.unit2
+									+"</td><td>"
+									+item.duty2
+									+"</td><td>"
+									+convertdate(item.solvetime)
+									+"</td><td>"
+									+item.summary
+									+"</td><td>"
+									+item.tname
+									+"</td><td>"
+									+item.sname
+									+"</td><td><a title='修改' class='ml-5' onclick='jtzr_edit(\'修改执纪问责\',\'zjwzxt1_edit.html\')' href='javascript:;'><i class='Hui-iconfont'>&#xe6df;</i></a></a> <a title='删除' href='javascript:;' onclick='member_del(this,1)' class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6e2;</i></a></td></tr>	";
+						});
+						str += "</table>";
+						str +="<table class='table table-border table-bordered table-hover table-bg table-sort hide'><thead><tr class='text-c'><th width='25' rowspan='2'><input type='checkbox' name='' value=''></th><th width='25' rowspan='2'>ID</th><th colspan='2'>责令检查人</th><th colspan='3'>责令检查对象</th><th rowspan='2' width='80px'>责令检查时间</th><th rowspan='2' width='80px'>检查形式</th><th rowspan='2'>责令检查内容摘要</th><th rowspan='2' width='80px'>涉及类型</th><th rowspan='2' width='80px'>问题线索来源</th><th width='30' rowspan='2'>操作</th><tr class='text-c'><th width='40px'>姓名</th><th width='50px'>职务</th><th width='40px'>姓名</th><th width='50px'>单位</th><th width='40px'>职务</th></tr></thead><tbody>";
+						$.each(data, function(index, item) {
+							str += "<tr><td class='text-c'><input type='checkbox' value='1' name=''></td><td class='text-c'>"
+									+ item.id
+									+"</td><td>"
+									+ item.name1
+									+"</td><td>"
+									+item.duty1
+									+"</td><td>"
+									+item.name2
+									+"</td><td>"
+									+item.unit2
+									+"</td><td>"
+									+item.duty2
+									+"</td><td>"
+									+convertdate(item.solvetime)
+									+"</td><td>"
+									+item.jcxs
+									+"</td><td>"
+									+item.summary
+									+"</td><td>"
+									+item.tname
+									+"</td><td>"
+									+item.sname
+									+"</td><td><a title='修改' class='ml-5' onclick='jtzr_edit(\'修改执纪问责\',\'zjwzxt1_edit.html\')' href='javascript:;'><i class='Hui-iconfont'>&#xe6df;</i></a></a> <a title='删除' href='javascript:;' onclick='member_del(this,1)' class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6e2;</i></a></td></tr>	";
+						});
+						str += "</table>";
+						str +="<table class='table table-border table-bordered table-hover table-bg table-sort hide'><thead><tr class='text-c'><th width='25' rowspan='2'><input type='checkbox' name='' value=''></th><th width='25' rowspan='2'>ID</th><th colspan='2'>批评帮助对象</th><th colspan='3'>会议主持人</th><th rowspan='2' width='70px'>召开时间</th><th rowspan='2' width='70px'>召开地点</th><th rowspan='2' width='70px'>参加人员</th><th rowspan='2' width='70px'>列席人员</th><th rowspan='2'>内容摘要</th><th rowspan='2' width='80px'>涉及类型</th><th rowspan='2' width='80px'>问题线索来源</th><th width='30' rowspan='2'>操作</th><tr class='text-c'><th width='40px'>姓名</th><th width='50px'>职务</th><th width='40px'>姓名</th><th width='50px'>单位</th><th width='40px'>职务</th></tr></thead><tbody>";
+						$.each(data, function(index, item) {
+							str += "<tr><td class='text-c'><input type='checkbox' value='1' name=''></td><td class='text-c'>"
+									+ item.id
+									+"</td><td>"
+									+ item.name1
+									+"</td><td>"
+									+item.duty1
+									+"</td><td>"
+									+item.name2
+									+"</td><td>"
+									+item.unit2
+									+"</td><td>"
+									+item.duty2
+									+"</td><td>"
+									+convertdate(item.solvetime)
+									+"</td><td>"
+									+item.venue
+									+"</td><td>"
+									+item.participant
+									+"</td><td>"
+									+item.attendings
+									+"</td><td>"
+									+item.summary
+									+"</td><td>"
+									+item.tname
+									+"</td><td>"
+									+item.sname
+									+"</td><td><a title='修改' class='ml-5' onclick='jtzr_edit(\'修改执纪问责\',\'zjwzxt1_edit.html\')' href='javascript:;'><i class='Hui-iconfont'>&#xe6df;</i></a></a> <a title='删除' href='javascript:;' onclick='member_del(this,1)' class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6e2;</i></a></td></tr>	";
+						});
+						str += "</table>";
+						str +="<table class='table table-border table-bordered table-hover table-bg table-sort hide'><thead><tr class='text-c'><th width='25' rowspan='2'><input type='checkbox' name='' value=''></th><th width='25' rowspan='2'>ID</th><th colspan='3'>责令公开道歉或检讨对象</th><th rowspan='2' width='80px'>警示谈话时间</th><th rowspan='2' width='70px'>检查形式</th><th rowspan='2'>内容摘要</th><th rowspan='2' width='80px'>涉及类型</th><th rowspan='2' width='80px'>问题线索来源</th><th width='30' rowspan='2'>操作</th><tr class='text-c'><th width='40px'>姓名</th><th width='50px'>单位</th><th width='40px'>职务</th></tr></thead><tbody>";
+						$.each(data, function(index, item) {
+							str += "<tr><td class='text-c'><input type='checkbox' value='1' name=''></td><td class='text-c'>"
+									+ item.id
+									+"</td><td>"
+									+item.name2
+									+"</td><td>"
+									+item.unit2
+									+"</td><td>"
+									+item.duty2
+									+"</td><td>"
+									+convertdate(item.solvetime)
+									+"</td><td>"
+									+item.jcxs
+									+"</td><td>"
+									+item.summary
+									+"</td><td>"
+									+item.tname
+									+"</td><td>"
+									+item.sname
+									+"</td><td><a title='修改' class='ml-5' onclick='jtzr_edit(\'修改执纪问责\',\'zjwzxt1_edit.html\')' href='javascript:;'><i class='Hui-iconfont'>&#xe6df;</i></a></a> <a title='删除' href='javascript:;' onclick='member_del(this,1)' class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6e2;</i></a></td></tr>	";
+						});
+						str += "</table>";
+						str +="<table class='table table-border table-bordered table-hover table-bg table-sort hide'><thead><tr class='text-c'><th width='25' rowspan='2'><input type='checkbox' name='' value=''></th><th width='25' rowspan='2'>ID</th><th colspan='3'>通报批评对象</th><th rowspan='2' width='70px'>发布部门</th><th rowspan='2' width='70px'>发布时间</th><th rowspan='2'>通报批评内容摘要</th><th rowspan='2' width='80px'>涉及类型</th><th rowspan='2' width='80px'>问题线索来源</th><th width='30' rowspan='2'>操作</th><tr class='text-c'><th width='40px'>姓名</th><th width='50px'>单位</th><th width='40px'>职务</th></tr></thead><tbody>";
+						$.each(data, function(index, item) {
+							str += "<tr><td class='text-c'><input type='checkbox' value='1' name=''></td><td class='text-c'>"
+									+ item.id
+									+"</td><td>"
+									+item.name2
+									+"</td><td>"
+									+item.unit2
+									+"</td><td>"
+									+item.duty2
+									+"</td><td>"
+									+item.department
+									+"</td><td>"
+									+convertdate(item.solvetime)
+									+"</td><td>"
+									+item.summary
+									+"</td><td>"
+									+item.tname
+									+"</td><td>"
+									+item.sname
+									+"</td><td><a title='修改' class='ml-5' onclick='jtzr_edit(\'修改执纪问责\',\'zjwzxt1_edit.html\')' href='javascript:;'><i class='Hui-iconfont'>&#xe6df;</i></a></a> <a title='删除' href='javascript:;' onclick='member_del(this,1)' class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6e2;</i></a></td></tr>	";
+						});
+						str += "</table>";
+						str="<table class='table table-border table-bordered table-hover table-bg table-sort hide'><thead><tr class='text-c'><th width='25' rowspan='2'><input type='checkbox' name='' value=''></th><th width='25' rowspan='2'>ID</th><th colspan='2'>诫勉谈话人</th><th colspan='3'>诫勉谈话对象</th><th rowspan='2' width='80px'>诫勉谈话时间</th><th rowspan='2' width='80px'>诫勉谈话地点</th><th rowspan='2'>诫勉谈话内容摘要</th><th rowspan='2' width='80px'>涉及类型</th><th rowspan='2' width='80px'>问题线索来源</th><th width='30' rowspan='2'>操作</th>	<tr class='text-c'><th width='40px'>姓名</th><th width=50px>职务</th><th width='40px'>姓名</th><th width='50px'>单位</th><th width='40px'>职务</th></tr></thead><tbody>";
+						$.each(data, function(index, item) {
+							str += "<tr><td class='text-c'><input type='checkbox' value='1' name=''></td><td class='text-c'>"
+									+ item.id
+									+"</td><td>"
+									+ item.name1
+									+"</td><td>"
+									+item.duty1
+									+"</td><td>"
+									+item.name2
+									+"</td><td>"
+									+item.unit2
+									+"</td><td>"
+									+item.duty2
+									+"</td><td>"
+									+convertdate(item.solvetime)
+									+"</td><td>"
+									+item.venue
+									+"</td><td>"
+									+item.summary
+									+"</td><td>"
+									+item.tname
+									+"</td><td>"
+									+item.sname
+									+"</td><td><a title='修改' class='ml-5' onclick='jtzr_edit(\'修改执纪问责\',\'zjwzxt1_edit.html\')' href='javascript:;'><i class='Hui-iconfont'>&#xe6df;</i></a></a> <a title='删除' href='javascript:;' onclick='member_del(this,1)' class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6e2;</i></a></td></tr>	";
+						});
+						str += "</table>";
+						break;
+					case "警示谈话":
+						str = "<table class='table table-border table-bordered table-hover table-bg table-sort hide'><thead><tr class='text-c'><th width='25' rowspan='2'><input type='checkbox' name='' value=''></th><th width='25' rowspan='2'>ID</th><th colspan='2'>谈话人</th><th colspan='3'>谈话对象</th><th rowspan='2' width='70px'>谈话时间</th><th rowspan='2'>谈话内容摘要</th><th rowspan='2' width='80px'>涉及类型</th><th rowspan='2' width='80px'>问题线索来源</th><th width='30' rowspan='2'>操作</th><tr class='text-c'><th width='40px'>姓名</th><th width='50px'>职务</th><th width='40px'>姓名</th><th width='50px'>单位</th><th width='40px'>职务</th></tr></thead><tbody>";
+						$.each(data, function(index, item) {
+							str += "<tr><td class='text-c'><input type='checkbox' value='1' name=''></td><td class='text-c'>"
+									+ item.id
+									+"</td><td>"
+									+ item.name1
+									+"</td><td>"
+									+item.duty1
+									+"</td><td>"
+									+item.name2
+									+"</td><td>"
+									+item.unit2
+									+"</td><td>"
+									+item.duty2
+									+"</td><td>"
+									+convertdate(item.solvetime)
+									+"</td><td>"
+									+item.summary
+									+"</td><td>"
+									+item.tname
+									+"</td><td>"
+									+item.sname
+									+"</td><td><a title='修改' class='ml-5' onclick='jtzr_edit(\'修改执纪问责\',\'zjwzxt1_edit.html\')' href='javascript:;'><i class='Hui-iconfont'>&#xe6df;</i></a></a> <a title='删除' href='javascript:;' onclick='member_del(this,1)' class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6e2;</i></a></td></tr>	";
+						});
+						str += "</table>";
+						str += "<table class='table table-border table-bordered table-hover table-bg table-sort'><thead><tr class='text-c'><th width='25' rowspan='2'><input type='checkbox' name='' value=''></th><th width='25' rowspan='2'>ID</th><th colspan='2'>警示谈话人</th><th colspan='3'>警示谈话对象</th><th rowspan='2' width='80px'>警示谈话时间</th><th rowspan='2' width='80px'>警示谈话地点</th><th rowspan='2'>谈话内容摘要</th><th rowspan='2' width='80px'>涉及类型</th><th rowspan='2' width='80px'>问题线索来源</th><th width='30' rowspan='2'>操作</th><tr class='text-c'><th width='40px'>姓名</th><th width='50px'>职务</th><th width='40px'>姓名</th><th width='50px'>单位</th><th width='40px'>职务</th>	</tr></thead><tbody>";
+						$.each(data, function(index, item) {
+							str += "<tr><td class='text-c'><input type='checkbox' value='1' name=''></td><td class='text-c'>"
+									+ item.id
+									+"</td><td>"
+									+ item.name1
+									+"</td><td>"
+									+item.duty1
+									+"</td><td>"
+									+item.name2
+									+"</td><td>"
+									+item.unit2
+									+"</td><td>"
+									+item.duty2
+									+"</td><td>"
+									+convertdate(item.solvetime)
+									+"</td><td>"
+									+item.venue
+									+"</td><td>"
+									+item.summary
+									+"</td><td>"
+									+item.tname
+									+"</td><td>"
+									+item.sname
+									+"</td><td><a title='修改' class='ml-5' onclick='jtzr_edit(\'修改执纪问责\',\'zjwzxt1_edit.html\')' href='javascript:;'><i class='Hui-iconfont'>&#xe6df;</i></a></a> <a title='删除' href='javascript:;' onclick='member_del(this,1)' class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6e2;</i></a></td></tr>	";
+						});
+						str += "</table>";
+						str += "<table class='table table-border table-bordered table-hover table-bg table-sort hide'><thead><tr class='text-c'><th width='25' rowspan='2'><input type='checkbox' name='' value=''></th><th width='25' rowspan='2'>ID</th><th colspan='2'>实施人</th><th colspan='3'>批评教育对象</th><th rowspan='2' width='70px'>时间</th><th rowspan='2'>内容摘要</th><th rowspan='2' width='80px'>涉及类型</th><th rowspan='2' width='80px'>问题线索来源</th><th width='30' rowspan='2'>操作</th><tr class='text-c'><th width='40px'>姓名</th><th width='50px'>职务</th><th width='40px'>姓名</th><th width='50px'>单位</th><th width='40px'>职务</th></tr></thead><tbody>";
+						$.each(data, function(index, item) {
+							str += "<tr><td class='text-c'><input type='checkbox' value='1' name=''></td><td class='text-c'>"
+									+ item.id
+									+"</td><td>"
+									+ item.name1
+									+"</td><td>"
+									+item.duty1
+									+"</td><td>"
+									+item.name2
+									+"</td><td>"
+									+item.unit2
+									+"</td><td>"
+									+item.duty2
+									+"</td><td>"
+									+convertdate(item.solvetime)
+									+"</td><td>"
+									+item.summary
+									+"</td><td>"
+									+item.tname
+									+"</td><td>"
+									+item.sname
+									+"</td><td><a title='修改' class='ml-5' onclick='jtzr_edit(\'修改执纪问责\',\'zjwzxt1_edit.html\')' href='javascript:;'><i class='Hui-iconfont'>&#xe6df;</i></a></a> <a title='删除' href='javascript:;' onclick='member_del(this,1)' class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6e2;</i></a></td></tr>	";
+						});
+						str += "</table>";
+						str +="<table class='table table-border table-bordered table-hover table-bg table-sort hide'><thead><tr class='text-c'><th width='25' rowspan='2'><input type='checkbox' name='' value=''></th><th width='25' rowspan='2'>ID</th><th colspan='3'>纠正或责令停止违纪行为对象</th><th rowspan='2' width='70px'>时间</th><th rowspan='2'>摘要</th><th rowspan='2' width='80px'>涉及类型</th><th rowspan='2' width='80px'>问题线索来源</th><th width='30' rowspan='2'>操作</th><tr class='text-c'><th width='40px'>姓名</th><th width='50px'>单位</th><th width='40px'>职务</th></tr></thead><tbody>";
+						$.each(data, function(index, item) {
+							str += "<tr><td class='text-c'><input type='checkbox' value='1' name=''></td><td class='text-c'>"
+									+ item.id
+									+"</td><td>"
+									+item.name2
+									+"</td><td>"
+									+item.unit2
+									+"</td><td>"
+									+item.duty2
+									+"</td><td>"
+									+convertdate(item.solvetime)
+									+"</td><td>"
+									+item.summary
+									+"</td><td>"
+									+item.tname
+									+"</td><td>"
+									+item.sname
+									+"</td><td><a title='修改' class='ml-5' onclick='jtzr_edit(\'修改执纪问责\',\'zjwzxt1_edit.html\')' href='javascript:;'><i class='Hui-iconfont'>&#xe6df;</i></a></a> <a title='删除' href='javascript:;' onclick='member_del(this,1)' class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6e2;</i></a></td></tr>	";
+						});
+						str += "</table>";
+						str +="<table class='table table-border table-bordered table-hover table-bg table-sort hide'><thead><tr class='text-c'><th width='25' rowspan='2'><input type='checkbox' name='' value=''></th><th width='25' rowspan='2'>ID</th><th colspan='3'>责成退缴违纪所得</th><th rowspan='2' width='70px'>时间</th><th rowspan='2'>摘要</th><th rowspan='2' width='80px'>涉及类型</th><th rowspan='2' width='80px'>问题线索来源</th><th width='30' rowspan='2'>操作</th><tr class='text-c'><th width='40px'>姓名</th><th width='50px'>单位</th><th width='40px'>职务</th></tr></thead><tbody>";
+						$.each(data, function(index, item) {
+							str += "<tr><td class='text-c'><input type='checkbox' value='1' name=''></td><td class='text-c'>"
+									+ item.id
+									+"</td><td>"
+									+item.name2
+									+"</td><td>"
+									+item.unit2
+									+"</td><td>"
+									+item.duty2
+									+"</td><td>"
+									+convertdate(item.solvetime)
+									+"</td><td>"
+									+item.summary
+									+"</td><td>"
+									+item.tname
+									+"</td><td>"
+									+item.sname
+									+"</td><td><a title='修改' class='ml-5' onclick='jtzr_edit(\'修改执纪问责\',\'zjwzxt1_edit.html\')' href='javascript:;'><i class='Hui-iconfont'>&#xe6df;</i></a></a> <a title='删除' href='javascript:;' onclick='member_del(this,1)' class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6e2;</i></a></td></tr>	";
+						});
+						str += "</table>";
+						str +="<table class='table table-border table-bordered table-hover table-bg table-sort hide'><thead><tr class='text-c'><th width='25' rowspan='2'><input type='checkbox' name='' value=''></th><th width='25' rowspan='2'>ID</th><th colspan='3'>限期整改对象</th><th rowspan='2' width='70px'>时间</th><th rowspan='2'>摘要</th><th rowspan='2' width='80px'>涉及类型</th><th rowspan='2' width='80px'>问题线索来源</th><th width='30' rowspan='2'>操作</th><tr class='text-c'><th width='40px'>姓名</th><th width='50px'>单位</th><th width='40px'>职务</th></tr></thead><tbody>";
+						$.each(data, function(index, item) {
+							str += "<tr><td class='text-c'><input type='checkbox' value='1' name=''></td><td class='text-c'>"
+									+ item.id
+									+"</td><td>"
+									+item.name2
+									+"</td><td>"
+									+item.unit2
+									+"</td><td>"
+									+item.duty2
+									+"</td><td>"
+									+convertdate(item.solvetime)
+									+"</td><td>"
+									+item.summary
+									+"</td><td>"
+									+item.tname
+									+"</td><td>"
+									+item.sname
+									+"</td><td><a title='修改' class='ml-5' onclick='jtzr_edit(\'修改执纪问责\',\'zjwzxt1_edit.html\')' href='javascript:;'><i class='Hui-iconfont'>&#xe6df;</i></a></a> <a title='删除' href='javascript:;' onclick='member_del(this,1)' class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6e2;</i></a></td></tr>	";
+						});
+						str += "</table>";
+						str +="<table class='table table-border table-bordered table-hover table-bg table-sort hide'><thead><tr class='text-c'><th width='25' rowspan='2'><input type='checkbox' name='' value=''></th><th width='25' rowspan='2'>ID</th><th colspan='2'>责令检查人</th><th colspan='3'>责令检查对象</th><th rowspan='2' width='80px'>责令检查时间</th><th rowspan='2' width='80px'>检查形式</th><th rowspan='2'>责令检查内容摘要</th><th rowspan='2' width='80px'>涉及类型</th><th rowspan='2' width='80px'>问题线索来源</th><th width='30' rowspan='2'>操作</th><tr class='text-c'><th width='40px'>姓名</th><th width='50px'>职务</th><th width='40px'>姓名</th><th width='50px'>单位</th><th width='40px'>职务</th></tr></thead><tbody>";
+						$.each(data, function(index, item) {
+							str += "<tr><td class='text-c'><input type='checkbox' value='1' name=''></td><td class='text-c'>"
+									+ item.id
+									+"</td><td>"
+									+ item.name1
+									+"</td><td>"
+									+item.duty1
+									+"</td><td>"
+									+item.name2
+									+"</td><td>"
+									+item.unit2
+									+"</td><td>"
+									+item.duty2
+									+"</td><td>"
+									+convertdate(item.solvetime)
+									+"</td><td>"
+									+item.jcxs
+									+"</td><td>"
+									+item.summary
+									+"</td><td>"
+									+item.tname
+									+"</td><td>"
+									+item.sname
+									+"</td><td><a title='修改' class='ml-5' onclick='jtzr_edit(\'修改执纪问责\',\'zjwzxt1_edit.html\')' href='javascript:;'><i class='Hui-iconfont'>&#xe6df;</i></a></a> <a title='删除' href='javascript:;' onclick='member_del(this,1)' class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6e2;</i></a></td></tr>	";
+						});
+						str += "</table>";
+						str +="<table class='table table-border table-bordered table-hover table-bg table-sort hide'><thead><tr class='text-c'><th width='25' rowspan='2'><input type='checkbox' name='' value=''></th><th width='25' rowspan='2'>ID</th><th colspan='2'>批评帮助对象</th><th colspan='3'>会议主持人</th><th rowspan='2' width='70px'>召开时间</th><th rowspan='2' width='70px'>召开地点</th><th rowspan='2' width='70px'>参加人员</th><th rowspan='2' width='70px'>列席人员</th><th rowspan='2'>内容摘要</th><th rowspan='2' width='80px'>涉及类型</th><th rowspan='2' width='80px'>问题线索来源</th><th width='30' rowspan='2'>操作</th><tr class='text-c'><th width='40px'>姓名</th><th width='50px'>职务</th><th width='40px'>姓名</th><th width='50px'>单位</th><th width='40px'>职务</th></tr></thead><tbody>";
+						$.each(data, function(index, item) {
+							str += "<tr><td class='text-c'><input type='checkbox' value='1' name=''></td><td class='text-c'>"
+									+ item.id
+									+"</td><td>"
+									+ item.name1
+									+"</td><td>"
+									+item.duty1
+									+"</td><td>"
+									+item.name2
+									+"</td><td>"
+									+item.unit2
+									+"</td><td>"
+									+item.duty2
+									+"</td><td>"
+									+convertdate(item.solvetime)
+									+"</td><td>"
+									+item.venue
+									+"</td><td>"
+									+item.participant
+									+"</td><td>"
+									+item.attendings
+									+"</td><td>"
+									+item.summary
+									+"</td><td>"
+									+item.tname
+									+"</td><td>"
+									+item.sname
+									+"</td><td><a title='修改' class='ml-5' onclick='jtzr_edit(\'修改执纪问责\',\'zjwzxt1_edit.html\')' href='javascript:;'><i class='Hui-iconfont'>&#xe6df;</i></a></a> <a title='删除' href='javascript:;' onclick='member_del(this,1)' class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6e2;</i></a></td></tr>	";
+						});
+						str += "</table>";
+						str +="<table class='table table-border table-bordered table-hover table-bg table-sort hide'><thead><tr class='text-c'><th width='25' rowspan='2'><input type='checkbox' name='' value=''></th><th width='25' rowspan='2'>ID</th><th colspan='3'>责令公开道歉或检讨对象</th><th rowspan='2' width='80px'>警示谈话时间</th><th rowspan='2' width='70px'>检查形式</th><th rowspan='2'>内容摘要</th><th rowspan='2' width='80px'>涉及类型</th><th rowspan='2' width='80px'>问题线索来源</th><th width='30' rowspan='2'>操作</th><tr class='text-c'><th width='40px'>姓名</th><th width='50px'>单位</th><th width='40px'>职务</th></tr></thead><tbody>";
+						$.each(data, function(index, item) {
+							str += "<tr><td class='text-c'><input type='checkbox' value='1' name=''></td><td class='text-c'>"
+									+ item.id
+									+"</td><td>"
+									+item.name2
+									+"</td><td>"
+									+item.unit2
+									+"</td><td>"
+									+item.duty2
+									+"</td><td>"
+									+convertdate(item.solvetime)
+									+"</td><td>"
+									+item.jcxs
+									+"</td><td>"
+									+item.summary
+									+"</td><td>"
+									+item.tname
+									+"</td><td>"
+									+item.sname
+									+"</td><td><a title='修改' class='ml-5' onclick='jtzr_edit(\'修改执纪问责\',\'zjwzxt1_edit.html\')' href='javascript:;'><i class='Hui-iconfont'>&#xe6df;</i></a></a> <a title='删除' href='javascript:;' onclick='member_del(this,1)' class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6e2;</i></a></td></tr>	";
+						});
+						str += "</table>";
+						str +="<table class='table table-border table-bordered table-hover table-bg table-sort hide'><thead><tr class='text-c'><th width='25' rowspan='2'><input type='checkbox' name='' value=''></th><th width='25' rowspan='2'>ID</th><th colspan='3'>通报批评对象</th><th rowspan='2' width='70px'>发布部门</th><th rowspan='2' width='70px'>发布时间</th><th rowspan='2'>通报批评内容摘要</th><th rowspan='2' width='80px'>涉及类型</th><th rowspan='2' width='80px'>问题线索来源</th><th width='30' rowspan='2'>操作</th><tr class='text-c'><th width='40px'>姓名</th><th width='50px'>单位</th><th width='40px'>职务</th></tr></thead><tbody>";
+						$.each(data, function(index, item) {
+							str += "<tr><td class='text-c'><input type='checkbox' value='1' name=''></td><td class='text-c'>"
+									+ item.id
+									+"</td><td>"
+									+item.name2
+									+"</td><td>"
+									+item.unit2
+									+"</td><td>"
+									+item.duty2
+									+"</td><td>"
+									+item.department
+									+"</td><td>"
+									+convertdate(item.solvetime)
+									+"</td><td>"
+									+item.summary
+									+"</td><td>"
+									+item.tname
+									+"</td><td>"
+									+item.sname
+									+"</td><td><a title='修改' class='ml-5' onclick='jtzr_edit(\'修改执纪问责\',\'zjwzxt1_edit.html\')' href='javascript:;'><i class='Hui-iconfont'>&#xe6df;</i></a></a> <a title='删除' href='javascript:;' onclick='member_del(this,1)' class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6e2;</i></a></td></tr>	";
+						});
+						str += "</table>";
+						str +="<table class='table table-border table-bordered table-hover table-bg table-sort hide'><thead><tr class='text-c'><th width='25' rowspan='2'><input type='checkbox' name='' value=''></th><th width='25' rowspan='2'>ID</th><th colspan='2'>诫勉谈话人</th><th colspan='3'>诫勉谈话对象</th><th rowspan='2' width='80px'>诫勉谈话时间</th><th rowspan='2' width='80px'>诫勉谈话地点</th><th rowspan='2'>诫勉谈话内容摘要</th><th rowspan='2' width='80px'>涉及类型</th><th rowspan='2' width='80px'>问题线索来源</th><th width='30' rowspan='2'>操作</th>	<tr class='text-c'><th width='40px'>姓名</th><th width=50px>职务</th><th width='40px'>姓名</th><th width='50px'>单位</th><th width='40px'>职务</th></tr></thead><tbody>";
+						$.each(data, function(index, item) {
+							str += "<tr><td class='text-c'><input type='checkbox' value='1' name=''></td><td class='text-c'>"
+									+ item.id
+									+"</td><td>"
+									+ item.name1
+									+"</td><td>"
+									+item.duty1
+									+"</td><td>"
+									+item.name2
+									+"</td><td>"
+									+item.unit2
+									+"</td><td>"
+									+item.duty2
+									+"</td><td>"
+									+convertdate(item.solvetime)
+									+"</td><td>"
+									+item.venue
+									+"</td><td>"
+									+item.summary
+									+"</td><td>"
+									+item.tname
+									+"</td><td>"
+									+item.sname
+									+"</td><td><a title='修改' class='ml-5' onclick='jtzr_edit(\'修改执纪问责\',\'zjwzxt1_edit.html\')' href='javascript:;'><i class='Hui-iconfont'>&#xe6df;</i></a></a> <a title='删除' href='javascript:;' onclick='member_del(this,1)' class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6e2;</i></a></td></tr>	";
+						});
+						str += "</table>";
+						break;
+					case "批评教育":
+
+						break;
+					case "纠正或责令停止违纪行为":
+
+						break;
+					case "责成退缴违纪所得":
+
+						break;
+					case "限期整改":
+
+						break;
+					case "责令作出口头或书面检查":
+
+						break;
+					case "召开民主生活会批评帮助":
+
+						break;
+					case "责令公开道歉或检讨":
+
+						break;
+					case "通报批评":
+
+						break;
+					case "诫勉谈话":
+
+						break;
+				}
+				str += "</table>";
+				$("#datalist").html(str);
+			}
+		});
+
+	}
+</script>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 执纪问责 <span class="c-gray en">&gt;</span> 第一种形态管理 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="pd-15">
+	<div class="pd-15 radius lh-22 mb-5" style="background: #eee;">
+		<h4><strong>第一种形态</strong>&nbsp;<a class="btn btn-primary radius pl-10 pr-10 add" onclick="jtzr_add('添加实施方式','{:U(zjwzxt1_add_1)}')" href="javascript:;" >+</a></h4>
+		<ul class="list lh-24">
+			<volist name="fmodes" id="vo">
+				<if condition="$key eq 0">
+					<li>
+						<a href="#" class="cur" >{$vo['mode']}</a>&nbsp;&nbsp;
+							<a title="修改" class="ml-5" onclick="jtzr_edit('修改','{:U(zjwzxt1_edit_1,array(kw=>$vo[mode]))}')" href="javascript:;"><img src="__PUBLIC__/admin/images/pen.png" width="12"/></a>
+							<a>&nbsp;
+								<a title="删除" href="javascript:;" onclick="member_del(this,'{$vo[id]}')" class="ml-5" style="text-decoration:none"><img src="__PUBLIC__/admin/images/delete.png" width="12"/>
+							</a>
+					</li>
+				<else />
+					<li>
+						<a href="#">{$vo['mode']}</a>&nbsp;&nbsp;<a title="修改" class="ml-5" onclick="jtzr_edit('修改','{:U(zjwzxt1_edit_1,array(kw=>$vo[mode]))}')" href="javascript:;"><img src="__PUBLIC__/admin/images/pen.png" width="12"/><a>&nbsp;<a title="删除" href="javascript:;" onclick="member_del(this,'{$vo[id]}')" class="ml-5" style="text-decoration:none"><img src="__PUBLIC__/admin/images/delete.png" width="12"/></a></li>
+				</if>
+			</volist>
+		</ul>		
+	</div>
+	<div class="cl pd-5 bg-1 bk-gray"> 
+		<span class="l mr-5"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius "><i class="Hui-iconfont"></i> 批量删除</a></span>
+		<span class="l"><a class="btn btn-primary radius" onclick="wz_edit('添加问责')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i>添加问责</a></span>
+		<div class="text-r" style="float:right;"> 
+	 
+		<input type="hidden" id="ssfsname" name="ssfsname" value="谈话提醒">
+		<label>涉及类型：</label>
+			<select id="sjlx" name="sjlx" style="height: 29px;border:1px #ddd solid;">
+				<option value="0">全部</option>
+				<volist name="ftypes" id="vo">
+					<option value="{$vo['id']}">{$vo['name']}</option>
+				</volist>	
+			</select>
+		<label>问题线索来源：</label>
+			<select id="xsly" name="xsly" style="height: 29px;border:1px #ddd solid;">
+				<option value="0">全部</option>
+				<volist name="fsources" id="vo">
+					<option value="{$vo['id']}">{$vo['name']}</option>
+				</volist>	
+			</select>
+		日期范围：
+			<input type="text" onfocus="WdatePicker({maxDate:'#F{<literal>$dp.$D(\'logmax\')||\'%y-%M\'</literal>}'})" id="logmin" class="input-text Wdate" style="width:120px;">
+			-
+			<input type="text" onfocus="WdatePicker({minDate:'#F{<literal>$dp.$D(\'logmin\')</literal>}',maxDate:'%y-%M'})" id="logmax" class="input-text Wdate" style="width:120px;">
+			<button class="btn btn-success" type="submit" onclick="wz_search()"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+		</div>
+	</div>
+	<div id="datalist">
+		<!--谈话提醒-->
+		<table class="table table-border table-bordered table-hover table-bg table-sort">
+			<thead>
+				<tr class="text-c">
+					<th width="25" rowspan="2"><input type="checkbox" name="" value=""></th>
+					<th width="25" rowspan="2">ID</th>
+					<th colspan="2">谈话人</th>
+					<th colspan="3">谈话对象</th>
+					<th rowspan="2" width="70px">谈话时间</th>
+					<th rowspan="2">谈话内容摘要</th>
+					<th rowspan="2" width="80px">涉及类型</th>
+					<th rowspan="2" width="80px">问题线索来源</th>
+					<th width="30" rowspan="2">操作</th>
+				<tr class="text-c">
+					<th width="40px">姓名</th>
+					<th width="50px">职务</th>
+					<th width="40px">姓名</th>
+					<th width="50px">单位</th>
+					<th width="40px">职务</th>
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="thtxData" id="vo">
+					<tr>
+						<td class="text-c"><input type="checkbox" value="1" name=""></td>
+						<td class="text-c">{$vo['id']}</td>
+						<td>{$vo['name1']}</td>
+						<td>{$vo['duty1']}</td>
+						<td>{$vo['name2']}</td>
+						<td>{$vo['unit2']}</td>
+						<td>{$vo['duty2']}</td>
+						<td>{$vo['solvetime']|date='Y-m-d',###}</td>
+						<td>{$vo['summary']}</td>
+						<td>{$vo['tname']}</td>
+						<td>{$vo['sname']}</td>
+						<td><a title="修改" class="ml-5" onclick="jtzr_edit('修改执纪问责','zjwzxt1_edit.html')" href="javascript:;"><i class="Hui-iconfont">&#xe6df;</i></a></a> <a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+					</tr>				
+				</volist>			
+			</tbody>
+		</table>
+		<!--警示谈话-->
+		<table class="table table-border table-bordered table-hover table-bg table-sort hide">
+			<thead>
+				<tr class="text-c">
+					<th width="25" rowspan="2"><input type="checkbox" name="" value=""></th>
+					<th width="25" rowspan="2">ID</th>
+					<th colspan="2">警示谈话人</th>
+					<th colspan="3">警示谈话对象</th>
+					<th rowspan="2" width="80px">警示谈话时间</th>
+					<th rowspan="2" width="80px">警示谈话地点</th>
+					<th rowspan="2">谈话内容摘要</th>
+					<th rowspan="2" width="80px">涉及类型</th>
+					<th rowspan="2" width="80px">问题线索来源</th>
+					<th width="30" rowspan="2">操作</th>
+				<tr class="text-c">
+					<th width="40px">姓名</th>
+					<th width="50px">职务</th>
+					<th width="40px">姓名</th>
+					<th width="50px">单位</th>
+					<th width="40px">职务</th>
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="jstxData" id="vo">
+					<tr>
+						<td class="text-c"><input type="checkbox" value="1" name=""></td>
+						<td class="text-c">{$vo['id']}</td>
+						<td>{$vo['name1']}</td>
+						<td>{$vo['duty1']}</td>
+						<td>{$vo['name2']}</td>
+						<td>{$vo['unit2']}</td>
+						<td>{$vo['duty2']}</td>
+						<td>{$vo['solvetime']|date='Y-m-d',###}</td>
+						<td>{$vo['venue']}</td>
+						<td>{$vo['summary']}</td>
+						<td>{$vo['tname']}</td>
+						<td>{$vo['sname']}</td>
+						<td><a title="修改" class="ml-5" onclick="jtzr_edit('修改执纪问责','zjwzxt1_edit.html')" href="javascript:;"><i class="Hui-iconfont">&#xe6df;</i></a></a> <a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+					</tr>
+				</volist>
+				
+			</tbody>
+		</table>
+		<!--批评教育-->
+		<table class="table table-border table-bordered table-hover table-bg table-sort hide">
+			<thead>
+				<tr class="text-c">
+					<th width="25" rowspan="2"><input type="checkbox" name="" value=""></th>
+					<th width="25" rowspan="2">ID</th>
+					<th colspan="2">实施人</th>
+					<th colspan="3">批评教育对象</th>
+					<th rowspan="2" width="70px">时间</th>
+					<th rowspan="2">内容摘要</th>
+					<th rowspan="2" width="80px">涉及类型</th>
+					<th rowspan="2" width="80px">问题线索来源</th>
+					<th width="30" rowspan="2">操作</th>
+				<tr class="text-c">
+					<th width="40px">姓名</th>
+					<th width="50px">职务</th>
+					<th width="40px">姓名</th>
+					<th width="50px">单位</th>
+					<th width="40px">职务</th>
+					
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="ppjyData" id="vo">
+					<tr>
+						<td class="text-c"><input type="checkbox" value="1" name=""></td>
+						<td class="text-c">{$vo['id']}</td>
+						<td>{$vo['name1']}</td>
+						<td>{$vo['duty1']}</td>
+						<td>{$vo['name2']}</td>
+						<td>{$vo['unit2']}</td>
+						<td>{$vo['duty2']}</td>
+						<td>{$vo['solvetime']|date='Y-m-d',###}</td>
+						<td>{$vo['summary']}</td>
+						<td>{$vo['tname']}</td>
+						<td>{$vo['sname']}</td>
+						<td><a title="修改" class="ml-5" onclick="jtzr_edit('修改执纪问责','zjwzxt1_edit.html')" href="javascript:;"><i class="Hui-iconfont">&#xe6df;</i></a></a> <a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+					</tr>
+				</volist>			
+			</tbody>
+		</table>
+		<!--纠正或责令停止违纪行为对象-->
+		<table class="table table-border table-bordered table-hover table-bg table-sort hide">
+			<thead>
+				<tr class="text-c">
+					<th width="25" rowspan="2"><input type="checkbox" name="" value=""></th>
+					<th width="25" rowspan="2">ID</th>
+					<th colspan="3">纠正或责令停止违纪行为对象</th>
+					<th rowspan="2" width="70px">时间</th>
+					<th rowspan="2">摘要</th>
+					<th rowspan="2" width="80px">涉及类型</th>
+					<th rowspan="2" width="80px">问题线索来源</th>
+					<th width="30" rowspan="2">操作</th>
+				<tr class="text-c">
+					<th width="40px">姓名</th>
+					<th width="50px">单位</th>
+					<th width="40px">职务</th>				
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="wjxwData" id="vo">
+					<tr>
+						<td class="text-c"><input type="checkbox" value="1" name=""></td>
+						<td class="text-c">{$vo['id']}</td>
+						<td>{$vo['name2']}</td>
+						<td>{$vo['unit2']}</td>
+						<td>{$vo['duty2']}</td>
+						<td>{$vo['solvetime']|date='Y-m-d',###}</td>
+						<td>{$vo['summary']}</td>
+						<td>{$vo['tname']}</td>
+						<td>{$vo['sname']}</td>
+						<td><a title="修改" class="ml-5" onclick="jtzr_edit('修改执纪问责','zjwzxt1_edit.html')" href="javascript:;"><i class="Hui-iconfont">&#xe6df;</i></a></a> <a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+					</tr>
+				</volist>				
+			</tbody>
+		</table>
+		<!--责成退缴违纪所得-->
+		<table class="table table-border table-bordered table-hover table-bg table-sort hide">
+			<thead>
+				<tr class="text-c">
+					<th width="25" rowspan="2"><input type="checkbox" name="" value=""></th>
+					<th width="25" rowspan="2">ID</th>
+					<th colspan="3">责成退缴违纪所得</th>
+					<th rowspan="2" width="70px">时间</th>
+					<th rowspan="2">摘要</th>
+					<th rowspan="2" width="80px">涉及类型</th>
+					<th rowspan="2" width="80px">问题线索来源</th>
+					<th width="30" rowspan="2">操作</th>
+				<tr class="text-c">
+					<th width="40px">姓名</th>
+					<th width="50px">单位</th>
+					<th width="40px">职务</th>				
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="wjsdData" id="vo">
+					<tr>
+						<td class="text-c"><input type="checkbox" value="1" name=""></td>
+						<td class="text-c">{$vo['id']}</td>
+						<td>{$vo['name2']}</td>
+						<td>{$vo['unit2']}</td>
+						<td>{$vo['duty2']}</td>
+						<td>{$vo['solvetime']|date='Y-m-d',###}</td>
+						<td>{$vo['summary']}</td>
+						<td>{$vo['tname']}</td>
+						<td>{$vo['sname']}</td>
+						<td><a title="修改" class="ml-5" onclick="jtzr_edit('修改执纪问责','zjwzxt1_edit.html')" href="javascript:;"><i class="Hui-iconfont">&#xe6df;</i></a></a> <a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+					</tr>
+				</volist>	
+			</tbody>
+		</table>
+		<!--限期整改-->
+		<table class="table table-border table-bordered table-hover table-bg table-sort hide">
+			<thead>
+				<tr class="text-c">
+					<th width="25" rowspan="2"><input type="checkbox" name="" value=""></th>
+					<th width="25" rowspan="2">ID</th>
+					<th colspan="3">限期整改对象</th>
+					<th rowspan="2" width="70px">时间</th>
+					<th rowspan="2">摘要</th>
+					<th rowspan="2" width="80px">涉及类型</th>
+					<th rowspan="2" width="80px">问题线索来源</th>
+					<th width="30" rowspan="2">操作</th>
+				<tr class="text-c">
+					<th width="40px">姓名</th>
+					<th width="50px">单位</th>
+					<th width="40px">职务</th>				
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="xqzgData" id="vo">
+					<tr>
+						<td class="text-c"><input type="checkbox" value="1" name=""></td>
+						<td class="text-c">{$vo['id']}</td>
+						<td>{$vo['name2']}</td>
+						<td>{$vo['unit2']}</td>
+						<td>{$vo['duty2']}</td>
+						<td>{$vo['solvetime']|date='Y-m-d',###}</td>
+						<td>{$vo['summary']}</td>
+						<td>{$vo['tname']}</td>
+						<td>{$vo['sname']}</td>
+						<td><a title="修改" class="ml-5" onclick="jtzr_edit('修改执纪问责','zjwzxt1_edit.html')" href="javascript:;"><i class="Hui-iconfont">&#xe6df;</i></a></a> <a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+					</tr>
+				</volist>				
+			</tbody>
+		</table>
+		<!--责令作出口头或书面检查-->
+		<table class="table table-border table-bordered table-hover table-bg table-sort hide">
+			<thead>
+				<tr class="text-c">
+					<th width="25" rowspan="2"><input type="checkbox" name="" value=""></th>
+					<th width="25" rowspan="2">ID</th>
+					<th colspan="2">责令检查人</th>
+					<th colspan="3">责令检查对象</th>
+					<th rowspan="2" width="80px">责令检查时间</th>
+					<th rowspan="2" width="80px">检查形式</th>
+					<th rowspan="2">责令检查内容摘要</th>
+					<th rowspan="2" width="80px">涉及类型</th>
+					<th rowspan="2" width="80px">问题线索来源</th>
+					<th width="30" rowspan="2">操作</th>
+				<tr class="text-c">
+					<th width="40px">姓名</th>
+					<th width="50px">职务</th>
+					<th width="40px">姓名</th>
+					<th width="50px">单位</th>
+					<th width="40px">职务</th>
+					
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="jcData" id="vo">
+					<tr>
+						<td class="text-c"><input type="checkbox" value="1" name=""></td>
+						<td class="text-c">{$vo['id']}</td>
+						<td>{$vo['name1']}</td>
+						<td>{$vo['duty1']}</td>
+						<td>{$vo['name2']}</td>
+						<td>{$vo['unit2']}</td>
+						<td>{$vo['duty2']}</td>
+						<td>{$vo['solvetime']|date='Y-m-d',###}</td>
+						<td>{$vo['jcxs']}</td>
+						<td>{$vo['summary']}</td>
+						<td>{$vo['tname']}</td>
+						<td>{$vo['sname']}</td>
+						<td><a title="修改" class="ml-5" onclick="jtzr_edit('修改执纪问责','zjwzxt1_edit.html')" href="javascript:;"><i class="Hui-iconfont">&#xe6df;</i></a></a> <a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+					</tr>
+				</volist>
+			</tbody>
+		</table>
+		<!--召开民主生活会批评帮助-->
+		<table class="table table-border table-bordered table-hover table-bg table-sort hide">
+			<thead>
+				<tr class="text-c">
+					<th width="25" rowspan="2"><input type="checkbox" name="" value=""></th>
+					<th width="25" rowspan="2">ID</th>
+					<th colspan="2">批评帮助对象</th>
+					<th colspan="3">会议主持人</th>
+					<th rowspan="2" width="70px">召开时间</th>
+					<th rowspan="2" width="70px">召开地点</th>
+					<th rowspan="2" width="70px">参加人员</th>
+					<th rowspan="2" width="70px">列席人员</th>
+					<th rowspan="2">内容摘要</th>
+					<th rowspan="2" width="80px">涉及类型</th>
+					<th rowspan="2" width="80px">问题线索来源</th>
+					<th width="30" rowspan="2">操作</th>
+				<tr class="text-c">
+					<th width="40px">姓名</th>
+					<th width="50px">职务</th>
+					<th width="40px">姓名</th>
+					<th width="50px">单位</th>
+					<th width="40px">职务</th>				
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="ppbzData" id="vo">
+					<tr>
+						<td class="text-c"><input type="checkbox" value="1" name=""></td>
+						<td class="text-c">{$vo['id']}</td>
+						<td>{$vo['name1']}</td>
+						<td>{$vo['duty1']}</td>
+						<td>{$vo['name2']}</td>
+						<td>{$vo['unit2']}</td>
+						<td>{$vo['duty2']}</td>
+						<td>{$vo['solvetime']|date='Y-m-d',###}</td>
+						<td>{$vo['venue']}</td>
+						<td>{$vo['participant']}</td>
+						<td>{$vo['attendings']}</td>
+						<td>{$vo['summary']}</td>
+						<td>{$vo['tname']}</td>
+						<td>{$vo['sname']}</td>
+						<td><a title="修改" class="ml-5" onclick="jtzr_edit('修改执纪问责','zjwzxt1_edit.html')" href="javascript:;"><i class="Hui-iconfont">&#xe6df;</i></a></a> <a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+					</tr>
+				</volist>	
+			</tbody>
+		</table>
+		<!--责令公开道歉或检讨-->
+		<table class="table table-border table-bordered table-hover table-bg table-sort hide">
+			<thead>
+				<tr class="text-c">
+					<th width="25" rowspan="2"><input type="checkbox" name="" value=""></th>
+					<th width="25" rowspan="2">ID</th>
+					<th colspan="3">责令公开道歉或检讨对象</th>			
+					<th rowspan="2" width="80px">警示谈话时间</th>
+					<th rowspan="2" width="70px">检查形式</th>
+					<th rowspan="2">内容摘要</th>
+					<th rowspan="2" width="80px">涉及类型</th>
+					<th rowspan="2" width="80px">问题线索来源</th>
+					<th width="30" rowspan="2">操作</th>
+				<tr class="text-c">
+					<th width="40px">姓名</th>
+					<th width="50px">单位</th>
+					<th width="40px">职务</th>
+					
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="dqjtData" id="vo">
+					<tr>
+						<td class="text-c"><input type="checkbox" value="1" name=""></td>
+						<td class="text-c">{$vo['id']}</td>
+						<td>{$vo['name2']}</td>
+						<td>{$vo['unit2']}</td>
+						<td>{$vo['duty2']}</td>
+						<td>{$vo['solvetime']|date='Y-m-d',###}</td>
+						<td>{$vo['jcxs']}</td>
+						<td>{$vo['summary']}</td>
+						<td>{$vo['tname']}</td>
+						<td>{$vo['sname']}</td>
+						<td><a title="修改" class="ml-5" onclick="jtzr_edit('修改执纪问责','zjwzxt1_edit.html')" href="javascript:;"><i class="Hui-iconfont">&#xe6df;</i></a></a> <a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+					</tr>
+				</volist>
+			</tbody>
+		</table>
+		<!--通报批评-->
+		<table class="table table-border table-bordered table-hover table-bg table-sort hide">
+			<thead>
+				<tr class="text-c">
+					<th width="25" rowspan="2"><input type="checkbox" name="" value=""></th>
+					<th width="25" rowspan="2">ID</th>
+					<th colspan="3">通报批评对象</th>
+					<th rowspan="2" width="70px">发布部门</th>
+					<th rowspan="2" width="70px">发布时间</th>
+					<th rowspan="2">通报批评内容摘要</th>
+					<th rowspan="2" width="80px">涉及类型</th>
+					<th rowspan="2" width="80px">问题线索来源</th>
+					<th width="30" rowspan="2">操作</th>
+				<tr class="text-c">
+					<th width="40px">姓名</th>
+					<th width="50px">单位</th>
+					<th width="40px">职务</th>
+					
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="tbppData" id="vo">
+					<tr>
+						<td class="text-c"><input type="checkbox" value="1" name=""></td>
+						<td class="text-c">{$vo['id']}</td>
+						<td>{$vo['name2']}</td>
+						<td>{$vo['unit2']}</td>
+						<td>{$vo['duty2']}</td>
+						<td>{$vo['department']}</td>
+						<td>{$vo['solvetime']|date='Y-m-d',###}</td>
+						<td>{$vo['summary']}</td>
+						<td>{$vo['tname']}</td>
+						<td>{$vo['sname']}</td>
+						<td><a title="修改" class="ml-5" onclick="jtzr_edit('修改执纪问责','zjwzxt1_edit.html')" href="javascript:;"><i class="Hui-iconfont">&#xe6df;</i></a></a> <a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+					</tr>
+				</volist>			
+			</tbody>
+		</table>
+		<!--诫勉谈话-->
+		<table class="table table-border table-bordered table-hover table-bg table-sort hide">
+			<thead>
+				<tr class="text-c">
+					<th width="25" rowspan="2"><input type="checkbox" name="" value=""></th>
+					<th width="25" rowspan="2">ID</th>
+					<th colspan="2">诫勉谈话人</th>
+					<th colspan="3">诫勉谈话对象</th>
+					<th rowspan="2" width="80px">诫勉谈话时间</th>
+					<th rowspan="2" width="80px">诫勉谈话地点</th>
+					<th rowspan="2">诫勉谈话内容摘要</th>
+					<th rowspan="2" width="80px">涉及类型</th>
+					<th rowspan="2" width="80px">问题线索来源</th>
+					<th width="30" rowspan="2">操作</th>
+				<tr class="text-c">
+					<th width="40px">姓名</th>
+					<th width="50px">职务</th>
+					<th width="40px">姓名</th>
+					<th width="50px">单位</th>
+					<th width="40px">职务</th>				
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="jmthData" id="vo">
+					<tr>
+						<td class="text-c"><input type="checkbox" value="1" name=""></td>
+						<td class="text-c">{$vo['id']}</td>
+						<td>{$vo['name1']}</td>
+						<td>{$vo['duty1']}</td>
+						<td>{$vo['name2']}</td>
+						<td>{$vo['unit2']}</td>
+						<td>{$vo['duty2']}</td>
+						<td>{$vo['solvetime']|date='Y-m-d',###}</td>
+						<td>{$vo['venue']}</td>
+						<td>{$vo['summary']}</td>
+						<td>{$vo['tname']}</td>
+						<td>{$vo['sname']}</td>
+						<td><a title="修改" class="ml-5" onclick="jtzr_edit('修改执纪问责','zjwzxt1_edit.html')" href="javascript:;"><i class="Hui-iconfont">&#xe6df;</i></a></a> <a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+					</tr>
+				</volist>		
+			</tbody>
+		</table>
+	</div>	
+	<div class="text-r mt-20">
+		<a class="radius bk-gray pd-10">上一页</a>
+		<a class="radius bk-gray pd-10" style="background:#0044CC;color:#fff;">1</a>
+		<a class="radius bk-gray pd-10">2</a>
+		<a class="radius bk-gray pd-10">3</a>
+		<a class="radius bk-gray pd-10">4</a>
+		<a class="radius bk-gray pd-10">5</a>
+		<a class="radius bk-gray pd-10">下一页</a>
+	</div>	
+</div>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/Validform/5.3.2/Validform.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/icheck/jquery.icheck.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/H-ui.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/H-ui.admin.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/My97DatePicker/WdatePicker.js"></script>
+
+
+<script type="text/javascript">
+$(function(){
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+	$.Huitab("#tab-system .tabBar span","#tab-system .tabCon","current","click","0");
+});
+
+/*问责-添加*/
+function wz_edit(title){
+	var ssfs = document.getElementById("ssfsname").value;	
+	var realurl = "{:U('zjwzxt1_add_wz')}?fs="+ssfs;
+	
+	var index = layer.open({
+		type: 2,
+		title: title,
+		content: realurl
+	});
+	layer.full(index);
+}
+
+/*集体责任-编辑*/
+function jtzr_edit(title,url){
+	
+	var index = layer.open({
+		type: 2,
+		title: title,
+		content: url
+	});
+	layer.full(index);
+}
+/*用户-删除*/
+function member_del(obj,id){
+	layer.confirm('确认要删除吗？',function(index){
+		var url = "__URL__/zjwzxt1_del_1";
+		$.ajax({
+			type: "post",
+			url: url,
+			dataType: "json",
+			data: "id="+id,
+			success: function(msg){
+				if(msg){
+					//$(obj).parents("li").remove();
+					history.go(0);
+					layer.msg('已删除!',{icon:1,time:1000});
+				}
+			}
+		});
+	});
+}
+/*集体责任清单-添加*/
+function jtzr_add(title,url){
+	var index = layer.open({
+		type: 2,
+		title: title,
+		content: url
+	});
+	layer.full(index);
+}
+
+/**
+ * 不同实施方式被单击时的页面变化
+ */
+$(function(){
+	$(".list a").click(function(){
+
+		document.getElementById("ssfsname").value = $(this).text();//将当前选中的标签名称传给隐藏域，为后边的添加问责提供便利
+		document.getElementById("sjlx").options[0].selected = true; //默认选中全部
+		document.getElementById("xsly").options[0].selected = true; //默认选中全部
+		document.getElementById("logmin").value = null;
+		document.getElementById("logmax").value = null;
+		$(".list a").removeClass("cur");
+		$(this).addClass("cur");
+		var which = $(this).parent().index();
+		$("table").addClass("hide");
+		$("table:eq("+which+")").removeClass("hide");
+	});
+});
+</script>
+</body>
+</html>

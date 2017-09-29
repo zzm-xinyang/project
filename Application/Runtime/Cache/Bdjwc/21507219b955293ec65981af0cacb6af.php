@@ -1,0 +1,1 @@
+<?php if (!defined('THINK_PATH')) exit();?>保定警卫处前台首页

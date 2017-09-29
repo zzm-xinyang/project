@@ -1,0 +1,112 @@
+/**
+ * 监控重点样式
+ */
+ul.list li{
+	float:left;
+	width:200px;
+}
+
+/**
+ * 角色管理
+ */
+.permission-list > dd > dl > dd{
+	margin-left:250px;
+}
+
+/**
+ * 领导岗位权力
+ */
+ul.list li{
+	float:left;
+	width:300px;
+	overflow: hidden;
+}
+ul.list2 li{
+	float:left;
+	width:400px;
+	overflow: hidden;
+}
+ul.list li .cur{
+	color:#aa1111;
+}
+.content p{
+	text-indent: 2em;
+}
+ul.list li a,ul.list2 li a,ul.list_bm li{
+	text-decoration: none;
+	color:#333333;
+}
+/**
+ * 部门管理
+ */
+ul.list_bm li{
+	float:left;
+	width:25%;
+	overflow: hidden;
+}
+ul.list_bm li .cur{
+	color:#aa1111;
+}
+/**
+ * 监控重点后面的添加
+ */
+a.add{
+	padding:0 10px;
+	text-decoration: none;
+	font-size:20px;
+	height: 25px;
+}
+
+/**
+ * 排序控件
+ */
+input.sort{
+	width:40px;
+	height: 30px;
+	text-align: center;
+}
+/**
+ * 大段内容样式
+ */
+.content{
+	clear: both;
+}
+
+/**
+ * 调整左侧菜单宽度
+ */
+.Hui-aside{
+	width:229px;
+}
+.Hui-article-box{
+	margin-left: 28px;
+}
+
+/**上传文件中，选择图片控件区域*/
+.uploader-list-container .placeholder{
+	padding-top:50px;
+}
+.uploader-list-container .filelist li{
+	width:200px;
+	height:200px;
+	background:none;
+}
+.uploader-list-container .filelist li p.imgWrap{
+	width:80%;
+	height:80%;
+}
+.uploader-list-container .filelist li p.title{
+	top:160px;
+	white-space:normal;
+	text-align:center;
+}
+/*四权监控里的p，设为内联样式*/
+.sqjk p{
+	display:inline;
+}
+
+/*上传文件按钮*/
+.uploader-list-container .statusBar .btns{
+	position:inherit;
+}
+

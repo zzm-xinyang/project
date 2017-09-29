@@ -1,0 +1,50 @@
+<div class="pd-20">
+    <form action="{:U('save','','')}" method="post" class="form form-horizontal" id="form-article-add">
+        <div class="row cl">
+            <label class="form-label col-1"><span class="c-red">*</span>部门名称：</label>
+            <div class="formControls col-11">
+                <input type="text" class="input-text" value="" name="name">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-1">描述：</label>
+            <div class="formControls col-11">
+                <textarea name="description" class="textarea"></textarea>
+            </div>
+        </div>
+        <div class="row cl text-l">
+            <div class="col-11 col-offset-1">
+                <input type="hidden" name="oid" value="{$oid}" />
+                <button  class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i>添加</button>
+                <button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/icheck/jquery.icheck.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/Validform/5.3.2/Validform.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/ueditor/1.4.3/ueditor.config.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/H-ui.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/H-ui.admin.js"></script>
+<script type="text/javascript">
+    $(function(){
+        //职责清单内容
+        var ue = UE.getEditor('zzqd');
+
+        //风险清单
+        var ue2 = UE.getEditor('fxqd');
+
+        //防控清单
+        var ue3 = UE.getEditor('fkqd');
+
+    });
+
+    $(function(){
+        var ue = UE.getEditor('editor');
+    });

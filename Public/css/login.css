@@ -1,0 +1,36 @@
+body{
+	background:url(../images/logbg.gif);
+	margin:0;
+	padding:0;
+	font-family: "Microsoft YaHei"!important;
+	}
+.title{
+	text-align:center;
+	margin-top:30px
+	}
+
+.log{
+	background:url(../images/loginputbg.jpg) no-repeat;
+	text-align:center;
+	margin-top:10%;
+	padding:50px 0
+	}
+.log .form-group{
+	margin-bottom:20px
+	}
+.login{
+	height:350px;
+	filter:alpha(Opacity=80);-moz-opacity:0.8;opacity: 0.8;
+	margin:0px auto;
+	}
+.hh{
+	height:50px;
+	color:#fff;
+	font-size:18px;
+	background-color:#3760A2;
+	padding-top:10px
+	}
+.foot{
+	color:#a7b0c5;
+	margin-top:30px
+	}

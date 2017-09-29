@@ -1,0 +1,752 @@
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 权力监控 <span class="c-gray en">&gt;</span> 部门岗位权力<a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="pd-20">
+
+    <div id="tab-system" class="HuiTab">
+        <div class="tabBar cl">
+            <volist name="departments" id="department">
+                <if condition="$mid eq $department['id']">
+                    <span name="{$department['id']}" class="current">{$department['name']}</span>
+                <else />
+                    <span name="{$department['id']}">{$department['name']}</span>
+                </if>
+
+            </volist>
+            <input type="hidden" id="oid" value="{$oid}" />
+        </div>
+        <div class="tabCon important">
+            <div class="pl-20 lh-22 pd-10" style="background: #eee;">
+                <h4><strong>岗位权力清单</strong>&nbsp;<a class="btn btn-primary radius pl-10 pr-10 add" onclick=ql_add('添加权力','{:U("Pcontrol/add",array("oid"=>$oid),"")}') href="javascript:;" >+</a></h4>
+            </div>
+            <div class="cl pd-5 bg-1 bk-gray">
+                <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius "><i class="Hui-iconfont"></i> 批量删除</a></span>
+                <div class="text-r" style="float:right;">
+                    <label>办理主体：</label>
+                    <select name="finish" style="height: 29px;border:1px #ddd solid;">
+                        <option value="0">办公室</option>
+                        <option value="1">政治部</option>
+                    </select>
+                    <label>公开范围：</label>
+                    <select name="finish" style="height: 29px;border:1px #ddd solid;">
+                        <option value="0">内部</option>
+                        <option value="1">社会</option>
+                    </select>
+                    日期范围：
+                    <input type="text"  id="logmin" class="input-text Wdate" style="width:120px;">
+                    -
+                    <input type="text"  id="logmax" class="input-text Wdate" style="width:120px;">
+                    <input type="text" name="" id="" placeholder=" 关键词" style="width:180px" class="input-text">
+
+                    <button name="" id="" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜事项</button>
+                </div>
+            </div>
+            <table class="table table-border table-bordered table-hover table-bg table-sort">
+                <thead>
+                <tr class="text-l">
+                    <th width="25" class="text-c"><input type="checkbox" name="" value=""></th>
+                    <th width="25">序号</th>
+                    <th width="100">权力名称</th>
+                    <th width="100">权力类别</th>
+                    <th>设置依据</th>
+                    <th width="80">办理主体</th>
+
+                    <th width="80">公开范围</th>
+                    <th width="80">办理日期</th>
+                    <th width="60">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <volist name="contents[0]" id="con" key="k">
+                    <tr class="text-l">
+                        <td class="text-c"><input type="checkbox" value="{$con['id']}" name="ids[]"></td>
+                        <td class="text-c">{$k}</td>
+                        <td>{$con['power']}</td>
+                        <td>{$con['type']}</td>
+                        <td>{$con['reasons']}</td>
+                        <td>{$con['activity']}</td>
+                        <td>{$con['notice']}</td>
+                        <td>{$con['inputtime']}</td>
+                        <td> <a title="修改" class="ml-5" onclick=ql_edit("修改","{:U('Pcontrol/edit',array('id'=>$con['id']),'')}") href="javascript:;"><img src="__PUBLIC__/admin/images/pen.png" width="12"/></a>   <a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none" id="{:U('delete',array('id'=>$con['id']),'')}"><img src="__PUBLIC__/admin/images/delete.png" width="12"/></a></td>
+                    </tr>
+                </volist>
+
+                </tbody>
+            </table>
+            <div class="text-r mt-20 page">
+               {$contents[0][0]['page']}
+            </div>
+            <div class="pd-15 radius lh-22 mt-15" style="background: #eee;"  >
+
+                <h4><strong>监控重点</strong>&nbsp;<a class="btn btn-primary radius pl-10 pr-10 add" onclick=ql_add('编辑监控重点','{:U("Cimportant/edit",array("oid"=>$oid),"")}') href="javascript:;" ><img src="__PUBLIC__/admin/images/pen.png" width="12"/></a></h4>
+                <ul class="list lh-24">
+                    <volist name="controls[0]" id="important">
+                        <if condition="$which[0] eq $important['id']">
+                            <li><a href="{:U('Pcontrol/change',array('which'=>$important['id']),'')}" class="cur" name="{$important['id']}">{$important['power']}</a></li>
+                        <else/>
+                            <li><a href="{:U('Pcontrol/change',array('which'=>$important['id']),'')}">{$important['power']}</a></li>
+                        </if>
+                    </volist>
+
+                </ul>
+            </div>
+            <if condition="$hasKey[0] eq 1">
+            <div class="pd-15 radius lh-22 mt-15" style="background: #eee;">
+
+                <h4 style="float:left"><strong>士官选取权力运行情况</strong>&nbsp;<if condition="$addTable[0] neq 1">&nbsp;<a class="btn btn-primary radius pl-10 pr-10 add" onclick=ql_add('添加权力运行','{:U("Progressing/add",array("tableName"=>$tname[0],"iid"=>$which[0]),"")}') href="javascript:;" >+</a></if></h4>
+             <if condition="$editTable[0] eq 1">
+                <div class="text-r pt-10" style="float:right;"> <a class="btn btn-primary radius" onclick=model_choise(this,'修改表结构','{:U("Cimportant/editModel",array("tableName"=>$tname[0]),"")}') href="javascript:;"><i class="Hui-iconfont">&#xe6df;</i>修改表结构</a></div>
+
+            </if>
+            <if condition="$addTable[0] eq 1">
+                <div class="text-r pt-10" style="float:right;"> <a class="btn btn-primary radius" onclick=model_choise(this,'选择或创建表结构','{:U("Cimportant/choiseModel","","")}') href="javascript:;"><i class="Hui-iconfont">&#xe6df;</i>选择或创建表结构</a></div>
+
+            </if>
+            </div>
+
+            <if condition="$viewTable[0] eq 1">
+                <div class="cl pd-5 bg-1 bk-gray">
+                    <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius "><i class="Hui-iconfont"></i> 批量删除</a></span>
+                    <div class="text-r" style="float:right;">
+                        日期范围：
+                        <input type="text" id="logmin" class="input-text Wdate" style="width:120px;">
+                        -
+                        <input type="text"  id="logmax" class="input-text Wdate" style="width:120px;">
+                        <input type="text" name="" id="" placeholder=" 关键词" style="width:180px" class="input-text">
+
+                        <button name="" id="" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜事项</button>
+                    </div>
+                </div>
+            <table class="table table-border table-bordered table-hover table-bg table-sort">
+                <thead>
+                <tr class="text-c">
+                <th width="30px"><input type="checkbox" /></th>
+                <th width="30px">序号</th>
+                <volist name="fields[0]" id="field" offset="5">
+                    <th>{$field['comment']}</th>
+                </volist>
+                <th>办理时间</th>
+                <th>评价</th>
+                <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <volist name="progressings[0]" id="progressing" key="k">
+                    <tr class="text-c">
+                        <td><input type="checkbox" name="" value="{$progressing['id']}"></td>
+                        <td>{$k}</td>
+                        <volist name="progressing['add']" id="add">
+                            <if condition="strpos($add, '/') eq 10">
+                                <td><a href="__ROOT__/uploads/{$add}">下载</a></td>
+                            <else/>
+                                <td>{$add}</td>
+                            </if>
+                        </volist>
+                        <td>{$progressing['processingtime']|date="Y-m-d H:i",###}</td>
+                        <td></td>
+                        <td> <a title="修改" class="ml-5" onclick=jtzr_edit("修改","{:U('Progressing/edit',array('id'=>$progressing['id'],'tableName'=>$tname[0]))}") href="javascript:;"><img src="__PUBLIC__/admin/images/pen.png" width="12"/><a>&nbsp;
+                            <a title="删除" href="javascript:;" onclick="processing_del(this,'1')" class="ml-5" style="text-decoration:none" id="{:U('Progressing/delete',array('id'=>$progressing['id'],'tableName'=>$tname[0]),'')}"><img src="__PUBLIC__/admin/images/delete.png" width="12"/></a></td>
+                    </tr>
+                </volist>
+                </tbody>
+            </table>
+            <div class="text-r mt-20">
+                {$page}
+            </div>
+            <input type="hidden" value="{$passesses[0]}" id="data1"/>
+            <div id="container" style="min-width:700px;height:400px"></div>
+            </if>
+            </if>
+            </div>
+        <div class="tabCon important">
+            <div class="pl-20 lh-22 pd-10" style="background: #eee;">
+                <h4><strong>岗位权力清单</strong>&nbsp;<a class="btn btn-primary radius pl-10 pr-10 add" onclick=ql_add('添加权力','{:U("Pcontrol/add",array("oid"=>$oid),"")}') href="javascript:;" >+</a></h4>
+            </div>
+            <div class="cl pd-5 bg-1 bk-gray">
+                <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius "><i class="Hui-iconfont"></i> 批量删除</a></span>
+                <div class="text-r" style="float:right;">
+                    <label>办理主体：</label>
+                    <select name="finish" style="height: 29px;border:1px #ddd solid;">
+                        <option value="0">办公室</option>
+                        <option value="1">政治部</option>
+                    </select>
+                    <label>公开范围：</label>
+                    <select name="finish" style="height: 29px;border:1px #ddd solid;">
+                        <option value="0">内部</option>
+                        <option value="1">社会</option>
+                    </select>
+                    日期范围：
+                    <input type="text"  id="logmin" class="input-text Wdate" style="width:120px;">
+                    -
+                    <input type="text"  id="logmax" class="input-text Wdate" style="width:120px;">
+                    <input type="text" name="" id="" placeholder=" 关键词" style="width:180px" class="input-text">
+
+                    <button name="" id="" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜事项</button>
+                </div>
+            </div>
+            <table class="table table-border table-bordered table-hover table-bg table-sort">
+                <thead>
+                <tr class="text-l">
+                    <th width="25" class="text-c"><input type="checkbox" name="" value=""></th>
+                    <th width="25">序号</th>
+                    <th width="100">权力名称</th>
+                    <th width="100">权力类别</th>
+                    <th>设置依据</th>
+                    <th width="80">办理主体</th>
+
+                    <th width="80">公开范围</th>
+                    <th width="80">办理日期</th>
+                    <th width="60">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <volist name="contents[1]" id="con" key="k">
+                    <tr class="text-l">
+                        <td class="text-c"><input type="checkbox" value="{$con['id']}" name="ids[]"></td>
+                        <td class="text-c">{$k}</td>
+                        <td>{$con['power']}</td>
+                        <td>{$con['type']}</td>
+                        <td>{$con['reasons']}</td>
+                        <td>{$con['activity']}</td>
+                        <td>{$con['notice']}</td>
+                        <td>{$con['inputtime']}</td>
+                        <td> <a title="修改" class="ml-5" onclick=ql_edit("修改","{:U('Pcontrol/edit',array('id'=>$con['id']),'')}") href="javascript:;"><img src="__PUBLIC__/admin/images/pen.png" width="12"/></a>   <a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none" id="{:U('delete',array('id'=>$con['id']),'')}"><img src="__PUBLIC__/admin/images/delete.png" width="12"/></a></td>
+                    </tr>
+                </volist>
+
+                </tbody>
+            </table>
+            <div class="text-r mt-20 page">
+                {$contents[1][0]['page']}
+            </div>
+            <div class="pd-15 radius lh-22 mt-15" style="background: #eee;"  >
+
+                <h4><strong>监控重点</strong>&nbsp;<a class="btn btn-primary radius pl-10 pr-10 add" onclick=ql_add('编辑监控重点','{:U("Cimportant/edit",array("oid"=>$oid),"")}') href="javascript:;" ><img src="__PUBLIC__/admin/images/pen.png" width="12"/></a></h4>
+                <ul class="list lh-24">
+                    <volist name="controls[1]" id="important">
+                        <if condition="$which[1] eq $important['id']">
+                            <li><a href="{:U('Pcontrol/change',array('which'=>$important['id']),'')}" class="cur" name="{$important['id']}">{$important['power']}</a></li>
+                            <else/>
+                            <li><a href="{:U('Pcontrol/change',array('which'=>$important['id']),'')}">{$important['power']}</a></li>
+                        </if>
+                    </volist>
+
+                </ul>
+            </div>
+            <if condition="$hasKey[1] eq 1">
+                <div class="pd-15 radius lh-22 mt-15" style="background: #eee;">
+
+                    <h4 style="float:left"><strong>士官选取权力运行情况</strong>&nbsp;<if condition="$addTable[1] neq 1"><a class="btn btn-primary radius pl-10 pr-10 add" onclick=ql_add('添加权力运行','{:U("Progressing/add",array("tableName"=>$tname[1],"iid"=>$which[1]),"")}') href="javascript:;" >+</a></if></h4>
+                    <if condition="$editTable[1] eq 1">
+                        <div class="text-r pt-10" style="float:right;"> <a class="btn btn-primary radius" onclick=model_choise(this,'修改表结构','{:U("Cimportant/editModel",array("tableName"=>$tname[1]),"")}') href="javascript:;"><i class="Hui-iconfont">&#xe6df;</i>修改表结构</a></div>
+                </div>
+            </if>
+            <if condition="$addTable[1] eq 1">
+                <div class="text-r pt-10" style="float:right;"> <a class="btn btn-primary radius" onclick=model_choise(this,'选择或创建表结构','{:U("Cimportant/choiseModel","","")}') href="javascript:;"><i class="Hui-iconfont">&#xe6df;</i>选择或创建表结构</a></div>
+        </div>
+</if>
+</div>
+
+<if condition="$viewTable[1] eq 1">
+    <div class="cl pd-5 bg-1 bk-gray">
+        <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius "><i class="Hui-iconfont"></i> 批量删除</a></span>
+        <div class="text-r" style="float:right;">
+            日期范围：
+            <input type="text" id="logmin" class="input-text Wdate" style="width:120px;">
+            -
+            <input type="text"  id="logmax" class="input-text Wdate" style="width:120px;">
+            <input type="text" name="" id="" placeholder=" 关键词" style="width:180px" class="input-text">
+
+            <button name="" id="" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜事项</button>
+        </div>
+    </div>
+    <table class="table table-border table-bordered table-hover table-bg table-sort">
+        <thead>
+        <tr class="text-c">
+            <th width="30px"><input type="checkbox" /></th>
+            <th width="30px">序号</th>
+            <volist name="fields[1]" id="field" offset="5">
+                <th>{$field['comment']}</th>
+            </volist>
+            <th>办理时间</th>
+            <th>评价</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <volist name="progressings[1]" id="progressing" key="k">
+            <tr class="text-c">
+                <td><input type="checkbox" name="" value="{$progressing['id']}"></td>
+                <td>{$k}</td>
+                <volist name="progressing['add']" id="add">
+                    <if condition="strpos($add, '/') eq 10">
+                        <td><a href="__ROOT__/uploads/{$add}">下载</a></td>
+                        <else/>
+                        <td>{$add}</td>
+                    </if>
+                </volist>
+                <td>{$progressing['processingtime']|date="Y-m-d H:i",###}</td>
+                <td></td>
+                <td> <a title="修改" class="ml-5" onclick=jtzr_edit("修改","{:U('Progressing/edit',array('id'=>$progressing['id'],'tableName'=>$tname[1]))}") href="javascript:;"><img src="__PUBLIC__/admin/images/pen.png" width="12"/><a>&nbsp;
+                    <a title="删除" href="javascript:;" onclick="processing_del(this,'1')" class="ml-5" style="text-decoration:none" id="{:U('Progressing/delete',array('id'=>$progressing['id'],'tableName'=>$tname[1]),'')}"><img src="__PUBLIC__/admin/images/delete.png" width="12"/></a></td>
+                        </tr>
+                    </volist>
+                    </tbody>
+                </table>
+                <div class="text-r mt-20">
+                   {$page}
+                </div>
+
+                <div id="container2" style="min-width:700px;height:400px"></div>
+            </if>
+            </if>
+        </div>
+        <div class="tabCon important">
+            <div class="pl-20 lh-22 pd-10" style="background: #eee;">
+                <h4><strong>岗位权力清单</strong>&nbsp;<a class="btn btn-primary radius pl-10 pr-10 add" onclick=ql_add('添加权力','{:U("Pcontrol/add",array("oid"=>$oid),"")}') href="javascript:;" >+</a></h4>
+            </div>
+            <div class="cl pd-5 bg-1 bk-gray">
+                <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius "><i class="Hui-iconfont"></i> 批量删除</a></span>
+                <div class="text-r" style="float:right;">
+                    <label>办理主体：</label>
+                    <select name="finish" style="height: 29px;border:1px #ddd solid;">
+                        <option value="0">办公室</option>
+                        <option value="1">政治部</option>
+                    </select>
+                    <label>公开范围：</label>
+                    <select name="finish" style="height: 29px;border:1px #ddd solid;">
+                        <option value="0">内部</option>
+                        <option value="1">社会</option>
+                    </select>
+                    日期范围：
+                    <input type="text"  id="logmin" class="input-text Wdate" style="width:120px;">
+                    -
+                    <input type="text"  id="logmax" class="input-text Wdate" style="width:120px;">
+                    <input type="text" name="" id="" placeholder=" 关键词" style="width:180px" class="input-text">
+
+                    <button name="" id="" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜事项</button>
+                </div>
+            </div>
+            <table class="table table-border table-bordered table-hover table-bg table-sort">
+                <thead>
+                <tr class="text-l">
+                    <th width="25" class="text-c"><input type="checkbox" name="" value=""></th>
+                    <th width="25">序号</th>
+                    <th width="100">权力名称</th>
+                    <th width="100">权力类别</th>
+                    <th>设置依据</th>
+                    <th width="80">办理主体</th>
+
+                    <th width="80">公开范围</th>
+                    <th width="80">办理日期</th>
+                    <th width="60">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <volist name="contents[2]" id="con" key="k">
+                    <tr class="text-l">
+                        <td class="text-c"><input type="checkbox" value="{$con['id']}" name="ids[]"></td>
+                        <td class="text-c">{$k}</td>
+                        <td>{$con['power']}</td>
+                        <td>{$con['type']}</td>
+                        <td>{$con['reasons']}</td>
+                        <td>{$con['activity']}</td>
+                        <td>{$con['notice']}</td>
+                        <td>{$con['inputtime']}</td>
+                        <td> <a title="修改" class="ml-5" onclick=ql_edit("修改","{:U('Pcontrol/edit',array('id'=>$con['id']),'')}") href="javascript:;"><img src="__PUBLIC__/admin/images/pen.png" width="12"/></a>   <a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none" id="{:U('delete',array('id'=>$con['id']),'')}"><img src="__PUBLIC__/admin/images/delete.png" width="12"/></a></td>
+                    </tr>
+                </volist>
+
+                </tbody>
+            </table>
+            <div class="text-r mt-20 page">
+                {$contents[2][0]['page']}
+            </div>
+            <div class="pd-15 radius lh-22 mt-15" style="background: #eee;"  >
+
+                <h4><strong>监控重点</strong>&nbsp;<a class="btn btn-primary radius pl-10 pr-10 add" onclick=ql_add('编辑监控重点','{:U("Cimportant/edit",array("oid"=>$oid),"")}') href="javascript:;" ><img src="__PUBLIC__/admin/images/pen.png" width="12"/></a></h4>
+                <ul class="list lh-24">
+                    <volist name="controls[2]" id="important">
+                        <if condition="$which[2] eq $important['id']">
+                            <li><a href="{:U('Pcontrol/change',array('which'=>$important['id']),'')}" class="cur" name="{$important['id']}">{$important['power']}</a></li>
+                            <else/>
+                            <li><a href="{:U('Pcontrol/change',array('which'=>$important['id']),'')}">{$important['power']}</a></li>
+                        </if>
+                    </volist>
+
+                </ul>
+            </div>
+            <if condition="$hasKey[2] eq 1">
+                <div class="pd-15 radius lh-22 mt-15" style="background: #eee;">
+
+                    <h4 style="float:left"><strong>士官选取权力运行情况</strong>&nbsp;<if condition="$addTable[2] neq 1"><a class="btn btn-primary radius pl-10 pr-10 add" onclick=ql_add('添加权力运行','{:U("Progressing/add",array("tableName"=>$tname[2],"iid"=>$which[2]),"")}') href="javascript:;" >+</a></if></h4>
+                    <if condition="$editTable[2] eq 1">
+                        <div class="text-r pt-10" style="float:right;"> <a class="btn btn-primary radius" onclick=model_choise(this,'修改表结构','{:U("Cimportant/editModel",array("tableName"=>$tname[2]),"")}') href="javascript:;"><i class="Hui-iconfont">&#xe6df;</i>修改表结构</a></div>
+                </div>
+            </if>
+            <if condition="$addTable[2] eq 1">
+                <div class="text-r pt-10" style="float:right;"> <a class="btn btn-primary radius" onclick=model_choise(this,'选择或创建表结构','{:U("Cimportant/choiseModel","","")}') href="javascript:;"><i class="Hui-iconfont">&#xe6df;</i>选择或创建表结构</a></div>
+        </div>
+</if>
+</div>
+
+<if condition="$viewTable[2] eq 1">
+    <div class="cl pd-5 bg-1 bk-gray">
+        <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius "><i class="Hui-iconfont"></i> 批量删除</a></span>
+        <div class="text-r" style="float:right;">
+            日期范围：
+            <input type="text" id="logmin" class="input-text Wdate" style="width:120px;">
+            -
+            <input type="text"  id="logmax" class="input-text Wdate" style="width:120px;">
+            <input type="text" name="" id="" placeholder=" 关键词" style="width:180px" class="input-text">
+
+            <button name="" id="" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜事项</button>
+        </div>
+    </div>
+    <table class="table table-border table-bordered table-hover table-bg table-sort">
+        <thead>
+        <tr class="text-c">
+            <th width="30px"><input type="checkbox" /></th>
+            <th width="30px">序号</th>
+            <volist name="fields[2]" id="field" offset="5">
+                <th>{$field['comment']}</th>
+            </volist>
+            <th>办理时间</th>
+            <th>评价</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <volist name="progressings[2]" id="progressing" key="k">
+            <tr class="text-c">
+                <td><input type="checkbox" name="" value="{$progressing['id']}"></td>
+                <td>{$k}</td>
+                <volist name="progressing['add']" id="add">
+                    <if condition="strpos($add, '/') eq 10">
+                        <td><a href="__ROOT__/uploads/{$add}">下载</a></td>
+                        <else/>
+                        <td>{$add}</td>
+                    </if>
+                </volist>
+                <td>{$progressing['processingtime']|date="Y-m-d H:i",###}</td>
+                <td></td>
+                <td> <a title="修改" class="ml-5" onclick=jtzr_edit("修改","{:U('Progressing/edit',array('id'=>$progressing['id'],'tableName'=>$tname[2]))}") href="javascript:;"><img src="__PUBLIC__/admin/images/pen.png" width="12"/><a>&nbsp;
+                    <a title="删除" href="javascript:;" onclick="processing_del(this,'1')" class="ml-5" style="text-decoration:none" id="{:U('Progressing/delete',array('id'=>$progressing['id'],'tableName'=>$tname[2]),'')}"><img src="__PUBLIC__/admin/images/delete.png" width="12"/></a></td>
+            </tr>
+        </volist>
+        </tbody>
+    </table>
+    <div class="text-r mt-20">
+        {$page}
+    </div>
+
+    <div id="container3" style="min-width:700px;height:400px"></div>
+</if>
+</if>
+        </div>
+        <div class="tabCon important">
+            <div class="pl-20 lh-22 pd-10" style="background: #eee;">
+                <h4><strong>岗位权力清单</strong>&nbsp;<a class="btn btn-primary radius pl-10 pr-10 add" onclick=ql_add('添加权力','{:U("Pcontrol/add",array("oid"=>$oid),"")}') href="javascript:;" >+</a></h4>
+            </div>
+            <div class="cl pd-5 bg-1 bk-gray">
+                <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius "><i class="Hui-iconfont"></i> 批量删除</a></span>
+                <div class="text-r" style="float:right;">
+                    <label>办理主体：</label>
+                    <select name="finish" style="height: 29px;border:1px #ddd solid;">
+                        <option value="0">办公室</option>
+                        <option value="1">政治部</option>
+                    </select>
+                    <label>公开范围：</label>
+                    <select name="finish" style="height: 29px;border:1px #ddd solid;">
+                        <option value="0">内部</option>
+                        <option value="1">社会</option>
+                    </select>
+                    日期范围：
+                    <input type="text"  id="logmin" class="input-text Wdate" style="width:120px;">
+                    -
+                    <input type="text"  id="logmax" class="input-text Wdate" style="width:120px;">
+                    <input type="text" name="" id="" placeholder=" 关键词" style="width:180px" class="input-text">
+
+                    <button name="" id="" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜事项</button>
+                </div>
+            </div>
+            <table class="table table-border table-bordered table-hover table-bg table-sort">
+                <thead>
+                <tr class="text-l">
+                    <th width="25" class="text-c"><input type="checkbox" name="" value=""></th>
+                    <th width="25">序号</th>
+                    <th width="100">权力名称</th>
+                    <th width="100">权力类别</th>
+                    <th>设置依据</th>
+                    <th width="80">办理主体</th>
+
+                    <th width="80">公开范围</th>
+                    <th width="80">办理日期</th>
+                    <th width="60">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <volist name="contents[3]" id="con" key="k">
+                    <tr class="text-l">
+                        <td class="text-c"><input type="checkbox" value="{$con['id']}" name="ids[]"></td>
+                        <td class="text-c">{$k}</td>
+                        <td>{$con['power']}</td>
+                        <td>{$con['type']}</td>
+                        <td>{$con['reasons']}</td>
+                        <td>{$con['activity']}</td>
+                        <td>{$con['notice']}</td>
+                        <td>{$con['inputtime']}</td>
+                        <td> <a title="修改" class="ml-5" onclick=ql_edit("修改","{:U('Pcontrol/edit',array('id'=>$con['id']),'')}") href="javascript:;"><img src="__PUBLIC__/admin/images/pen.png" width="12"/></a>   <a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none" id="{:U('delete',array('id'=>$con['id']),'')}"><img src="__PUBLIC__/admin/images/delete.png" width="12"/></a></td>
+                    </tr>
+                </volist>
+
+                </tbody>
+            </table>
+            <div class="text-r mt-20 page">
+                {$contents[3][0]['page']}
+            </div>
+            <div class="pd-15 radius lh-22 mt-15" style="background: #eee;"  >
+
+                <h4><strong>监控重点</strong>&nbsp;<a class="btn btn-primary radius pl-10 pr-10 add" onclick=ql_add('编辑监控重点','{:U("Cimportant/edit",array("oid"=>$oid),"")}') href="javascript:;" ><img src="__PUBLIC__/admin/images/pen.png" width="12"/></a></h4>
+                <ul class="list lh-24">
+                    <volist name="controls[3]" id="important">
+                        <if condition="$which[3] eq $important['id']">
+                            <li><a href="{:U('Pcontrol/change',array('which'=>$important['id']),'')}" class="cur" name="{$important['id']}">{$important['power']}</a></li>
+                            <else/>
+                            <li><a href="{:U('Pcontrol/change',array('which'=>$important['id']),'')}">{$important['power']}</a></li>
+                        </if>
+                    </volist>
+
+                </ul>
+            </div>
+            <if condition="$hasKey[3] eq 1">
+                <div class="pd-15 radius lh-22 mt-15" style="background: #eee;">
+
+                    <h4 style="float:left"><strong>士官选取权力运行情况</strong>&nbsp;<if condition="$addTable[3] neq 1"><a class="btn btn-primary radius pl-10 pr-10 add" onclick=ql_add('添加权力运行','{:U("Progressing/add",array("tableName"=>$tname[3],"iid"=>$which[3]),"")}') href="javascript:;" >+</a></if></h4>
+                    <if condition="$editTable[3] eq 1">
+                        <div class="text-r pt-10" style="float:right;"> <a class="btn btn-primary radius" onclick=model_choise(this,'修改表结构','{:U("Cimportant/editModel",array("tableName"=>$tname[3]),"")}') href="javascript:;"><i class="Hui-iconfont">&#xe6df;</i>修改表结构</a></div>
+                </div>
+            </if>
+            <if condition="$addTable[3] eq 1">
+                <div class="text-r pt-10" style="float:right;"> <a class="btn btn-primary radius" onclick=model_choise(this,'选择或创建表结构','{:U("Cimportant/choiseModel","","")}') href="javascript:;"><i class="Hui-iconfont">&#xe6df;</i>选择或创建表结构</a></div>
+        </div>
+</if>
+</div>
+
+<if condition="$viewTable[3] eq 1">
+    <div class="cl pd-5 bg-1 bk-gray">
+        <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius "><i class="Hui-iconfont"></i> 批量删除</a></span>
+        <div class="text-r" style="float:right;">
+            日期范围：
+            <input type="text" id="logmin" class="input-text Wdate" style="width:120px;">
+            -
+            <input type="text"  id="logmax" class="input-text Wdate" style="width:120px;">
+            <input type="text" name="" id="" placeholder=" 关键词" style="width:180px" class="input-text">
+
+            <button name="" id="" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜事项</button>
+        </div>
+    </div>
+    <table class="table table-border table-bordered table-hover table-bg table-sort">
+        <thead>
+        <tr class="text-c">
+            <th width="30px"><input type="checkbox" /></th>
+            <th width="30px">序号</th>
+            <volist name="fields[3]" id="field" offset="5">
+                <th>{$field['comment']}</th>
+            </volist>
+            <th>办理时间</th>
+            <th>评价</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <volist name="progressings[3]" id="progressing" key="k">
+            <tr class="text-c">
+                <td><input type="checkbox" name="" value="{$progressing['id']}"></td>
+                <td>{$k}</td>
+                <volist name="progressing['add']" id="add">
+                    <if condition="strpos($add, '/') eq 10">
+                        <td><a href="__ROOT__/uploads/{$add}">下载</a></td>
+                        <else/>
+                        <td>{$add}</td>
+                    </if>
+                </volist>
+                <td>{$progressing['processingtime']|date="Y-m-d H:i",###}</td>
+                <td></td>
+                <td> <a title="修改" class="ml-5" onclick=jtzr_edit("修改","{:U('Progressing/edit',array('id'=>$progressing['id'],'tableName'=>$tname))}") href="javascript:;"><img src="__PUBLIC__/admin/images/pen.png" width="12"/><a>&nbsp;
+                    <a title="删除" href="javascript:;" onclick="processing_del(this,'1')" class="ml-5" style="text-decoration:none" id="{:U('Progressing/delete',array('id'=>$progressing['id'],'tableName'=>$tname),'')}"><img src="__PUBLIC__/admin/images/delete.png" width="12"/></a></td>
+            </tr>
+        </volist>
+        </tbody>
+    </table>
+    <div class="text-r mt-20">
+        {$page}
+    </div>
+
+    <div id="container4" style="min-width:700px;height:400px"></div>
+</if>
+</if>
+        </div>
+        <input type="hidden" value="{$mid}" id="mid" />
+    </div>
+    <script type="text/javascript" src="__PUBLIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/admin/lib/Validform/5.3.2/Validform.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/admin/lib/layer/1.9.3/layer.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/admin/lib/icheck/jquery.icheck.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/admin/js/H-ui.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/admin/js/H-ui.admin.js"></script>
+
+    <!--饼形图-->
+    <script type="text/javascript" src="__PUBLIC__/admin/lib/Highcharts/4.1.7/js/highcharts.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/admin/lib/Highcharts/4.1.7/js/modules/exporting.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/admin/js/common.js"></script>
+
+    <script type="text/javascript">
+        $(function(){
+            $('.skin-minimal input').iCheck({
+                checkboxClass: 'icheckbox-blue',
+                radioClass: 'iradio-blue',
+                increaseArea: '20%'
+            });
+            $.Huitab("#tab-system .tabBar span","#tab-system .tabCon","current","click","0");
+        });
+        $(function(){
+            /*$(".page a").click(function(){
+                var self = $(this);
+                var url = self.attr("href").replace('index/','page/');
+                $.get(url,function(data){
+                    data = eval('(' + data + ')');
+                    var area = self.parents($(".tabCon"));
+                    console.log(data);
+
+                });
+                return false;
+
+            })*/
+            //先选中哪个部门是显示的
+            for(var i=0; i<$(".tabBar span").length; i++){
+                $(".who:eq("+i+")").text($(".tabCon:eq("+i+") .cur") .text());
+            }
+            var which = $("#mid").val();
+            $("span[name='"+which+"']").click();
+
+            //单击哪个动态请求哪个的数据
+            $(".list a").click(function(){
+                var self = $(this);
+                $(".list a").removeClass('cur');
+                self.addClass('cur');
+                var url = self.attr('href');
+                $.get(url,function(data){
+                    data = eval('(' + data + ')');
+                    var area = self.parents($(".tabCon"));
+                    area.find('.dutys').html(data.dutys);
+                    area.find('.risks').html(data.risks);
+                    area.find('.rlevel').html(data.rlevel);
+                    area.find('.controls').html(data.controls);
+                    area.find('.who').html(self.text()); //职责清单主题改变
+                });
+                return false;
+            });
+        });
+        /**
+         * 确定是哪个部门要修改权力
+         * */
+        function ql_edit(title,url){
+            var mid = $(".current").attr('name');
+            url += '/oid/';
+            url += $("#oid").val();
+            url += '/mid/';
+            url += mid;
+            jtzr_edit(title,url);
+        }
+        /*集体责任-编辑*/
+        function jtzr_edit(title,url){
+            var index = layer.open({
+                type: 2,
+                title: title,
+                content: url
+            });
+            layer.full(index);
+        }
+        /*用户-删除*/
+        function member_del(obj,id){
+            var url = $(obj).attr('id');
+            layer.confirm('确认要删除吗？',function(index){
+                $.get(url,function(data){
+                    if(data==1){
+                        $(obj).parents("li").remove();
+                        layer.msg('已删除!',{icon:1,time:1000});
+                    }
+
+                })
+            });
+        }
+        /*权力运行情况-删除*/
+        function processing_del(obj,id){
+            var url = $(obj).attr('id');
+            layer.confirm('确认要删除吗？',function(index){
+                $.get(url,function(data){
+                    if(data==1){
+                        $(obj).parents("tr").remove();
+                        layer.msg('已删除!',{icon:1,time:1000});
+                    }
+
+                })
+            });
+        }
+        /**
+         * 确定是哪个部门要添加权力
+         * */
+        function ql_add(title,url){
+            var mid = $(".current").attr('name');
+            url += '/mid/';
+            url += mid;
+            jtzr_add(title,url);
+        }
+        /**
+         * 确定是哪个监控重点要选择表结构
+         * */
+        function model_choise(ob,title,url){
+            var iid = $(ob).parents(".important").find(".cur").attr('name');
+            url += '/iid/';
+            url += iid;
+            var mid = $(".current").attr('name');
+            url += '/mid/';
+            url += mid;
+            jtzr_add(title,url);
+        }
+        /*权力-添加*/
+        function jtzr_add(title,url){
+            var index = layer.open({
+                type: 2,
+                title: title,
+                content: url
+            });
+            layer.full(index);
+        }
+
+        /*饼形图*/
+        $(function () {
+            //根据现有数据创建饼形图
+            var title=$('#container').parents('.tabCon').find('.cur').text();
+            var data = $("#data1").val().split(',');
+            createPie4($('#container'),title,data[0]-0,data[1]-1,data[2]-0,data[3]-0);
+
+            //改变年份时，重新请求数据
+            $("#finish").change(function(){
+                var url = $("#countUrl").val();
+                var whichYear = $(this).val();
+                $.get(url,{
+                    year:whichYear,
+                    mid: $(".cur input").val()
+                },function(data){
+                    var status = eval('(' + data + ')');
+                    status1 = status.s1 ? status.s1:0;
+                    status2 = status.s2 ? status.s2:0;
+                    status3 = status.s3 ? status.s3:0;
+
+                    //根据现有数据创建饼形图
+                    createPie($('#container'),$("#pieTitle").text(),status1-0,status2-0,status3-0);
+                })
+            })
+        });
+
+    </script>

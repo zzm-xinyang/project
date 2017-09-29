@@ -1,0 +1,1 @@
+<?php if (!defined('THINK_PATH')) exit();?>石家庄警卫处前台首页

@@ -1,0 +1,85 @@
+<ol class="breadcrumb"> 
+   
+    <li><span class="glyphicon glyphicon-home" aria-hidden="true"></span> <a href="index.html">首页</a></li>  
+   
+    <li class="active">我要举报</li> 
+    
+    
+</ol>
+<div class="container">
+  <div class="row jyxc1">
+  	
+	  <h3>我要举报</h3>
+	 
+      <p>
+    
+      <form class="form-horizontal" enctype="multipart/form-data" method="post" action="{:U('Reports/add','','')}">
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label">举报对象：</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control"  placeholder="必填" name="rname">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">所在单位：</label>
+    <div class="col-sm-10">
+     <select class="form-control" name="unit">
+		  <option value="1">司令部</option>
+		  <option value="2">政治处</option>
+		  <option value="3">防火处</option>
+		  <option value="4">后勤处</option>
+	</select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">职务：</label>
+    <div class="col-sm-10">
+      <select class="form-control" name="dutiesId"> 
+      	<option value="" >请选择</option>
+        <volist name="dutys" id="duty">
+		  <option value="{$duty['id']}">{$duty['duty']}</option>
+		  </volist>
+	</select>
+    </div>
+      </div>
+    <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">举报标题：</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control"  placeholder="必填" name="title">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">举报内容：</label>
+    <div class="col-sm-10">
+     <textarea class="form-control" rows="3" name="content"></textarea>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">上传附件：</label>
+    <div class="col-sm-10">
+     <input type="file" id="exampleInputFile" name="attachment">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">举报人姓名：</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control"  placeholder="" name="report">
+    </div>
+  </div>
+    <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">证件号：</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control"  placeholder="" name="reportId">
+    </div>
+  </div>
+   
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-primary">提 交</button>
+    </div>
+  </div>
+</form>
+    </p>
+  </div>  
+ 
+  </div>

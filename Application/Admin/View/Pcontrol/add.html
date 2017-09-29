@@ -1,0 +1,67 @@
+<div class="pd-20">
+    <form action="{:U('save','','')}" method="post" class="form form-horizontal" id="form-article-add">
+        <div class="row cl">
+            <label class="form-label col-1"><span class="c-red">*</span>权力名称：</label>
+            <div class="formControls col-10">
+                <select name="name" style="height: 29px;border:1px #ddd solid;">
+                    <volist name="flows" id="flow">
+                        <option value="{$flow['id']}">{$flow['power']}</option>
+                    </volist>
+                </select>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-1"><span class="c-red">*</span>权力类别：</label>
+            <div class="formControls col-10">
+                <label><input type="radio" value="1" name="type" checked>内部管理</label>&nbsp;&nbsp;
+                <label><input type="radio" value="2" name="type">社会</label>&nbsp;&nbsp;
+
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-1"><span class="c-red">*</span>设置依据：</label>
+            <div class="formControls col-10">
+                <input type="text" class="input-text" name="reasons">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-1"><span class="c-red">*</span>办理主体：</label>
+            <div class="formControls col-10">
+                <div class="formControls col-10">
+                    <input type="text" class="input-text" name="activity">
+                </div>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-1"><span class="c-red">*</span>公开范围：</label>
+            <div class="formControls col-11">
+                <label><input type="radio" value="1" name="notice" checked>内部</label>&nbsp;&nbsp;
+                <label><input type="radio" value="2" name="notice">社会</label>&nbsp;&nbsp;
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="row cl text-l">
+                <div class="col-11 col-offset-1">
+                    <input type="hidden" name="oid" value="{$oid}" />
+                    <input type="hidden" name="mid" value="{$mid}" />
+                    <button  class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i>添加</button>
+                    <button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+                </div>
+            </div>
+    </form>
+</div>
+</div>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/icheck/jquery.icheck.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/Validform/5.3.2/Validform.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/webuploader/0.1.5/webuploader.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/ueditor/1.4.3/ueditor.config.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/H-ui.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/H-ui.admin.js"></script>
+<script type="text/javascript">
+
+</script>
