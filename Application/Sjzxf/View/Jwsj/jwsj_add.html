@@ -1,0 +1,69 @@
+<ol class="breadcrumb"> 
+   
+    <li><span class="glyphicon glyphicon-home" aria-hidden="true"></span> <a href="__ROOT__/index.php/sjzxf">首页</a></li>  
+ 
+    <li class="active">纪委书记信箱</li> 
+    
+    
+</ol>
+<div class="container">
+  <div class="row jyxc1">
+  	
+	  <h3>给书记写信<span class="pull-right"><a href="{:U('Jwsj/index')}" class="btn btn-danger" value="">发信历史</a></span></h3>
+	 
+      <div class="row">
+    
+      <form class="form-horizontal" enctype="multipart/form-data" method="post" action="{:U('Jwsj/add','','')}">
+		  <div class="form-group">
+		    <label for="inputEmail3" class="col-sm-2 control-label">收件人：</label>
+		    <div class="col-sm-10">
+		      <input type="text" class="form-control"  placeholder="纪委书记姓名" name="addressee">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label for="inputPassword3" class="col-sm-2 control-label">所在单位：</label>
+		    <div class="col-sm-10">
+		     <select class="form-control" name="unit">
+		   		<volist name="qjdept" id="q">
+				  <option value="{$q['id']}">{$q['name']}</option>
+				</volist>
+		</select>
+		    </div>
+		  </div>
+		
+		    <div class="form-group">
+		    <label for="inputPassword3" class="col-sm-2 control-label">标题：</label>
+		    <div class="col-sm-10">
+		      <input type="text" class="form-control"  placeholder="必填" name="title">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label for="inputPassword3" class="col-sm-2 control-label" >内容：</label>
+		    <div class="col-sm-10">
+		     <textarea class="form-control" rows="3" name="content"></textarea>
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label for="inputPassword3" class="col-sm-2 control-label">上传附件：</label>
+		    <div class="col-sm-10">
+		     <input type="file" id="exampleInputFile" name="attachment">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label for="inputPassword3" class="col-sm-2 control-label">发件人姓名：</label>
+		    <div class="col-sm-10">
+		      <input type="text" class="form-control"  placeholder="张三" name="sender">
+		    </div>
+		  </div>
+		  
+		 
+		  <div class="form-group">
+		    <div class="col-sm-offset-2 col-sm-10">
+		      <button type="submit" class="btn btn-primary">提 交</button>
+		    </div>
+		  </div>
+		</form>
+    </div>
+  </div>  
+ 
+  </div>

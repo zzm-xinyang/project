@@ -5,7 +5,7 @@
 	<div class="cl pd-5 bg-1 bk-gray text-l">
 
 		<span class="l mr-5"><a href="{:U('News/xwdt_delsome','','')}"  class="btn btn-danger radius" id="dels"><i class="Hui-iconfont"></i> 批量删除</a></span>
-		<span class="l"><a class="btn btn-primary radius"  href="{:U('News/xwdt_add')}"><i class="Hui-iconfont">&#xe600;</i>添加新闻</a></span>
+		<span class="l"><a class="btn btn-primary radius"  href="{:U('News/xwdt_add',array('oid'=>$oid))}"><i class="Hui-iconfont">&#xe600;</i>添加新闻</a></span>
         <form action="{:U('News/xwdt_search')}" method="post" class="form form-horizontal" id="form-article-add">
         <div class="text-r"> 日期范围：
 			<input type="text" onfocus="WdatePicker({lang:'zh-cn'})" name="logmin" id="logmin" class="input-text Wdate" style="width:120px;" value="{$mintime}">
@@ -24,7 +24,7 @@
 			<th width="35">ID</th>
 			<th>标题</th>
 			<th width="80">发布者</th>
-			<th width="90">更新时间</th>
+			<th width="130">更新时间</th>
 			<th width="100">操作</th>
 		</tr>
 		</thead>

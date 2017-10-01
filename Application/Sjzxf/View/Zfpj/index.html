@@ -1,0 +1,103 @@
+  <!-----------------------------------------modal------------------------------------------------------->
+  <div class="modal fade" tabindex="-1" role="dialog" id="gbpy1">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">官兵评议</h4>
+      </div>
+      <div class="modal-body">
+      	<h5>感谢您的评议！</h5>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>        
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<ol class="breadcrumb"> 
+
+    <li><span class="glyphicon glyphicon-home" aria-hidden="true"></span> <a href="index.html">首页</a></li>     
+    <li class="active">作风评价</li> 
+    
+    
+</ol>
+<div class="container">
+ 
+  <div class="row">
+  	<div class="col-md-4 col-lg-3 menu">
+    	<div class="panel panel-primary">
+    <div class="panel-heading">
+        选择人员
+    </div>
+    <div class="panel-body">
+     
+         <div class="panel-body">
+       <volist name="qjdept" id="q">
+      <a class="btn btn-link" role="button" type="button" data-toggle="collapse" data-target="#menu{$q['id']}">
+           {$q['name']}
+        </a>
+        <div id="menu{$q['id']}" class="collapse">        
+           <volist name="q['members']" id="m">
+               <a class="btn btn-link aa" role="button" type="button" data-toggle="collapse" data-target="#menu01" href="{:U('Zfpj/zfpj',array('id'=>$m['id']),'')}" >
+               	{$m['duty']}：{$m['name']}
+            </a>  
+           </volist>            
+         </div>
+         </volist>
+                  
+       </div>
+        
+        
+    </div>
+</div>
+       
+       
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9 ">
+        <div class="row zfpj1">  
+        <span class="red">请在左侧菜单选择需要评价的人员</span>   
+       <!-- <h3>张三作风评价</h3>-->    
+        <form name="form1" method="post" action="" >
+             <table cellpadding="0" cellspacing="0" class="table  table-hover wz " >		
+            <thead>
+            <tr >
+              
+              <th width="10%" rowspan="2">类别</th>
+              <th width="61%" rowspan="2">监督内容</th>
+              
+              </tr>
+            
+            </thead>
+            <tbody>
+            <volist name="styleslist" id="styles">
+            <tr>            
+            <td rowspan="{$styles['contents'] | count}" style="vertical-align:middle">{$styles['name']}</td>
+            <td align="left">{$styles['contents'][0]['content']}</td>            
+            </tr>
+            <volist name="styles['contents']" id="vo">
+            	<if condition="$key gt 0">
+            	 <tr>            
+           		 	<td align="left"> {$vo['content']} </td>
+            	</tr>
+            	</if>
+            </volist>
+            </volist>         
+                     
+            </tbody>
+            </table>
+
+            
+             
+            
+       </form>
+        </div>
+      
+    </div>
+  </div>   
+</div>
+
+<script type="text/javascript" src="__PUBLIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script> 

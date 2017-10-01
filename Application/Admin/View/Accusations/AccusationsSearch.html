@@ -1,7 +1,6 @@
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span>纪委书记信箱 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="pd-20">
 	<div class="cl pd-5 bg-1 bk-gray">
-		<span class="l mt-5 mr-5"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont"></i> 批量删除</a></span>
 		
 	<form action="{:U('Accusations/accusationsSearch','','')}" method="post" >
 		<div class="text-r"> 日期范围：
@@ -17,7 +16,6 @@
 <table class="table table-border table-bordered table-hover table-bg table-sort">
 	<thead>
 		<tr class="text-c">
-			<th width="25"><input type="checkbox" name="" value=""></th>
 			<th width="35">ID</th>
 			<th>标题</th>
 			<th width="80">状态</th>
@@ -30,7 +28,6 @@
 		
 		<volist name="accusationLists" id="accusation">
 		<tr class="text-c">
-			<td  class="text-c"><input type="checkbox" value="{$accusation['id']}" name="ids"></td>
 			<td>{$accusation['id']}</td>
 			<td class="text-l">{$accusation['title']}</td>
 			<td><if condition="$accusation['status']==0">待回复
@@ -38,14 +35,11 @@
 				</if>
 			</td>
 			<td>{$accusation['sendtime']|date="Y-m-d H:i",###}</td>
-			<td><if condition="$accusation['revoverytime']!=null">{$accusation['revoverytime']|date="Y-m-d H:i",###}
+			<td><if condition="$revoverytime['sendtime']!=null">{$accusation['revoverytime']|date="Y-m-d H:i",###}
 				</if></td>
-			<td><a title="预览" class="ml-5" onclick="member_edit('详情','{:U('Accusations/accusationsFind',array('id'=>$accusation['id']),'')}','4','','510')" href="javascript:;"><i class="Hui-iconfont">&#xe695;</i></a>&nbsp;&nbsp;
-				<if condition="$accusation['status']==0">
-					<a title="回复" class="ml-5" onclick="member_edit('回复','{:U('Accusations/accusationsRevovery',array('id'=>$accusation['id']),'')}','4','','510')" href="javascript:;"><i class="Hui-iconfont">&#xe603;</i></a>
-				</if>
-				&nbsp;&nbsp;<a title="删除" href="javascript:;" onclick="member_del(this,{$accusation['id']})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
-		
+			<td><a title="预览" class="ml-5" onclick="member_edit('详情','{:U('Accusations/accusationsFind',array('id'=>$accusation['id']),'')}','4','','510')" href="javascript:;"><i class="Hui-iconfont">&#xe695;</i></a>
+				&nbsp;&nbsp;<a title="回复" class="ml-5" onclick="member_edit('回复','{:U('Accusations/accusationsRevovery',array('id'=>$accusation['id']),'')}','4','','510')" href="javascript:;"><i class="Hui-iconfont">&#xe603;</i></a>
+				&nbsp;&nbsp;<a title="删除" href="javascript:;" onclick="member_del(this,{$accusation['id']})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></a></td>
 		</tr>
 		</volist>
 			
@@ -94,27 +88,6 @@ function member_del(obj,id){
 				layer.msg('已删除!',{icon:1,time:1000});
     		}else{    			
 				layer.msg(result,{icon:2,time:1000});
-    		}
-		});
-	});
-}
-
-/*批量删除*/
-function datadel(){
-	layer.confirm('确认要删除所有选中的吗？',function(index){
-		var check_boxes = document.getElementsByName("ids");  
-        var ids = new Array();  
-        for(var i=0;i<check_boxes.length;i++){  
-        	if(check_boxes[i].checked){
-            ids.push(check_boxes[i].value);  
-           }
-        }
-		$.post('{:U(\'Accusations/accusationsDelAll\',\'\',\'\')}',{'ids':ids},function(result){
-    		if(result==true){    			
-				layer.msg('已删除!',{icon:1,time:1000});
-				location.reload();				
-    		}else{    			
-				layer.msg(result,{icon:1,time:1000});
     		}
 		});
 	});

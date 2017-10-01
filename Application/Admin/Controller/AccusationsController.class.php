@@ -105,7 +105,7 @@ class AccusationsController extends CommonController {
         $accusation = $accusationsModel->find($id);
       // 调用类  
         $http = new \Org\Net\Http;  
-        $filename = realpath("uploads").$accusation['attachment'];
+        $filename = realpath("uploads").'/'.$accusation['attachment'];
         $showname=basename($filename);  
         $http->download($filename, $showname);  
 	}

@@ -24,7 +24,7 @@
         <h4><strong>主体责任分解清单落实情况</strong>&nbsp;<a class="btn btn-primary radius pl-10 pr-10 add" onclick=jtzr_add('添加事项','{:U("Plist/pitems","oid=$oid","")}') href="javascript:;" >+</a></h4>
     </div>
     <div class="cl pd-5 bg-1 bk-gray">
-        <span class="l"><a href="{:U('Plist/delsome','','')}"  class="btn btn-danger radius" id="dels"><i class="Hui-iconfont"></i> 批量删除</a></span>
+        <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius "><i class="Hui-iconfont"></i> 批量删除</a></span>
         <form action="{:U('Plist/listsearch')}" method="post" class="form form-horizontal" id="form-article-add">
         <div class="text-r" style="float:right;">
             <label>责任主体：</label>
@@ -54,12 +54,11 @@
         </div>
         </form>
     </div>
-    <form method="post" action="{:U('Plist/delsome','','')}" id="xwdt_del">
     <table class="table table-border table-bordered table-hover table-bg table-sort">
         <thead>
         <tr class="text-c">
             <th width="35"><input type="checkbox" name="" value=""></th>
-            <th width="35">序号</th>
+            <th width="35">ID</th>
             <th width="">落实事项</th>
             <th width="80">责任主体</th>
             <th width="90">开始时间</th>
@@ -73,7 +72,7 @@
         <tbody>
         <volist name="itemLists" id="item">
             <tr class="text-c">
-                <td><input type="checkbox" value="{$item.id}" name="newsdels[]" class="checkdels"></td>
+                <td><input type="checkbox" value="{$item['id']}" name=""></td>
                 <td>{$i}</td>
                 <td class="text-l">{$item['item']}</td>
                 <td>{$item['subject']}</td>
@@ -88,9 +87,6 @@
 
         </tbody>
     </table>
-        <input type="submit" name="submit" style="display: none;" id="submit">
-
-    </form>
     <div class="text-r mt-20 page">
         {$page}
     </div>
@@ -129,7 +125,6 @@
     /**
      * 选中哪个，哪个有颜色标识，并更改相应的内容
      */
-    parent.layer.closeAll();
     $(function () {
         $("#list li a:eq(0)").addClass('cur');
         $("#choiseContent").html($("#first").val());
@@ -144,19 +139,6 @@
 
             return false;
         });
-    });
-    $(function(){
-        $("#dels").click(function(){
-            $("#submit").click();
-            return false;
-        });
-
-        //为页码附加搜索条件
-        $(".pages .num").each(function(){
-            console.log( $("#mintime").val());
-            var newText = $(this).text() + $("#mintime").val();
-            $(this).text(newText);
-        })
     });
 
     $(function(){

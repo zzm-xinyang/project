@@ -18,7 +18,8 @@ class ReportsController extends CommonController {
             $p = 1;
         }
        // $adviceLists= $advicesModel->where("oid=$oid")->order('id')->page($p.',1')->select();
-        $reportLists= $reportsModel->where("oid=$oid")->join('LEFT JOIN dutys ON dutys.id=reports.dutiesId')->field('reports.*,dutys.duty as dname')->page($p.',10')->select();
+        $reportLists= $reportsModel->where("reports.oid=$oid")->join('dutys ON dutys.id=reports.dutiesId','left')->join('qjdepts ON qjdepts.id=reports.unit','left')->field('reports.*,dutys.duty as dname,qjdepts.name as qname')->page($p.',10')->select();
+	
         $this->assign('reportLists',$reportLists);// 赋值数据集
         //$count      = $advicesModel->where("oid=$oid")->count();// 查询满足要求的总记录数
         $count      = $reportsModel->where("oid=$oid")->count();
@@ -32,7 +33,7 @@ class ReportsController extends CommonController {
 	public function reportFind(){
 		$id = I('id');
         $reportsModel = D('Reports');
-        $report = $reportsModel->find($id);
+        $report = $reportsModel->where("reports.id=$id")->field('reports.*,dutys.duty as dname,qjdepts.name as qname')->join('dutys ON dutys.id=reports.dutiesId','left')->join('qjdepts ON qjdepts.id=reports.unit','left')->find();
         $this->assign('report',$report);// 赋值数据集
 		$this->display();
 	}
@@ -70,7 +71,7 @@ class ReportsController extends CommonController {
             $p = 1;
         }
        // $adviceLists= $advicesModel->where("oid=$oid")->order('id')->page($p.',1')->select();
-       $map['oid'] = $oid;
+       $map['reports.oid'] = $oid;
         if($minDate!=null&& $minDate!="" && $maxDate!=null && $maxDate!=""){
 	   		$map['reportTime'] =array(array('EGT',strtotime($minDate.' 00:00:00')),array('ELT',strtotime($maxDate.' 23:59:59')),'AND');
 		} else if($minDate!=null){
@@ -82,7 +83,7 @@ class ReportsController extends CommonController {
 			$map['title'] = array('like','%'.$keyWords.'%');
 		}
 	    $map['status']=array('eq',$status);
-        $reportLists= $reportsModel->where($map)->join('LEFT JOIN dutys ON dutys.id=reports.dutiesId')->field('reports.*,dutys.duty as dname')->page($p.',10')->select();
+        $reportLists= $reportsModel->where($map)->join('dutys ON dutys.id=reports.dutiesId','left')->join('qjdepts ON qjdepts.id=reports.unit','left')->field('reports.*,dutys.duty as dname,qjdepts.name as qname')->page($p.',10')->select();
         $this->assign('reportLists',$reportLists);// 赋值数据集       
         $count      = $reportsModel->where($map)->count();// 查询满足要求的总记录数
         $Page       = new \Think\Page($count,10);// 实例化分页类 传入总记录数和每页显示的记录数

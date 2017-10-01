@@ -95,13 +95,16 @@ class NewsController extends Controller {
 
     }
     public function xwdt(){
+        $oid = I('oid');
+        $this->assign('oid',I('oid'));
 
-        $m = M('news')->join('news_c  on news.id = news_c.tid');
+        $m = D('New');
 
-        $count = $m->count();
+        $count = $m->where("oid=$oid")->count();
         $p = new \Think\Page($count,10);
+
         $p->setConfig('theme', '%FIRST%%UP_PAGE%%LINK_PAGE%%DOWN_PAGE%%END%%HEADER%');
-        $newslists = $m->field(true)->order('news.id')->limit($p->firstRow, $p->listRows)->select();
+        $newslists = $m->field(true)->order('news.id desc')->where("oid=$oid")->limit($p->firstRow, $p->listRows)->select();
         $this->assign('newslists', $newslists); // 赋值数据集
         $this->assign('page', $p->show()); // 赋值分页输出
         $this->display();
@@ -137,6 +140,7 @@ class NewsController extends Controller {
     }
 
     public function xwdt_add(){
+        $this->assign('oid',I('oid'));
 
         $this->display();
     }
@@ -155,65 +159,22 @@ class NewsController extends Controller {
     }
     public function xwdt_edit(){
 
-        $m = M('news')->join('news_c  on news.id = news_c.tid');
-        $newsid = $_GET['newsid'];
-        $count = $m->count();
-        $p = new \Think\Page($count,10);
-        $newslists = $m->field(true)->where('news.id = '.$newsid)->order('news.id')->limit($p->firstRow, $p->listRows)->select();
-        $this->assign('newslists', $newslists); // 赋值数据集
-        $this->assign('page', $p->show()); // 赋值分页输出
+        $model = D('New');
+        $news = $model->getOne(I('oid'),I('newsid'));
+        $this->assign('id',$news['id']);
+        $this->assign('oid',$news['oid']);
+        $this->assign('news',$news);
+
 
         $this->display();
 
     }
 
     public function xwdt_edit_submit(){
-        $News_c = M('news_c');
-        $News = M('news');
-        $newsid = $_GET['newsid'];
-        $editor = $_POST['editor'];
-        $newstitle = $_POST['newstitle'];
-        $update_time = time();
-
-        $News_c->content = $editor;
-        $News->title = $newstitle;
-        $News->updatetime = $update_time;
-
-        $News->where('id='.$newsid)->save();
-        $News_c->where('tid='.$newsid)->save();
-
-        $this -> success('修改成功！');
-
-
-
-    }
-
-    public function xwdt_add_submit(){
-
+        $id = $_POST['nid'];
+        $model = D('New');
+        $model_c = D('news_c');
         if(IS_POST){
-
-            /*//检测管理员信息
-            $News_c = M('news_c');
-            $News = M('news');
-
-            $editor = $_POST['editor'];
-            $newstitle = $_POST['newstitle'];
-            $creat_time = time();
-            $fileList = $_POST['fileList'];
-            $obj = array(
-                "inputtime" => $creat_time,
-                "title" => $newstitle,
-                "updatetime" => $creat_time,
-            );
-            $newsc_id = $News->add($obj);
-            $obj1 = array(
-                "tid" => $newsc_id,
-                "content" => $editor,
-            );
-
-            $News_c->add($obj1);*/
-
-
             $upload = new \Think\Upload();// 实例化上传类
             $upload->maxSize   =     3145728 ;// 设置附件上传大小
             $upload->exts      =     array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
@@ -224,32 +185,103 @@ class NewsController extends Controller {
             $infoFile = $info['file'];
 
 
-            //检测管理员信息
-            $News_c = M('news_c');
-            $News = M('news');
-
-            $editor = $_POST['editor'];
-            $newstitle = $_POST['newstitle'];
-            $creat_time = time();
+            $editor = $_POST['content'];
+            $newstitle = $_POST['title'];
+            $top = $_POST['top'];
+            if($top == '1'){//如果选择了置顶，修改置顶时间
+                $toptime = $top;
+            }else{
+                $toptime = NULL;
+            }
             $fileList = $_POST['fileList'];
+
             $obj = array(
-                "inputtime" => $creat_time,
-                "title" => $newstitle,
-                "updatetime" => $creat_time,
-                "thumb" => $infoFile['savepath'].$infoFile['savename'],
+                'title' => $newstitle,
+                'updatetime' => time(),
+                'thumb' => $infoFile['savepath'].$infoFile['savename'],
+                'top'=>$top,
+                'toptime'=>$toptime
             );
-            $news_id = $News->add($obj);
+            if($model->where("id=$id")->save($obj)){
+
+            }
             $obj1 = array(
-                "tid" => $news_id,
+                "tid" => $id,
                 "content" => $editor,
             );
 
-            $News_c->add($obj1);
+            if($model_c->where("tid=$id")->save($obj1)){
+                $this->redirect('xwdt',array('oid'=>$oid));
+            }
 
 
 
 
-            $this -> success('添加新闻成功！');
+            /*$editor = $_POST['editor'];
+            echo $editor;
+            $newstitle = $_POST['newstitle'];
+            if( empty($newstitle)){
+                $this->error('请填写文章标题');
+            }*/
+        } else {
+
+            $this->error('环境检测没有通过，请调整环境后重试！');
+
+            $this->display();
+        }
+
+
+
+    }
+
+    public function xwdt_add_submit(){
+        $model = D('New');
+        $model_c = D('news_c');
+        if(IS_POST){
+            $upload = new \Think\Upload();// 实例化上传类
+            $upload->maxSize   =     3145728 ;// 设置附件上传大小
+            $upload->exts      =     array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
+            $upload->rootPath  =     UPLOAD_PATH; // 设置附件上传根目录
+            $upload->savePath  =    ''; // 设置附件上传（子）目录
+            // 上传文件
+            $info   =   $upload->upload();
+            $infoFile = $info['file'];
+
+
+            $editor = $_POST['content'];
+            $newstitle = $_POST['title'];
+            $top = $_POST['top'];
+            if($top == '1'){
+                $toptime = time();
+            }
+            $creat_time = time();
+            $oid = $_GET['oid'];
+            $fileList = $_POST['fileList'];
+            $obj = array(
+                'inputtime' => $creat_time,
+                'title' => $newstitle,
+                'updatetime' => $creat_time,
+                'thumb' => $infoFile['savepath'].$infoFile['savename'],
+                'top'=>$top,
+                'oid'=>$oid,
+                'toptime'=>$toptime
+            );
+            if($model->add($obj)){
+                $tid = $model->getLastInsID();
+            }
+            $obj1 = array(
+                "tid" => $tid,
+                "content" => $editor,
+            );
+
+            if($model_c->add($obj1)){
+                $this->redirect('xwdt',array('oid'=>$oid));
+            }else{
+                echo $model_c->getLastSql();
+            }
+
+
+
 
             /*$editor = $_POST['editor'];
             echo $editor;

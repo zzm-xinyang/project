@@ -1,54 +1,51 @@
-
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<!--[if lt IE 9]>
+	<script type="text/javascript" src="__PUBLIC__/admin/lib/html5.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/admin/lib/respond.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/admin/lib/PIE_IE678.js"></script>
+	<![endif]-->
+	<link href="__PUBLIC__/admin/css/H-ui.min.css" rel="stylesheet" type="text/css" />
+	<link href="__PUBLIC__/admin/css/H-ui.admin.css" rel="stylesheet" type="text/css" />
+	<link href="__PUBLIC__/admin/lib/icheck/icheck.css" rel="stylesheet" type="text/css" />
+	<link href="__PUBLIC__/admin/lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+	<link href="__PUBLIC__/admin/lib/webuploader/0.1.5/webuploader.css" rel="stylesheet" type="text/css" />
+	<link href="__PUBLIC__/admin/css/new.css" rel="stylesheet" type="text/css" />
+	<!--[if IE 6]>
+	<script type="text/javascript" src="__PUBLIC__/admin/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+	<script>DD_belatedPNG.fix('*');</script>
+	<![endif]-->
+	<title>添加新闻</title>
+</head>
+<body>
 <div class="pd-20">
-	<form action="{:U('News/xwdt_add_submit')}" method="post" class="form form-horizontal" id="form-article-add">
+	<form action="" method="post" class="form form-horizontal" id="form-article-add">
 		<div class="row cl">
-			<label class="form-label col-2"><span class="c-red">*</span>标题：</label>
-			<div class="formControls col-10">
-				<input type="text" class="input-text" value="" placeholder="" id="" name="newstitle">
+			<label class="form-label col-1"><span class="c-red">*</span>标题：</label>
+			<div class="formControls col-6">
+				<input type="text" class="input-text"  name="title"  value="">
 			</div>
 		</div>
-
-
-
-		<!--<div class="row cl">
-			<label class="form-label col-2">缩略图：</label>
-			<div class="formControls col-10">
-				<div class="uploader-thum-container">
-					<div id="fileList" class="uploader-list" name="fileList"></div>
-					<div id="filePicker2">选择图片</div>
-					<button id="btn-star" class="btn btn-default btn-uploadstar radius ml-10">开始上传</button>
-				</div>
+		<div class="row cl">
+			<label class="form-label col-1">置顶：</label>
+			<div class="formControls col-6">
+				<input type="radio" class="input-radio" value="1"  name="top">是 &nbsp;&nbsp;
+				<input type="radio" class="input-radio" value="0" name="top" checked>否
 			</div>
 		</div>
-		<div class="row cl hidden">
-			<label class="form-label col-2">图片上传：</label>
-			<div class="formControls col-10">
+		<div class="row cl">
+			<label class="form-label col-1">缩略图：</label>
+			<div class="formControls col-11">
 				<div class="uploader-list-container">
 					<div class="queueList">
 						<div id="dndArea" class="placeholder">
 							<div id="filePicker-2"></div>
-							<p>或将照片拖到这里，单次最多可选300张</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>-->
-		<div class="row cl">
-			<label class="form-label col-2">内容：</label>
-			<div class="formControls col-10">
-				<script id="editor" type="text/plain" style="width:100%;height:400px;" name="editor"></script>
-			</div>
-		</div>
-		<button  class="btn btn-primary radius" type="submit" style="display:none;" id="hiddensub"><i class="Hui-iconfont">&#xe632;</i>添加</button>
-	</form>
-	<form action="{:U('News/xwdt_add_submit')}" method="post" class="form form-horizontal" id="form-article-add">
-		<div class="row cl">
-			<label class="form-label col-2">图片上传：</label>
-			<div class="formControls col-5">
-				<div class="uploader-list-container">
-					<div class="queueList">
-						<div id="dndArea" class="placeholder">
-							<div id="filePicker-2" class="uploadBtn"></div>
 						</div>
 					</div>
 					<div class="statusBar" style="display:none;">
@@ -56,26 +53,29 @@
 						<div class="info"></div>
 						<div class="btns">
 							<div id="filePicker2"></div>
-							<input type="hidden" value="{:U('Organize/updateParchitecture','','')}" id="uploadUrl"/>
-							<input type="hidden" value="{:U('Organize/parchitecture/','','')}" id="viewUrl"/>
-							<input type="hidden" value="{$oid}" id="oid"/>
-
+							<div class="uploadBtn">开始上传</div>
+							&nbsp;<button onClick="layer_close();" class="btn btn-default radius" type="button" style="height:43px;">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
 
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div style="display:none;" class="uploadBtn" id="uploadBtn">开始上传</div>
-	</form>
-		<div class="row cl text-c">
-			<div class="col-10 col-offset-2">
-				<button  class="btn btn-primary radius" type="submit" id="trueSub"><i class="Hui-iconfont">&#xe632;</i>添加</button>
-				<button onClick="window.history.back();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+		<div class="row cl">
+			<label class="form-label col-1">内容：</label>
+			<div class="formControls col-11">
+				<script id="editor" type="text/plain" style="width:100%;height:400px;" name="content"></script>
 			</div>
 		</div>
-
-
+		<div class="row cl text-l mt-5">
+			<div class="col-11 col-offset-1">
+				<button class="btn btn-primary radius" type="button" style="height:43px;" id="add">&nbsp;&nbsp;添加&nbsp;&nbsp;</button>
+				&nbsp;<button onClick="layer_close();" class="btn btn-default radius" type="button" style="height:43px;">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+				<input type="hidden" value="{:U('xwdt_add_submit',array('oid'=>$oid),'')}" id="uploadUrl"/>
+				<input type="hidden" value="{:U('xwdt',array('oid'=>$oid),'')}" id="viewUrl"/>
+			</div>
+		</div>
+	</form>
 </div>
 </div>
 <script type="text/javascript" src="__PUBLIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script>
@@ -84,21 +84,19 @@
 <script type="text/javascript" src="__PUBLIC__/admin/lib/icheck/jquery.icheck.min.js"></script>
 <script type="text/javascript" src="__PUBLIC__/admin/lib/Validform/5.3.2/Validform.min.js"></script>
 <script type="text/javascript" src="__PUBLIC__/admin/lib/webuploader/0.1.5/webuploader.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/H-ui.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/H-ui.admin.js"></script>
 <script type="text/javascript" src="__PUBLIC__/admin/lib/ueditor/1.4.3/ueditor.config.js"></script>
 <script type="text/javascript" src="__PUBLIC__/admin/lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
 <script type="text/javascript" src="__PUBLIC__/admin/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
-<script type="text/javascript" src="__PUBLIC__/admin/js/H-ui.js"></script>
-<script type="text/javascript" src="__PUBLIC__/admin/js/H-ui.admin.js"></script>
 <script type="text/javascript">
-
 	$(function(){
-		$("#trueSub").click(function(){
-			$("#uploadBtn").click();
-			$("#hiddensub").click();
+		ue = UE.getEditor('editor');
 
-			return false;
+		$("#add").click(function(){
+			$(".uploadBtn").click();
 		})
-	})
+	});
 	$(function(){
 		$('.skin-minimal input').iCheck({
 			checkboxClass: 'icheckbox-blue',
@@ -106,6 +104,7 @@
 			increaseArea: '20%'
 		});
 
+		uploadUrl = $("#uploadUrl").val();
 		$list = $("#fileList"),
 				$btn = $("#btn-star"),
 				state = "pending",
@@ -113,10 +112,10 @@
 
 		var uploader = WebUploader.create({
 			auto: true,
-			swf: '__PUBLIC__/admin/lib/webuploader/0.1.5/Uploader.swf',
+			swf: 'lib/webuploader/0.1.5/Uploader.swf',
 
 			// 文件接收服务端。
-			server: 'http://lib.h-ui.net/webuploader/0.1.5/server/fileupload.php',
+			server: uploadUrl,
 
 			// 选择文件的按钮。可选。
 			// 内部根据当前运行是创建，可能是input元素，也可能是flash.
@@ -128,8 +127,13 @@
 			accept: {
 				title: 'Images',
 				extensions: 'gif,jpg,jpeg,bmp,png',
-				mimeTypes: '__PUBLIC__/admin/image/*'
-			}
+				mimeTypes: 'image/*'
+			},
+			fileNumLimit:1
+		});
+		uploader.on('uploadBeforeSend', function (obj, data, headers) {
+			console.log(11)
+			console.log(data)
 		});
 		uploader.on( 'fileQueued', function( file ) {
 			var $li = $(
@@ -154,6 +158,7 @@
 				$img.attr( 'src', src );
 			}, thumbnailWidth, thumbnailHeight );
 		});
+
 		// 文件上传过程中创建进度条实时显示。
 		uploader.on( 'uploadProgress', function( file, percentage ) {
 			var $li = $( '#'+file.id ),
@@ -240,8 +245,8 @@
 					ratio = window.devicePixelRatio || 1,
 
 					// 缩略图大小
-					thumbnailWidth = 110 * ratio,
-					thumbnailHeight = 110 * ratio,
+					thumbnailWidth = 220,
+					thumbnailHeight = 220,
 
 					// 可能有pedding, ready, uploading, confirm, done.
 					state = 'pedding',
@@ -353,14 +358,14 @@
 					label: '点击选择图片'
 				},
 				formData: {
-					uid: 123
+					title:$("input[name='title']").val(),
 				},
 				dnd: '#dndArea',
 				paste: '#uploader',
-				swf: '__PUBLIC__/admin/lib/webuploader/0.1.5/Uploader.swf',
+				swf: 'lib/webuploader/0.1.5/Uploader.swf',
 				chunked: false,
 				chunkSize: 512 * 1024,
-				server: 'http://lib.h-ui.net/webuploader/0.1.5/server/fileupload.php',
+				server: uploadUrl,
 				// runtimeOrder: 'flash',
 
 				// accept: {
@@ -371,7 +376,7 @@
 
 				// 禁掉全局的拖拽功能。这样不会出现图片拖进页面的时候，把图片打开。
 				disableGlobalDnd: true,
-				fileNumLimit: 300,
+				fileNumLimit: 1,
 				fileSizeLimit: 200 * 1024 * 1024,    // 200 M
 				fileSingleSizeLimit: 50 * 1024 * 1024    // 50 M
 			});
@@ -396,7 +401,7 @@
 			});
 
 			uploader.on('dialogOpen', function() {
-				console.log('here');
+				//            console.log('here');
 			});
 
 			// uploader.on('filesQueued', function() {
@@ -409,11 +414,6 @@
 			//     });
 			// });
 
-			// 添加“添加文件”的按钮，
-			uploader.addButton({
-				id: '#filePicker2',
-				label: '添加图片'
-			});
 
 			uploader.on('ready', function() {
 				window.uploader = uploader;
@@ -470,7 +470,7 @@
 							img = $('<img src="'+src+'">');
 							$wrap.empty().append( img );
 						} else {
-							$.ajax('__PUBLIC__/admin/lib/webuploader/0.1.5/server/preview.php', {
+							$.ajax('lib/webuploader/0.1.5/server/preview.php', {
 								method: 'POST',
 								data: src,
 								dataType:'json'
@@ -508,7 +508,7 @@
 						percentages[ file.id ][ 1 ] = 0;
 					} else if ( cur === 'progress' ) {
 						$info.remove();
-						$prgress.css('display', 'block');
+					//	$prgress.css('display', 'block');
 					} else if ( cur === 'complete' ) {
 						$li.append( '<span class="success"></span>' );
 					}
@@ -619,9 +619,9 @@
 
 				} else {
 					stats = uploader.getStats();
-					text = '共' + fileCount + '张（' +
-							WebUploader.formatSize( fileSize )  +
-							'），已上传' + stats.successNum + '张';
+					/* text = '共' + fileCount + '张（' +
+					 WebUploader.formatSize( fileSize )  +
+					 '），已上传' + stats.successNum + '张';*/
 
 					if ( stats.uploadFailNum ) {
 						text += '，失败' + stats.uploadFailNum + '张';
@@ -683,7 +683,11 @@
 					case 'finish':
 						stats = uploader.getStats();
 						if ( stats.successNum ) {
-							alert( '上传成功' );
+
+							// var viewUrl = $("#viewUrl").val();
+							//var viewUrl2 = $("#oid").val();
+
+							location.href=$("#viewUrl").val();
 						} else {
 							// 没有成功的图片，重设
 							state = 'done';
@@ -710,7 +714,7 @@
 
 				if ( fileCount === 1 ) {
 					$placeHolder.addClass( 'element-invisible' );
-					$statusBar.show();
+				//	$statusBar.show();
 				}
 
 				addFile( file );
@@ -759,6 +763,11 @@
 				}
 
 				if ( state === 'ready' ) {
+					uploader.options.formData={
+						title:$("input[name='title']").val(),
+						top:$("input[name='top']:checked").val(),
+						content:ue.getContent()
+					}
 					uploader.upload();
 				} else if ( state === 'paused' ) {
 					uploader.upload();
@@ -780,8 +789,6 @@
 		});
 
 	})( jQuery );
-
-	$(function(){
-		var ue = UE.getEditor('editor');
-	});
 </script>
+</body>
+</html>

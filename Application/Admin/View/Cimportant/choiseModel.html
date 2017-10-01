@@ -1,16 +1,13 @@
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 权力监控 <span class="c-gray en">&gt;</span> 修改权力运行表结构 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="pd-20">
     <!--列出已有的数据表模型-->
-    <form action="{:U('choise', array('iid'=>$iid,'mid'=>$mid))}" method="post">
-    <volist name="models" id="table">
-        <table class="table table-border table-bordered table-hover table-bg mb-10">
+    <volist name="tables" id="table">
+        <table class="table table-border table-bordered table-hover table-bg table-sort">
             <thead>
                 <tr class="text-l">
-                    <th width="25" class="text-c"><input type="radio" name="model" value="{$table['tid']}"></th>
+                    <th width="25" class="text-c"><input type="radio" name="model" value=""></th>
                     <volist name="table" id="t">
-                        <if condition="($t['comment'] neq '添加时间') AND ($t['comment'] neq '更新时间') AND ($t['comment'] neq '办理时间') AND ($t['comment'] neq '监控重点id') AND ($t['comment'] neq $table['tid'])">
-                            <th>{$t['comment']}</th>
-                    </if>
+                    <th>{$t['comment']}</th>
                     </volist>
                     <th width="150">评价</th>
                 </tr>
@@ -18,10 +15,8 @@
         </table>
 
     </volist>
-    <input type="submit" value="确定" name="submit" class="btn btn-primary radius"/>
 
-    <span class="ml-5"><a class="btn btn-primary radius" onclick=jtzr_add('添加新结构','{:U("Cimportant/modelAdd",array("iid"=>$iid,'nextNumber'=>$nextNumber),"")}') href="javascript:;"><i class="Hui-iconfont">&#xe600;</i>添加新结构</a></span>
-    </form>
+    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a class="btn btn-primary radius" onclick=jtzr_add('添加新结构','{:U("Cimportant/modelAdd",array("iid"=>$iid,'nextNumber'=>$nextNumber),"")}') href="javascript:;"><i class="Hui-iconfont">&#xe600;</i>添加新结构</a></span> </div>
 </div>
 <script type="text/javascript" src="__PUBLIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="__PUBLIC__/admin/lib/Validform/5.3.2/Validform.min.js"></script>

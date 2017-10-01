@@ -9,14 +9,4 @@ namespace Admin\Model;
 use Think\Model;
 class CimportantModel extends Model {
     protected $tableName = 'cimportants';
-
-    public function getImportant($oid, $mid){
-        $data = $this->where("oid=$oid and mid=$mid")->find();
-        if($data){
-            return explode(',',$data['pid']);
-        }else{
-            return false;
-        }
-
-    }
 }

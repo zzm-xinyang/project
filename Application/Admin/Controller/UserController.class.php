@@ -16,6 +16,7 @@ class UserController extends Controller {
             $User = D('User');
             $user = $User->where("account='$username'")->find();
             if($user) {
+
                 session('oid', $user['oid']);
                 $this->assign('oid',session('oid'));
             }
@@ -37,7 +38,6 @@ class UserController extends Controller {
      * 登录
      */
     public function login(){
-
         if (isset($_COOKIE['username'])){
             $username = $_COOKIE['username'];
             $User = D('User');
@@ -52,6 +52,7 @@ class UserController extends Controller {
             if (I('oid') === '0') {
                 $this->display();
             } else {
+
                 $User = D('User');
                 //先判断验证码是否正确
                 $verify = new \Think\Verify();
@@ -61,16 +62,20 @@ class UserController extends Controller {
                 $username = $_POST['account'];
                 $password = md5($_POST['password']);
                 $user = $User->where("account='$username' and password='$password'")->find();
+
                 if ($user) {
-                    session('oid', I('oid'));
-                    session('username', $user['account']);
-                    session('rid',$user['roleid']);//角色
+                    session('oid', $user['oid']);
+                    session('username', $user['account']);//用户名
+                    session('nickname',$user['username']);//昵称
+                    session('rid',$user['roleid']);  //角色
                     if (I("online")){
                         setcookie('username',$username,time()+3600*24*7);
                     }
+                    $this->assign('oid',$user['oid']);
                     $this->redirect('/Admin');
 
                 } else {
+                    dump($User->getLastSql());
                     $this->redirect('login', array('oid' => 0), 1, '用户名或密码错误...');
                 }
             }
@@ -138,9 +143,14 @@ class UserController extends Controller {
     public function save(){
         $data=array();
         $model = D('user');
-        $data['oid'] = $_POST['oid'];
+        $oid = $_POST['oid'];
+        $data['oid'] = $oid;
         $data['roleid'] = $_POST['roleid'];
-        $data['account'] = $_POST['account'];
+        $max_id = $model -> where('oid =%d',$oid) -> max('id');
+        $lastUser = $model -> where('id=%d and oid =%d',$max_id,$oid) -> find();
+        $lastAccount = (int)$lastUser['account'];
+        $data['account'] = '0'.(string)($lastAccount+1);
+        $data['username'] = $_POST['username'];
         $data['password'] = md5('123456');
         $data['phone'] = $_POST['phone'];
         $data['email'] = $_POST['email'];
@@ -149,5 +159,9 @@ class UserController extends Controller {
         if($model->add($data)){
             $this -> success('添加成功',U('index',array('oid'=>$data['oid'])),2);
         }
+    }
+
+    public function changePassword(){
+        $this -> display();
     }
 }

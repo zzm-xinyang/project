@@ -5,12 +5,8 @@
 	</div>
 	<div class="row cl">
 		<span class="col-2 text-r" >所在单位：</span>
-		<p class="col-10"><if condition="$report['unit']==1">司令部
-    			<elseif condition="$report['unit']==2"/> 政治处
-    			<elseif condition="$report['unit']==3"/> 后勤处
-    			<elseif condition="$report['unit']==4"/> 防火处
-				</if></p>
-	</div>
+		<p class="col-10">
+			<td>{$report['qname']}</td>
 	<div class="row cl">
 		<span class="col-2 text-r" >职务：</span>
 		<p class="col-10">{$report['dname']}</p>

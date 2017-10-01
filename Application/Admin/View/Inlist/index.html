@@ -1,4 +1,4 @@
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 监督责任 <span class="c-gray en">&gt;</span> 纪委领导班子集体责任 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 主体责任 <span class="c-gray en">&gt;</span> 党委领导班子集体责任 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="pd-20">
     <div class="pd-15 radius lh-22 mb-5" style="background: #eee;">
         <h4><strong>纪委领导班子集体责任清单</strong>&nbsp;<a class="btn btn-primary radius pl-10 pr-10 add" onclick=jtzr_add('添加集体责任','{:U("Inlist/plists","oid=$oid","")}') href="javascript:;" >+</a></h4>
@@ -24,7 +24,7 @@
         <h4><strong>监督责任分解清单落实情况</strong>&nbsp;<a class="btn btn-primary radius pl-10 pr-10 add" onclick=jtzr_add('添加事项','{:U("Inlist/initems","oid=$oid","")}') href="javascript:;" >+</a></h4>
     </div>
     <div class="cl pd-5 bg-1 bk-gray">
-        <span class="l"><a href="javascript:;" id="dels" class="btn btn-danger radius "><i class="Hui-iconfont"></i> 批量删除</a></span>
+        <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius "><i class="Hui-iconfont"></i> 批量删除</a></span>
         <form action="{:U('Inlist/listsearch')}" method="post" class="form form-horizontal" id="form-article-add">
         <div class="text-r" style="float:right;">
             <label>责任主体：</label>
@@ -70,11 +70,10 @@
         </tr>
         </thead>
         <tbody>
-        <form action="{:U('Inlist/deletes','','')}" method="post">
         <volist name="itemLists" id="item">
             <tr class="text-c">
-                <td><input type="checkbox" value="{$item['id']}" name="dels[]"></td>
-                <td>{$i}</td>
+                <td><input type="checkbox" value="{$item['id']}" name=""></td>
+                <td>{$item['id']}</td>
                 <td class="text-l">{$item['item']}</td>
                 <td>{$item['subject']}</td>
                 <td>{$item['starttime']}</td>
@@ -85,8 +84,6 @@
                 <td><a href="" title="显示到前台"><img src="images/eye1.ico"  width="12px" height="12px"/></a>&nbsp;&nbsp;<a title="修改" class="ml-5" onclick=jtzr_edit('编辑落实事项','{:U("Inlist/itemEdit",array("id"=>$item["id"]),"")}') href="javascript:;"><i class="Hui-iconfont">&#xe6df;</i></a>&nbsp;&nbsp;<a title="删除" href="javascript:;" onclick="item_del(this,'1')" class="ml-5" style="text-decoration:none" id="{:U('Inlist/itemDelete',array('id'=>$item['id'],'oid'=>$plist['oid']),'')}"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
             </tr>
         </volist>
-            <input type="submit" style="display:none;" id="submit" />
-        </form>
 
         </tbody>
     </table>
@@ -95,7 +92,7 @@
     </div>
     <!--2017年党委主体责任落实统计-->
     <div class="pd-15 radius lh-22 mt-20" style="background: #eee;">
-        <h4 id="pieTitle"><strong>{$curYear}年<span class="who"></span>纪委监督责任落实统计</strong>
+        <h4 id="pieTitle"><strong>{$curYear}年<span class="who"></span>党委主体责任落实统计</strong>
             <input type="hidden" id="status1" value="{$nums['s1']}" />
             <input type="hidden" id="status2" value="{$nums['s2']}" />
             <input type="hidden" id="status3" value="{$nums['s3']}" />
@@ -150,14 +147,6 @@
             increaseArea: '20%'
         });
         $.Huitab("#tab-system .tabBar span","#tab-system .tabCon","current","click","0");
-    });
-    $(function () {
-
-
-        //批量删除
-        $("#dels").click(function(){
-            $("#submit").click();
-        });
     });
 
     /**

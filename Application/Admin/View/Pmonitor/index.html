@@ -2,7 +2,7 @@
 <div class="pd-15">
     <div class="pd-15 radius lh-22 mb-5" style="background: #eee;">
         <h4 style="font-weight: bold;">{$major['subject']}</h4>
-        <div style="text-indent: 2em;" class="sqjk"><span class="init">&nbsp;{$major['content']}</span>&nbsp;&nbsp;<a title="修改" class="ml-5" onclick="jtzr_edit('修改四权监控内容','{:U("edit",array("id"=>$major["id"],"oid"=>$major["oid"]),"")}')" href="javascript:;"><i class="Hui-iconfont">&#xe6df;</i></a></div>
+        <div style="text-indent: 2em;" class="sqjk"><span class="init"></span>&nbsp;{$major['content']}&nbsp;&nbsp;<a title="修改" class="ml-5" onclick="jtzr_edit('修改四权监控内容','{:U("edit",array("id"=>$major["id"],"oid"=>$major["oid"]),"")}')" href="javascript:;"><i class="Hui-iconfont">&#xe6df;</i></a></div>
     </div>
     <div class="cl pd-5 bg-1 bk-gray">
         <span class="l"><a href="javascript:;" class="btn btn-primary radius " onclick=jtzr_add('添加主题','{:U("add","oid=$oid","")}') ><i class="Hui-iconfont">&#xe600;</i> 添加主题</a></span>
@@ -54,7 +54,7 @@
         if($("h4").text().length==0){
             $("h4").text('四权监控');
         }
-        console.log($(".init").text())
+        console.log($(".init").text().length)
         if($(".init").text().length<=1){
             $(".init").text('四权指：依法确权、规范配权、阳光晒权、全程控权；四权指：依法确权、规范配权、阳光晒权、全程控权；四权指：依法确权、规范配权、阳光晒权、全程控权；四权指：依法确权、规范配权、阳光晒权、全程控权；四权指：依法确权、规范配权、阳光晒权、全程控权；四权指：依法确权、规范配权、阳光晒权、全程控权；四权指：依法确权、规范配权、阳光晒权、全程控权；四权指：依法确权、规范配权、阳光晒权、全程控权；四权指：依法确权、规范配权、阳光晒权、全程控权；四权指：依法确权、规范配权、阳光晒权、全程控权；四权指：依法确权、规范配权、阳光晒权、全程控权；四权指：依法确权、规范配权、阳光晒权、全程控权；');
         }

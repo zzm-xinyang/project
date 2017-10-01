@@ -9,6 +9,7 @@
     <LINK rel="Bookmark" href="/favicon.ico" >
     <LINK rel="Shortcut Icon" href="/favicon.ico" />
     <!--[if lt IE 9]>
+    <script type="text/javascript" src="__PUBLIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script>
     <script type="text/javascript" src="__PUBLIC__/admin/lib/html5.js"></script>
     <script type="text/javascript" src="__PUBLIC__/admin/lib/respond.min.js"></script>
     <script type="text/javascript" src="__PUBLIC__/admin/lib/PIE_IE678.js"></script>
@@ -32,12 +33,14 @@
     <span style="line-height:45px;">{$organize}</span>
     <ul class="Hui-userbar">
         <li>{$group}</li>
-        <li class="dropDown dropDown_hover"><a href="#" class="dropDown_A">{$Think.session.username} <i class="Hui-iconfont">&#xe6d5;</i></a>
+        <li class="dropDown dropDown_hover"><a href="#" class="dropDown_A">{$Think.session.nickname} <i class="Hui-iconfont">&#xe6d5;</i></a>
+
             <ul class="dropDown-menu radius box-shadow">
-                <li><a href="#">个人信息</a></li>
+                <li><a _href="{:U('User/changePassword')}" href="javascript:void(0)">修改密码</a></li>
                 <!--li><a href="#">切换账户</a></li-->
                 <li><a href="{:U('User/logout')}">退出</a></li>
             </ul>
+
         </li>
         <!--li id="Hui-msg"> <a href="#" title="消息"><span class="badge badge-danger">1</span><i class="Hui-iconfont" style="font-size:18px">&#xe68a;</i></a> </li>
         <li id="Hui-skin" class="dropDown right dropDown_hover"><a href="javascript:;" title="换肤"><i class="Hui-iconfont" style="font-size:18px">&#xe62a;</i></a>
@@ -114,7 +117,7 @@
                 <ul>
                     <li><a _href="{:U('Pbuilds/index',array('oid' =>$oid),'')}" href="javascript:void(0)">党风廉政建设官兵评价</a></li>
                     <li><a _href="{:U('Psuggests/index',array('oid' =>$oid),'')}" href="javascript:void(0)">意见和建议</a></li>
-                    <li><a _href="{:U('Bnegatives/index',array('oid' =>$oid),'')}" href="javascript:void(0)">差评记录</a></li>
+                    <li><a _href="lzjspj_cp.html" href="javascript:void(0)">差评记录</a></li>
                 </ul>
             </dd>
         </dl>
@@ -151,7 +154,7 @@
 
         </dl>
         <dl id="menu-article">
-            <dt><i class="Hui-iconfont">&#xe616;</i><a _href="{:U('News/xwdt')}?newsnowpage=1" class="c-333" style="text-decoration: none;">新闻动态</a></dt>
+            <dt><i class="Hui-iconfont">&#xe616;</i><a _href="{:U('News/xwdt',array('oid'=>$oid,'newsnowpage'=>1))}" class="c-333" style="text-decoration: none;">新闻动态</a></dt>
         </dl>
         <dl id="menu-article">
             <dt><i class="Hui-iconfont">&#xe616;</i><a _href="{:U('Qjdept/index',array('oid' =>$oid),'')}" href="javascript:void(0)"> 部门管理</a></dt>
@@ -163,6 +166,7 @@
                     <li><a _href="{:U('Group/index',array('oid' =>$oid),'')}" href="javascript:void(0)">角色管理</a></li>
                     <li><a _href="{:U('Duty/index',array('oid' =>$oid),'')}" href="javascript:void(0)">职务管理</a></li>
                     <li><a _href="{:U('User/index',array('oid' =>$oid),'')}" href="javascript:void(0)">用户列表</a></li>
+                    <li><a _href="{:U('Duty/index','','')}" href="javascript:void(0)">权限列表</a></li>
                 </ul>
             </dd>
         </dl>

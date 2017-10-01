@@ -6,12 +6,6 @@
 				<input type="text" class="input-text" value="" placeholder="" id="content" name="content">
 			</div>
 		</div>
-		<div class="row cl">
-			<label class="form-label col-2">描述：</label>
-			<div class="formControls col-10">
-				<textarea name="describe" id="describe" cols="" rows="" class="textarea"></textarea>
-			</div>
-		</div>
 		<div class="row cl text-l">
 			<div class="col-10 col-offset-2">
 				<button onClick="add();" class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i>添加</button>
@@ -36,8 +30,7 @@
 	/*修改*/
 function add(){ 
 	var content = document.getElementById("content").value;
-	var describe = document.getElementById("describe").value;
-	$.post('{:U(\'Pbuilds/pbuildsAddSubmit\',\'\',\'\')}',{'content':content,'describe':describe},function(result){
+	$.post('{:U(\'Pbuilds/pbuildsAddSubmit\',\'\',\'\')}',{'content':content},function(result){
 		if(result==true){    
 			parent.layer.msg('添加成功!',{icon:1,time:1000});
 			parent.location.reload();

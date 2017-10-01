@@ -1,15 +1,8 @@
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span>举报 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="pd-20">
 	<div class="cl pd-5 bg-1 bk-gray"> 
-		<span class="l mt-5 mr-5"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont"></i> 批量删除</a></span>
 	<form action="{:U('Reports/reportSearch','','')}" method="post" >
-	<div class="text-r"> 
-		<label>状态：</label>
-			<select name="status" style="height: 29px;border:1px #ddd solid;">
-				<option value="2">已处理</option>
-				<option value="1">待处理</option>
-			</select>
-		日期范围：
+	<div class="text-r"> 日期范围：
 		<input type="text" onfocus="WdatePicker({maxDate:'#F{$dp.$D('logmax')}'})" id="logmin" name="minDate" class="input-text Wdate" style="width:120px;">
 		-
 		<input type="text" onfocus="WdatePicker({maxDate:'#F{$dp.$D('logmax')}'})" name="maxDate"  id="logmax" class="input-text Wdate" style="width:120px;">
@@ -22,7 +15,6 @@
 <table class="table table-border table-bordered table-hover table-bg table-sort">
 	<thead>
 		<tr class="text-c">
-				<th width="25"><input type="checkbox" name="" value=""></th>
 			<th width="35">ID</th>
 			<th width="50">举报对象</th>
 			<th width="80">所在单位</th>
@@ -35,15 +27,10 @@
 	</thead>
 	<tbody>
 		<volist name="reportLists" id="report">
-		<tr class="text-c">			
-			<td  class="text-c"><input type="checkbox" value="{$report['id']}" name="ids"></td>
+		<tr class="text-c">
 			<td>{$i}</td>
 			<td class="text-l">{$report['rname']}</td>
-			<td><if condition="$report['unit']==1">司令部
-    			<elseif condition="$report['unit']==2"/> 政治处
-    			<elseif condition="$report['unit']==3"/> 后勤处
-    			<elseif condition="$report['unit']==4"/> 防火处
-				</if></td>
+			<td>{$report['qname']}</td>
 			<td>{$report['dname']}</td>
 			<td>{$report['title']}</td>
 			<td>{$report['report']}</td>
@@ -52,7 +39,7 @@
 				</if></td>
 			<td><a title="详情" class="ml-5" onclick="member_edit('详情','{:U('Reports/reportFind',array('id'=>$report['id']),'')}','4','','510')" href="javascript:;"><i class="Hui-iconfont">&#xe695;</i></a>
 				 <if condition="$report['status']==1">
-			  <a title="处理" onclick="solve(this,{$report['id']})" href="javascript:;"><i class="Hui-iconfont">&#xe603;</i></a>
+			  <a onclick="solve(this,{$report['id']})" href="javascript:;"><i class="Hui-iconfont">&#xe603;</i></a>
 			</if>
 			<a title="删除" href="javascript:;" onclick="member_del(this,{$report['id']})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
 			
@@ -184,33 +171,15 @@ function jtzr_add(title,url){
 	});
 	layer.full(index);
 }*/
-function solve(o,id){	
+function solve(o,id){
+	
 	$.post('{:U(\'Reports/reportSolve\',\'\',\'\')}',{'id':id},function(result){
     		if(result==true){    			
 				$(o).parent().prev().html('已处理');
+				$(o).remove();
     		}else{    			
 				layer.msg(result,{icon:1,time:1000});
     		}
 		});
-}
-/*批量删除*/
-function datadel(){
-	layer.confirm('确认要删除所有选中的吗？',function(index){
-		var check_boxes = document.getElementsByName("ids");  
-        var ids = new Array();  
-        for(var i=0;i<check_boxes.length;i++){  
-        	if(check_boxes[i].checked){
-            ids.push(check_boxes[i].value);  
-           }
-        }
-		$.post('{:U(\'Reports/reportsDelAll\',\'\',\'\')}',{'ids':ids},function(result){
-    		if(result==true){    			
-				layer.msg('已删除!',{icon:1,time:1000});
-				location.reload();				
-    		}else{    			
-				layer.msg(result,{icon:1,time:1000});
-    		}
-		});
-	});
 }
 </script>

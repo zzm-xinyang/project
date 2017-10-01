@@ -5,7 +5,7 @@
         <thead>
         <tr class="text-l">
             <volist name="table" id="t">
-                <if condition="($t['comment'] neq '添加时间') AND ($t['comment'] neq '更新时间') AND ($t['comment'] neq '办理时间') AND ($t['comment'] neq '监控重点id')">
+                <if condition="($t['comment'] neq '添加时间') AND ($t['comment'] neq '更新时间') AND ($t['comment'] neq '办理时间')">
                     <th width="80">{$t['comment']}</th>
                 </if>
             </volist>
