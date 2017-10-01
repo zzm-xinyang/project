@@ -1,6 +1,6 @@
 <ol class="breadcrumb"> 
    
-    <li><span class="glyphicon glyphicon-home" aria-hidden="true"></span> <a href="index.html">首页</a></li>  
+    <li><span class="glyphicon glyphicon-home" aria-hidden="true"></span> <a href="__ROOT__/index.php/sjzxf">首页</a></li>  
    
     <li class="active">我要举报</li> 
     
@@ -24,10 +24,9 @@
     <label for="inputPassword3" class="col-sm-2 control-label">所在单位：</label>
     <div class="col-sm-10">
      <select class="form-control" name="unit">
-		  <option value="1">司令部</option>
-		  <option value="2">政治处</option>
-		  <option value="3">防火处</option>
-		  <option value="4">后勤处</option>
+        <volist name="qjdept" id="q">
+		  <option value="{$q['id']}">{$q['name']}</option>
+		  </volist>
 	</select>
     </div>
   </div>

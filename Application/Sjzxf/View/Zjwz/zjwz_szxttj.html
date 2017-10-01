@@ -68,7 +68,7 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
- <!-----------------------------------------modal------------------------------------------------------->
+
 
    <ol class="breadcrumb"> 
    
@@ -78,7 +78,8 @@
     
 </ol>
 <div class="container">
- <h1 class="header">执纪问责</h1>
+ <h1 class="header">执纪问责-<span style="font-size:20px;">四种形态统计</span></h1>
+  
   <div class="row">
    
   	<div class="col-md-4 col-lg-3 menu">
@@ -359,11 +360,11 @@
 		<tbody>
 		<tr>
 		<td style="font-weight:600;text-align:center">人数</td>
-		<td style="text-align:center">8</td>
-        <td style="text-align:center">7</td>
-        <td style="text-align:center">5</td>
+		<td style="text-align:center" id="first">{$szxtnum[0]}</td>
+        <td style="text-align:center" id="second">{$szxtnum[1]}</td>
+        <td style="text-align:center" id="third">{$szxtnum[2]}</td>
         
-        <td style="text-align:center">9</td>
+        <td style="text-align:center" id="fourth">{$szxtnum[3]}</td>
         
         
 		</tr>
@@ -375,22 +376,72 @@
         <div class="row lsfx">
         	
             <div class="col-lg-12">
-                   <h5>2017年四种形态统计图<div class="btn-group pull-right">
-                  <button type="button" class="btn btn-default btn-sm">2017年</button>
-                  <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="caret"></span>
-                    <span class="sr-only">Toggle Dropdown</span>
-                  </button>
-                  <ul class="dropdown-menu">                  
-                    <li><a href="#">2016年</a></li>
-                    <li><a href="#">2015年</a></li>         
-                    <li><a href="#">2014年</a></li>
-                  </ul>
+                   <h5>2017年四种形态统计图<div class="btn-group pull-right"> 
+                  <div style="margin-left:35px;">
+                      <select name="qlmc" style="height: 29px;border:1px #ddd solid;"  onchange="show(this.value)">
+                        <if condition="$nd eq 2017">
+                          <option value="2017" selected="selected">2017年</option>
+                        <else />
+                          <option value="2017">2017年</option>
+                        </if> 
+                        <if condition="$nd eq 2018">
+                          <option value="2018" selected="selected">2018年</option>
+                        <else />
+                          <option value="2018">2018年</option>
+                        </if> 
+                        <if condition="$nd eq 2019">
+                          <option value="2019" selected="selected">2019年</option>
+                        <else />
+                          <option value="2019">2019年</option>
+                        </if> 
+                        <if condition="$nd eq 2020">
+                          <option value="2020" selected="selected">2020年</option>
+                        <else />
+                          <option value="2020">2020年</option>
+                        </if> 
+                        <if condition="$nd eq 2021">
+                          <option value="2021" selected="selected">2021年</option>
+                        <else />
+                          <option value="2021">2021年</option>
+                        </if> 
+                        <if condition="$nd eq 2022">
+                          <option value="2022" selected="selected">2022年</option>
+                        <else />
+                          <option value="2022">2022年</option>
+                        </if> 
+                        <if condition="$nd eq 2023">
+                          <option value="2023" selected="selected">2023年</option>
+                        <else />
+                          <option value="2023">2023年</option>
+                        </if> 
+                        <if condition="$nd eq 2024">
+                          <option value="2024" selected="selected">2024年</option>
+                        <else />
+                          <option value="2024">2024年</option>
+                        </if> 
+                        <if condition="$nd eq 2025">
+                          <option value="2025" selected="selected">2025年</option>
+                        <else />
+                          <option value="2025">2025年</option>
+                        </if> 
+                        <if condition="$nd eq 2026">
+                          <option value="2026" selected="selected">2026年</option>
+                        <else />
+                          <option value="2026">2026年</option>
+                        </if> 
+                        <if condition="$nd eq 2027">
+                          <option value="2027" selected="selected">2027年</option>
+                        <else />
+                          <option value="2027">2027年</option>
+                        </if>         
+                      </select>
+                    </div>
                   
             </div></h5>
+
             
-            	
-            <img src="__PUBLIC__/images/zhuzhuangtu.jpg"  alt="" class="img-responsive" />
+            <div id="imgcontainer" style="min-width:700px;height:400px"></div> 	
+            
              </div>
 	  </div>
       
@@ -400,5 +451,126 @@
     </div>
   </div>   
 </div>
-  
+ <script type="text/javascript" src="__PUBLIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/admin/lib/layer/1.9.3/layer.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/admin/js/H-ui.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/admin/js/H-ui.admin.js"></script>  
+<!--柱状图-->
+<script type="text/javascript" src="__PUBLIC__/admin/lib/Highcharts/4.1.7/js/highcharts.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/Highcharts/4.1.7/js/modules/exporting.js"></script>
+<script type="text/javascript">
+$(function () {
+    $('#imgcontainer').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: {$nd}+'年四种形态统计图'
+        },
+        xAxis: {
+            categories: [
+                '第一种形态',
+                '第二种形态',
+                '第三种形态',
+                '第四种形态'
+            ]
+        },
+        yAxis: {
+            min: 0,
+            allowDecimals:false,
+            title: {
+                text: '人数'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y}</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        exporting: {
+            enabled:false
+        },
+        credits: {
+            enabled:false
+        },
+        series: [{
+            name: '数量',
+            data: [{$szxtnum[0]}, {$szxtnum[1]}, {$szxtnum[2]}, {$szxtnum[3]}]
 
+        }]
+    });
+}); 
+
+function show(index){
+
+    var url = "__URL__/zjwz_szxttj";
+    $.ajax({
+        dataType:'json',
+        type:'post',
+        url:url,
+        data: "nd="+index,
+        success:function(msg){
+            document.getElementById('first').innerText = parseInt(msg.first);
+            document.getElementById("second").innerText = parseInt(msg.second);
+            document.getElementById("third").innerText = parseInt(msg.third);
+            document.getElementById("fourth").innerText = parseInt(msg.fourth);
+          $('#imgcontainer').highcharts({
+              chart: {
+                  type: 'column'
+              },
+              title: {
+                  text: index+'年四种形态统计图'
+              },
+              xAxis: {
+                  categories: [
+                      '第一种形态',
+                      '第二种形态',
+                      '第三种形态',
+                      '第四种形态'
+                  ]
+              },
+              yAxis: {
+                  min: 0,
+                  allowDecimals:false,
+                  title: {
+                      text: '人数'
+                  }
+              },
+              tooltip: {
+                  headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                  pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                      '<td style="padding:0"><b>{point.y}</b></td></tr>',
+                  footerFormat: '</table>',
+                  shared: true,
+                  useHTML: true
+              },
+              plotOptions: {
+                  column: {
+                      pointPadding: 0.2,
+                      borderWidth: 0
+                  }
+              },
+              exporting: {
+                  enabled:false
+              },
+              credits: {
+                  enabled:false
+              },
+              series: [{
+                  name: '数量',
+                  data: [parseInt(msg.first), parseInt(msg.second), parseInt(msg.third), parseInt(msg.fourth)]
+              }]
+          });
+        }
+    });
+}
+</script>
